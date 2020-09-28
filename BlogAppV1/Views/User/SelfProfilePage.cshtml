@@ -1,0 +1,71 @@
+﻿@{ 
+    ViewData["Title"] = "Profile Page";
+}
+
+@model BlogAppV1.ViewModels.UserInfoVm
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@Model.Username's profile</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="flex-column col-md-2">
+                <ul class="list-unstyled">
+                    <li> 
+                        <h1>Your Info</h1>
+                    </li>
+                    <li>
+                        <a asp-action="ChangePassword" asp-controller="User">
+                            Change Password
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="DeleteAccount" asp-controller="User">
+                            Delete Account
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <hr />
+            <div class="flex-column col-md-10 border-left border-top border-dark">
+                <form asp-action="UpdateInfo" asp-controller="User" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Username" class="control-label"></label>
+                        <h2 class="text-dark">@Model.Username</h2>
+                        <span class="text-secondary">Modify: </span>
+                            <input asp-for="Username" value=@Model.Username />
+                        <span asp-validation-for="Username"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <h2 class="text-dark">@Model.Email</h2>
+                        <span class="text-secondary">Modify: </span>
+                            <input asp-for="Email" value=@Model.Email />
+                        <span asp-validation-for="Email"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Birthdate" class="control-label"></label>
+                        <h2 class="text-dark">@Model.Birthdate</h2>
+                        <span class="text-secondary">Modify: </span>
+                            <input asp-for="Birthdate" value=@Model.Birthdate?.Date.ToShortDateString();/>
+                        <span asp-validation-for="Birthdate"></span>
+                    </div>
+                    @*<div>      
+                        <label asp-for="Id" value=@Model.Id class="hide"/>
+                    </div>*@
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-5">
+                            <input type="submit" class="btn btn-primary" value="Save Changes" />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

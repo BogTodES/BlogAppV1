@@ -1,0 +1,9 @@
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.CustomAttributes\bin\Debug\netcoreapp3.1\BlogAppV1.CustomAttributes.deps.json
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.CustomAttributes\bin\Debug\netcoreapp3.1\BlogAppV1.CustomAttributes.dll
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.CustomAttributes\bin\Debug\netcoreapp3.1\BlogAppV1.CustomAttributes.pdb
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.CustomAttributes\obj\Debug\netcoreapp3.1\BlogAppV1.CustomAttributes.csprojAssemblyReference.cache
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.CustomAttributes\obj\Debug\netcoreapp3.1\BlogAppV1.CustomAttributes.AssemblyInfoInputs.cache
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.CustomAttributes\obj\Debug\netcoreapp3.1\BlogAppV1.CustomAttributes.AssemblyInfo.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.CustomAttributes\obj\Debug\netcoreapp3.1\BlogAppV1.CustomAttributes.csproj.CoreCompileInputs.cache
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.CustomAttributes\obj\Debug\netcoreapp3.1\BlogAppV1.CustomAttributes.dll
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.CustomAttributes\obj\Debug\netcoreapp3.1\BlogAppV1.CustomAttributes.pdb

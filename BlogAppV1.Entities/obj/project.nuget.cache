@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "RQLlWoFTBtPVhGvysB/2+F+063MWDG1W9+NdGMHB8E9w4QDnj4Tus98gX1AoL+8qqKiz8Arym+tHn4t/GOzU0A==",
+  "success": true,
+  "projectFilePath": "D:\\miscVisStudProjects\\BlogAppV1\\BlogAppV1.Entities\\BlogAppV1.Entities.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\bogdan.toderica\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.8\\microsoft.aspnetcore.cryptography.internal.3.1.8.nupkg.sha512",
+    "C:\\Users\\bogdan.toderica\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.8\\microsoft.aspnetcore.cryptography.keyderivation.3.1.8.nupkg.sha512"
+  ],
+  "logs": []
+}

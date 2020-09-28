@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Profile Page";
+}
+
+@model BlogAppV1.ViewModels.UserInfoVm
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@Model.Username's profile</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="flex-column col-md-2">
+                <ul class="list-unstyled">
+                    <li>
+                        Add Friend
+                    </li>
+                    <li>
+                        Block
+                    </li>
+                    <li>
+                        Report Account
+                    </li>
+                </ul>
+            </div>
+            <div class="flex-column col-md-10">
+                <form asp-action="UpdateInfo" asp-controller="User" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Username" class="control-label"></label>
+                        <h2 class="text-dark">@Model.Username</h2>
+                        <span asp-validation-for="Username"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <h2 class="text-dark">@Model.Email</h2>
+                        <span asp-validation-for="Email"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Birthdate" class="control-label"></label>
+                        <h2 class="text-dark">@Model.Birthdate?.Date.ToShortDateString()</h2>
+                        <span asp-validation-for="Birthdate"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
