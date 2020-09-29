@@ -47,7 +47,7 @@ namespace BlogAppV1.Controllers
             if (user is null)
                 return RedirectToAction("Index", "Home");
 
-            var model = this.Mapper.Map<UserInfoVm>(user);
+            var model = Mapper.Map<UserInfoVm>(user);
 
             if (userInfoService.CurrentUser.IsAuthenticated && userInfoService.CurrentUser.Username == Username)
                 return View("SelfProfilePage", model);

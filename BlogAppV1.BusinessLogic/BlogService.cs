@@ -1,6 +1,6 @@
 ﻿using BlogAppV1.BusinessLogic.BaseServ;
 using BlogAppV1.DataAccess;
-using BlogAppV1.Entities.DTOs;
+using BlogAppV1.Entities.DTOs; 
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +15,24 @@ namespace BlogAppV1.BusinessLogic
         {
         }
 
+        public IEnumerable<Blogs> BlogsOfUser(int userId)
+        {
+            return unit.Blogs.Get().Where(blog => blog.UserId == userId);
+        }
 
-        public Blogs NewBlog(string title, int ownerId)
+        public IEnumerable<Blogs> BlogsOfUser(string username)
+        {
+            return BlogsOfUser(unit.Users.Get().FirstOrDefault(u => u.Username == username).Id);
+        }
+
+        public Blogs GetBlogWithId(int Id)
+        {
+            return
+                unit.Blogs.Get().FirstOrDefault(bl => bl.Id == Id);
+        }
+
+
+        public int AddBlog(string title, int ownerId)
         { 
             return
                 ExecuteInTransaction(unit =>
@@ -32,12 +48,33 @@ namespace BlogAppV1.BusinessLogic
 
                     unit.Blogs.Insert(newBlog);
 
-                    unit.Complete();
-
-                    return newBlog;
+                    return unit.Complete();
                 });
         }
 
+        public int DeleteBlog(int Id)
+        {
+            return
+                ExecuteInTransaction(unit =>
+                {
+                    unit.Blogs.Delete(GetBlogWithId(Id));
+                    return unit.Complete();
+                });
+        }
 
+        public IEnumerable<long> SectionsOfBlog(int Id)
+        {
+            return
+                unit.BlogsSections
+                    .Get().Where(bs => bs.BlogId == Id)
+                    .Select(bs => bs.SectionId).ToList();
+        }
+     
+        public Users OwnerOfBlog(int ownerId)
+        {
+            return
+                unit.Users.Get()
+                .FirstOrDefault(usr => usr.Id == ownerId);
+        }
     }
 }

@@ -71,6 +71,10 @@ namespace BlogAppV1
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "BlogPage",
+                    pattern: "Blog/ShowBlogWith/{id}");
+
+                endpoints.MapControllerRoute(
                     name: "ProfileOf",
                     pattern: "User/ProfileOf/{username}");
 

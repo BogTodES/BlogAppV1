@@ -1,0 +1,24 @@
+﻿@model BlogAppV1.ViewModels.BlogStuff.SmallSectionVm
+
+
+<div class="flex-column border border-danger">
+    <div>
+        <h2 class="text-center">
+            @Model.Title
+        </h2>
+    </div>
+    <hr />
+    <div class="flex-column">
+        @foreach(var post in Model.Posts)
+        {            
+            <div class="border border-bottom border-info m-2 p-2">
+                <h3 class="text-capitalize">
+                    @post.Title
+                </h3>
+                <p class="text-muted">
+                    @post.Body
+                </p>
+            </div>
+        }
+    </div>
+</div>

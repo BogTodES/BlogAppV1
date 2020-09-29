@@ -1,0 +1,39 @@
+﻿@{ 
+    ViewData["Title"] = "Blog Page";
+}
+
+@model BlogAppV1.ViewModels.DetailedBlogVm
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@Model.Title - @Model.OwnerUsername</title>
+</head>
+<body>
+    <div class="container justify-content-center">
+        <div class="row justify-content-center">
+            <div class="flex-column text-center">
+                <h1 class="text-capitalize text-center">
+                    @Model.Title
+                </h1>
+                <h3 class="text-muted font-weight-lighter">
+                    from @Model.OwnerUsername
+                </h3>
+            </div>
+        </div>
+        <div class="row justify-content-between">
+            <div class="container justify-content-between">
+                @foreach (var sectId in Model.SectionsIds)
+                {
+                    <div class="border-info rounded">
+                        @*<vc:MainScreenSection id="@sectId">
+                        </vc:MainScreenSection>*@
+                        @await Component.InvokeAsync("MainScreenSection", new { id = sectId })
+                    </div>
+                    <hr class="mb-3"/>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

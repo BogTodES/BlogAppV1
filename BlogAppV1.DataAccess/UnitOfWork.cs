@@ -23,6 +23,9 @@ namespace BlogAppV1.DataAccess
         private BaseRepository<Sections> sections;
         public BaseRepository<Sections> Sections => sections ??= (new BaseRepository<Sections>(_context));
 
+        private BaseRepository<BlogsSections> blogsSections;
+        public BaseRepository<BlogsSections> BlogsSections => blogsSections ??= (new BaseRepository<BlogsSections>(_context));
+
         private BaseRepository<Posts> posts;
         public BaseRepository<Posts> Posts => posts ??= (new BaseRepository<Posts>(_context));
 

@@ -169,3 +169,5 @@ D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\U
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\User\SelfProfilePage.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\User\ChangePasswordPage.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\User\DeleteAccountPage.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Blog\DetailedBlogPage.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\MainScreenSection\Default.cshtml.g.cs

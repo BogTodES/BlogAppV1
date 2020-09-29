@@ -1,9 +1,10 @@
-﻿using System;
+﻿using BlogAppV1.Common;
+using System;
 using System.Collections.Generic;
 
 namespace BlogAppV1.DataAccess
 {
-    public partial class BlogsSections
+    public partial class BlogsSections : IEntity
     {
         public long BlogId { get; set; }
         public long SectionId { get; set; }
