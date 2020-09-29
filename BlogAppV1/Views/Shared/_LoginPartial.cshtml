@@ -8,8 +8,14 @@
                asp-action="BlogOf" asp-route-Name="@User.Identity.Name">Your blog</a>
         </li>*@
 
+        <li class="nav-item mr-auto">
+            <a class="nav-link text-dark" asp-controller="UserBlog" asp-action="BlogsOfUser"
+               asp-route-username="@CurrentUser.Username">
+                Your Blogs
+            </a>
+        </li>
         <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-controller="User" asp-action="ProfileOf" 
+            <a id="manage" class="nav-link text-dark" asp-controller="UserInfo" asp-action="ProfileOf" 
                asp-route-username="@CurrentUser.Username" title="Manage">
                 Your Profile
             </a>

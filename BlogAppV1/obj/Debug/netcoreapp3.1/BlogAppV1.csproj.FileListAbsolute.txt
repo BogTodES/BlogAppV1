@@ -165,9 +165,10 @@ D:\miscVisStudProjects\BlogAppV1\BlogAppV1\bin\Debug\netcoreapp3.1\AutoMapper.dl
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\BlogAppV1.csproj.CoreCompileInputs.cache
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\BlogAppV1.MvcApplicationPartsAssemblyInfo.cache
-D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\User\OthersProfilePage.cshtml.g.cs
-D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\User\SelfProfilePage.cshtml.g.cs
-D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\User\ChangePasswordPage.cshtml.g.cs
-D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\User\DeleteAccountPage.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Blog\DetailedBlogPage.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\MainScreenSection\Default.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\UserBlog\BlogListPage.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\UserInfo\ChangePasswordPage.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\UserInfo\DeleteAccountPage.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\UserInfo\OthersProfilePage.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\UserInfo\SelfProfilePage.cshtml.g.cs

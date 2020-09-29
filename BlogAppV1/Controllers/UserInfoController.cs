@@ -12,12 +12,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogAppV1.Controllers
 {
-    public class UserController : Controller
+    public class UserInfoController : Controller
     {
         private readonly UserInfoService userInfoService;
         private readonly IMapper Mapper;
 
-        public UserController(UserInfoService userInfo, IMapper mapper)
+        public UserInfoController(UserInfoService userInfo, IMapper mapper)
         {
             this.userInfoService = userInfo;
             this.Mapper = mapper;
@@ -122,6 +122,5 @@ namespace BlogAppV1.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
     }
 }

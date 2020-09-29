@@ -1,0 +1,41 @@
+﻿@{ 
+    ViewData["Title"] = "Blogs By user";
+}
+
+@model BlogAppV1.ViewModels.UserBlogVms.BlogListVm
+
+@inject BlogAppV1.Entities.DTOs.CurrentUserDto CurrentUser
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Blogs of @Model.Username</title>
+</head>
+<body>
+    @if(CurrentUser.IsAuthenticated && CurrentUser.Username == Model.Username)
+    {
+        <h1 class="text-primary">
+            You own the following blogs:
+        </h1>
+        <div class="container">
+            @foreach(var blog in Model.BlogList)
+            {
+                <div class="row border-danger m-2">
+                    <a asp-controller="Blog" asp-action="ShowBlogWith" 
+                       asp-route-id="@blog.Id">
+                        @blog.Title
+                    </a>
+                    <span class="mr-3">
+                        <button>Delete</button> @*fa asta*@
+                    </span>
+                </div>
+            }
+            <div class="row">
+                <button asp-controller="Blog" asp-action="AddBlog">Create a new one!</button>
+            </div>
+        </div>
+    }
+</body>
+</html>
+
+
+

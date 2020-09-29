@@ -20,7 +20,7 @@ namespace BlogAppV1.Controllers
             this.Mapper = mapper;
         }
 
-        public IActionResult ShowBlogWith(int id)
+        public IActionResult ShowBlogWith(long id)
         {
             var blog = blogService.GetBlogWithId(id);
             var sections = blogService.SectionsOfBlog(id);
@@ -35,9 +35,7 @@ namespace BlogAppV1.Controllers
             return View();
         }
 
-        public IActionResult ShowBlogsOfUser(string username)
-        {
-            return View();
-        }
+
+
     }
 }

@@ -14,6 +14,8 @@ namespace BlogAppV1.Code
         public static IServiceCollection AddBusinessLogic(this IServiceCollection services)
         {
             services.AddScoped<UserAccountService>();
+            services.AddScoped<UserInfoService>();
+            services.AddScoped<UserBlogService>();
             services.AddScoped<BlogService>();
             services.AddScoped<SectionsService>();
             return services;
@@ -37,15 +39,9 @@ namespace BlogAppV1.Code
             return services;
         }
 
-        public static IServiceCollection AddUserInfo(this IServiceCollection services)
+        /*public static IServiceCollection AddUserInfo(this IServiceCollection services)
         {
             services.AddScoped<UserInfoService>();
-            return services;
-        }
-
-        /*public static IServiceCollection AddBlogs(this IServiceCollection services)
-        {
-            services.AddScoped<BlogService>();
             return services;
         }*/
     }

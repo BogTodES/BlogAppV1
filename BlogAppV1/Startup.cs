@@ -37,7 +37,7 @@ namespace BlogAppV1
 
             services.AddBusinessLogic();
             services.AddCurrentUser();
-            services.AddUserInfo();
+
 
             services.AddAuthentication("BlogAppCookies")
                 .AddCookie("BlogAppCookies", options =>
@@ -75,8 +75,12 @@ namespace BlogAppV1
                     pattern: "Blog/ShowBlogWith/{id}");
 
                 endpoints.MapControllerRoute(
+                    name: "BlogListForUser",
+                    pattern: "UserBlog/BlogsOfUser/{username}");
+
+                endpoints.MapControllerRoute(
                     name: "ProfileOf",
-                    pattern: "User/ProfileOf/{username}");
+                    pattern: "UserInfo/ProfileOf/{username}");
 
                 endpoints.MapControllerRoute(
                     name: "RegisterPage",

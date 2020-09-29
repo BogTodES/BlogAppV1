@@ -14,23 +14,13 @@ namespace BlogAppV1.BusinessLogic
             base(unit, currentUserDto)
         {
         }
+        
 
-        public IEnumerable<Blogs> BlogsOfUser(int userId)
-        {
-            return unit.Blogs.Get().Where(blog => blog.UserId == userId);
-        }
-
-        public IEnumerable<Blogs> BlogsOfUser(string username)
-        {
-            return BlogsOfUser(unit.Users.Get().FirstOrDefault(u => u.Username == username).Id);
-        }
-
-        public Blogs GetBlogWithId(int Id)
+        public Blogs GetBlogWithId(long Id)
         {
             return
                 unit.Blogs.Get().FirstOrDefault(bl => bl.Id == Id);
         }
-
 
         public int AddBlog(string title, int ownerId)
         { 
@@ -52,7 +42,7 @@ namespace BlogAppV1.BusinessLogic
                 });
         }
 
-        public int DeleteBlog(int Id)
+        public int DeleteBlog(long Id)
         {
             return
                 ExecuteInTransaction(unit =>
@@ -62,7 +52,7 @@ namespace BlogAppV1.BusinessLogic
                 });
         }
 
-        public IEnumerable<long> SectionsOfBlog(int Id)
+        public IEnumerable<long> SectionsOfBlog(long Id)
         {
             return
                 unit.BlogsSections

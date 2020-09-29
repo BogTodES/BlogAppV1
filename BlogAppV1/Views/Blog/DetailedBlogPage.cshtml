@@ -21,18 +21,15 @@
                 </h3>
             </div>
         </div>
-        <div class="row justify-content-between">
-            <div class="container justify-content-between">
+        <div class="row justify-content-center">
                 @foreach (var sectId in Model.SectionsIds)
                 {
-                    <div class="border-info rounded">
+                    <div class="col border-info rounded m-3">
                         @*<vc:MainScreenSection id="@sectId">
                         </vc:MainScreenSection>*@
                         @await Component.InvokeAsync("MainScreenSection", new { id = sectId })
                     </div>
-                    <hr class="mb-3"/>
                 }
-            </div>
         </div>
     </div>
 </body>
