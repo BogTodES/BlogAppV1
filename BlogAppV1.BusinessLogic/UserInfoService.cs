@@ -47,8 +47,6 @@ namespace BlogAppV1.BusinessLogic
 
                 return unit.Complete();
             });
-            
-             
         }
 
         public bool CheckPassword(string pass, int userId)
@@ -93,9 +91,5 @@ namespace BlogAppV1.BusinessLogic
                 return unit.Complete();
             });
         }
-
-
-
-
     }
 }

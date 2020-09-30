@@ -17,7 +17,7 @@ namespace BlogAppV1.ViewModels
         public string OwnerEmail { get; set; }
         public int OwnerId { get; set; }
 
-        public DetailedBlogVm(Blogs blog, IEnumerable<long> sectionIds, UserInfoVm owner)
+        /*public DetailedBlogVm(Blogs blog, IEnumerable<long> sectionIds, UserInfoVm owner)
         {
             BlogId = blog.Id;
             Title = blog.Title;
@@ -25,6 +25,6 @@ namespace BlogAppV1.ViewModels
             OwnerUsername = owner.Username;
             OwnerId = owner.Id;
             OwnerEmail = owner.Email;
-        }
+        }*/
     }
 }

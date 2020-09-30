@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using BlogAppV1.BusinessLogic;
 using BlogAppV1.DataAccess;
+using BlogAppV1.ViewModels;
 using BlogAppV1.ViewModels.UserBlogVms;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,11 +14,17 @@ namespace BlogAppV1.Controllers
     public class UserBlogController : Controller
     {
         private readonly UserBlogService userBlogService;
+        private readonly UserInfoService userInfoService;
+        private readonly IMapper mapper;
 
-        public UserBlogController(UserBlogService userBlogService)
+        public UserBlogController(UserBlogService userBlogService, 
+            UserInfoService userInfoService, IMapper mapper)
         {
             this.userBlogService = userBlogService;
+            this.userInfoService = userInfoService;
+            this.mapper = mapper;
         }
+
         private IActionResult RenderBlogList(BlogListVm blogList)
         {
             return View("BlogListPage", blogList);
@@ -26,7 +34,9 @@ namespace BlogAppV1.Controllers
         public IActionResult BlogsOfUId(int userId)
         {
             var list = userBlogService.GetBlogsForUser(userId);
-            var owner = userBlogService.Owner(userId);
+            var user = userInfoService.GetUserWithId(userId);
+
+            var owner = mapper.Map<UserInfoVm>(user);
 
             return RenderBlogList(new BlogListVm
             {
@@ -40,7 +50,9 @@ namespace BlogAppV1.Controllers
         public IActionResult BlogsOfUser(string username)
         {
             var list = userBlogService.GetBlogsForUser(username);
-            var owner = userBlogService.Owner(username);
+            var user = userInfoService.GetUserWithName(username);
+
+            var owner = mapper.Map<UserInfoVm>(user);
 
             return RenderBlogList(new BlogListVm()
             {

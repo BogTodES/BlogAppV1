@@ -49,7 +49,8 @@ namespace BlogAppV1.Controllers
 
             var model = Mapper.Map<UserInfoVm>(user);
 
-            if (userInfoService.CurrentUser.IsAuthenticated && userInfoService.CurrentUser.Username == Username)
+            if (userInfoService.CurrentUser.IsAuthenticated && 
+                userInfoService.CurrentUser.Username == Username)
                 return View("SelfProfilePage", model);
 
             return View("OthersProfilePage", model);
@@ -98,7 +99,8 @@ namespace BlogAppV1.Controllers
 
         private Users UpdateInformation(UserInfoVm userwithNewInfo)
         {
-            var userUpdateInfo = userInfoService.GetUserWithId(int.Parse(userInfoService.CurrentUser.Id));
+            var userUpdateInfo = userInfoService.GetUserWithId(
+                int.Parse(userInfoService.CurrentUser.Id));
 
             userUpdateInfo.Username = userwithNewInfo.Username;
             userUpdateInfo.Email = userwithNewInfo.Email;

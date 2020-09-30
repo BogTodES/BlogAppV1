@@ -28,20 +28,5 @@ namespace BlogAppV1.BusinessLogic
 
             return GetBlogsForUser(userId);
         }
-
-        public Users Owner(int userId)
-        {
-            return
-                unit.Users.Get()
-                .FirstOrDefault(user => user.Id == userId);
-        }
-
-        public Users Owner(string username)
-        {
-            return
-                unit.Users.Get()
-                .FirstOrDefault(user => user.Username == username);
-        }
-
     }
 }

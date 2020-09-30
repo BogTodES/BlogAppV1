@@ -26,16 +26,21 @@ namespace BlogAppV1.Controllers
             var sections = blogService.SectionsOfBlog(id);
             var owner = blogService.OwnerOfBlog(blog.UserId);
 
-            return View("DetailedBlogPage", 
-                new DetailedBlogVm(blog, sections, Mapper.Map<UserInfoVm>(owner)));
+            return View("DetailedBlogPage",
+                new DetailedBlogVm()
+                {
+                    BlogId = blog.Id,
+                    Title = blog.Title,
+                    SectionsIds = sections,
+                    OwnerUsername = owner.Username,
+                    OwnerEmail = owner.Email,
+                    OwnerId = owner.Id
+                });
         }
 
         public IActionResult ShowBlog(string title, int ownerId)
         {
             return View();
         }
-
-
-
     }
 }

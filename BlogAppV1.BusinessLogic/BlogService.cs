@@ -60,11 +60,11 @@ namespace BlogAppV1.BusinessLogic
                     .Select(bs => bs.SectionId).ToList();
         }
      
-        public Users OwnerOfBlog(int ownerId)
+        public UserNoPass OwnerOfBlog(int ownerId)
         {
-            return
+            return new UserNoPass(
                 unit.Users.Get()
-                .FirstOrDefault(usr => usr.Id == ownerId);
+                .FirstOrDefault(usr => usr.Id == ownerId));
         }
     }
 }
