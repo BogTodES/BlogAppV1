@@ -11,27 +11,53 @@
     <title>Blogs of @Model.Username</title>
 </head>
 <body>
-    @if(CurrentUser.IsAuthenticated && CurrentUser.Username == Model.Username)
+    @if (CurrentUser.IsAuthenticated && CurrentUser.Username == Model.Username)
     {
         <h1 class="text-primary">
             You own the following blogs:
         </h1>
         <div class="container">
-            @foreach(var blog in Model.BlogList)
+            @foreach (var blog in Model.BlogList)
             {
                 <div class="row border-danger m-2">
-                    <a asp-controller="Blog" asp-action="ShowBlogWith" 
+                    <a asp-controller="Blog" asp-action="ShowBlogWith"
                        asp-route-id="@blog.Id">
                         @blog.Title
                     </a>
-                    <span class="mr-3">
-                        <button>Delete</button> @*fa asta*@
-                    </span>
+                    <div class="ml-3 clearfix float-right">
+                        <form asp-controller="Blog" asp-action="DeleteBlog" asp-route-blogId="@blog.Id" 
+                              method="post">
+                            <input type="submit" name="del" value="Delete" />
+                        </form>
+                        @*<button asp-controller="Blog" asp-action="DeleteBlog" 
+                                asp-route-blogId="@blog.Id">
+                            Delete
+                        </button>*@
+                    </div>
                 </div>
             }
             <div class="row">
-                <button asp-controller="Blog" asp-action="AddBlog">Create a new one!</button>
+                <form asp-controller="Blog" asp-action="AddBlog" method="post">
+                    <input type="submit" value="Create a new one" />
+                </form>
             </div>
+        </div>
+    }
+    else
+    {
+        <h1 class="text-primary">
+            @Model.Username owns the following blogs:
+        </h1>
+        <div class="container">
+            @foreach (var blog in Model.BlogList)
+            {
+                <div class="row border-danger m-2">
+                    <a asp-controller="Blog" asp-action="ShowBlogWith"
+                       asp-route-id="@blog.Id">
+                        @blog.Title
+                    </a>
+                </div>
+            }
         </div>
     }
 </body>

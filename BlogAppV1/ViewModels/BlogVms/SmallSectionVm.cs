@@ -8,6 +8,7 @@ namespace BlogAppV1.ViewModels.BlogStuff
 {
     public class SmallSectionVm
     {
+        public long BlogId { get; set; }
         public long Id { get; set; }
         public string Title { get; set; }
         public IEnumerable<Posts> Posts { get; set; }

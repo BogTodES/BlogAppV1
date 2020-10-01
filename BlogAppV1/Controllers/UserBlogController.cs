@@ -62,6 +62,11 @@ namespace BlogAppV1.Controllers
             });
         }
 
-        
+        [HttpPost]
+        public IActionResult AddSections(IEnumerable<string> namesList, int blogId)
+        {
+            return 
+                RedirectToAction("AddSection", "Section", new { names = namesList, blogId });
+        }
     }
 }

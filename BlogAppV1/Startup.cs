@@ -75,6 +75,10 @@ namespace BlogAppV1
                     pattern: "Blog/ShowBlogWith/{id}");
 
                 endpoints.MapControllerRoute(
+                    name: "EditBlogPage",
+                    pattern: "Blog/EditBlogId/{id}");
+
+                endpoints.MapControllerRoute(
                     name: "BlogListForUser",
                     pattern: "UserBlog/BlogsOfUser/{username}");
 

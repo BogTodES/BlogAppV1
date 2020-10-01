@@ -1,0 +1,43 @@
+﻿@model BlogAppV1.ViewModels.DetailedBlogVm
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Edit @Model.Title</title>
+</head>
+<body>
+    <div class="container justify-content-center">
+        <div class="row justify-content-center">
+            <div class="flex-column text-center">
+                <h1 class="text-capitalize text-center" id="title" contenteditable="true">
+                    @Model.Title
+                </h1>
+                <h3 class="text-muted font-weight-lighter">
+                    from @Model.OwnerUsername
+                </h3>
+            </div>
+        </div>
+        <div>
+            <div class="row justify-content-center" id="sectionsContainer">
+                @foreach (var sectId in Model.SectionsIds)
+                {
+                    <div class="col border-info rounded m-3">
+                        @*<vc:MainScreenSection id="@sectId">
+                        </vc:MainScreenSection>*@
+                        @await Component.InvokeAsync("MainScreenSection", new { id = sectId })
+                    </div>
+                }
+
+            </div>
+            <button id="newSectBut" class="p-2 m-2 border rounded">
+                Add a new section
+            </button>
+            <button id="saveChangesBut" name="@Model.BlogId" class="p-2 m-2 border rounded but but-primary">
+                Save changes
+            </button>
+            <form asp-controller="Blog" asp-action="ShowBlogWith" asp-route-id="@Model.BlogId" method="get">
+                <input type="submit" value="Finish editing" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>

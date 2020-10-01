@@ -15,19 +15,19 @@ namespace BlogAppV1.BusinessLogic
         {
         }
         
-
         public Blogs GetBlogWithId(long Id)
         {
             return
                 unit.Blogs.Get().FirstOrDefault(bl => bl.Id == Id);
         }
 
-        public int AddBlog(string title, int ownerId)
+        public Blogs AddBlog(string title, int ownerId)
         { 
             return
                 ExecuteInTransaction(unit =>
                 {
-                    var alCatelea = unit.Blogs.Get().Where(b => b.UserId == ownerId).Count();
+                    var alCatelea = unit.Blogs.Get()
+                        .Where(b => b.UserId == ownerId).Count() + 1;
 
                     var newBlog = new Blogs()
                     {
@@ -37,8 +37,9 @@ namespace BlogAppV1.BusinessLogic
                     };
 
                     unit.Blogs.Insert(newBlog);
+                    unit.Complete();
 
-                    return unit.Complete();
+                    return newBlog;
                 });
         }
 
@@ -65,6 +66,19 @@ namespace BlogAppV1.BusinessLogic
             return new UserNoPass(
                 unit.Users.Get()
                 .FirstOrDefault(usr => usr.Id == ownerId));
+        }
+
+        public int UpdateTitle(string newTitle, long blogId)
+        {
+            newTitle = newTitle.Trim();
+            var blog = unit.Blogs.Get().FirstOrDefault(bl => bl.Id == blogId);
+            blog.Title = newTitle;
+
+            return ExecuteInTransaction(unit =>
+            {
+                unit.Blogs.Update(blog);
+                return unit.Complete();
+            });
         }
     }
 }

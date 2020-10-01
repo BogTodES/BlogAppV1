@@ -4,7 +4,9 @@
 <div class="border border-danger">
     <div>
         <h2 class="text-center">
-            @Model.Title
+            <a asp-controller="Section" asp-action="SectionDetails" asp-route-sectId="@Model.Id">
+                @Model.Title
+            </a>
         </h2>
     </div>
     <hr />

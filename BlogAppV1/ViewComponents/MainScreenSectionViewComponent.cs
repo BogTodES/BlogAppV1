@@ -20,7 +20,7 @@ namespace BlogAppV1.ViewComponents
             this.sectionsService = sectionsService;
         }
 
-        public IViewComponentResult Invoke(long Id)
+        public IViewComponentResult Invoke(long Id, long blogId)
         {
             var posts = sectionsService.Top5Posts(Id);
             var sect = sectionsService.GetSectionWithId(Id);
@@ -28,9 +28,10 @@ namespace BlogAppV1.ViewComponents
             return View(new SmallSectionVm()
             {
                 Id = sect.Id,
+                BlogId = blogId,
                 Title = sect.Name,
                 Posts = posts
-            });
+            }) ;
         }
     }
 }
