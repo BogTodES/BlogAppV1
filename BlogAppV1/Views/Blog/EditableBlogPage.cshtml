@@ -31,11 +31,14 @@
             <button id="newSectBut" class="p-2 m-2 border rounded">
                 Add a new section
             </button>
-            <button id="saveChangesBut" name="@Model.BlogId" class="p-2 m-2 border rounded but but-primary">
+           @* <button id="saveChangesBut" name="@Model.BlogId" class="p-2 m-2 border rounded but but-primary">
                 Save changes
-            </button>
+            </button>*@
             <form asp-controller="Blog" asp-action="ShowBlogWith" asp-route-id="@Model.BlogId" method="get">
-                <input type="submit" value="Finish editing" />
+                @*<input type="submit" id="saveChangesBut" name="@Model.BlogId" placeholder="Finish Editing" />*@
+                <button id="saveChangesBut" name="@Model.BlogId" class="p-2 m-2 border rounded but but-primary">
+                    Save changes
+                </button>
             </form>
         </div>
     </div>

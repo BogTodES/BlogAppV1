@@ -1,7 +1,43 @@
 ﻿@{ 
-    ViewData["Title"] = "Section details"
+    ViewData["Title"] = "Section details";
 }
 
-@model BlogAppV1.ViewModels.BlogStuff.SmallSectionVm
+@model BlogAppV1.ViewModels.SectionVms.DetailedSectionVm
 
+@inject BlogAppV1.Entities.DTOs.CurrentUserDto CurrentUser
 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        @Model.Name
+    </title>
+</head>
+<body>
+    <div class="container justify-content-center">
+        <div class="row justify-content-center">
+            <div class="flex-column text-center">
+                <h1 class="text-capitalize text-center">
+                    @Model.Name
+                </h1>
+            </div>
+        </div>
+        <div class="row justify-content-start">
+            @foreach(var post in Model.Posts)
+            {
+                <div class="row card border-danger m-2 p-2 w-100">
+                    <h3 class="text-capitalize">
+                        @post.Title
+                    </h3>
+                    <hr />
+                    <p class="text-muted">
+                        @post.Body
+                    </p>
+                </div>
+            }
+            @if(CurrentUser.IsAuthenticated && CurrentUser.Username == Model.OwnerUsername)
+            {
+            }
+        </div>
+    </div>
+</body>
+</html>

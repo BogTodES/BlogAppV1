@@ -22,16 +22,37 @@ namespace BlogAppV1.BusinessLogic
                 unit.Users.Get().FirstOrDefault(u => u.Id == Id);
         }
 
+        public UserNoPass GetUserWithIdSafe(int userId)
+        {
+            return new UserNoPass(
+                unit.Users.Get()
+                .FirstOrDefault(u => u.Id == userId));
+        }
+
         public Users GetUserWithName(string userName)
         {
             return
                 unit.Users.Get().FirstOrDefault(u => u.Username == userName);
         }
 
+        public UserNoPass GetUserWithNameSafe(string userName)
+        {
+            return new UserNoPass(
+                unit.Users.Get()
+                .FirstOrDefault(u => u.Username == userName));
+        }
+
         public Users GetUserWithEmail(string email)
         {
             return
                 unit.Users.Get().FirstOrDefault(u => u.Email == email);
+        }
+
+        public UserNoPass GetUserWithEmailSafe(string email)
+        {
+            return new UserNoPass(
+                unit.Users.Get()
+                .FirstOrDefault(u => u.Email == email));
         }
 
         public int UpdateUser(Users userWithNewInfo)
