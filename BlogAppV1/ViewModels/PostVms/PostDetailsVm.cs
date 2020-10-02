@@ -1,4 +1,5 @@
 ﻿using BlogAppV1.DataAccess;
+using BlogAppV1.Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,6 @@ namespace BlogAppV1.ViewModels.PostVms
         public long SectId { get; set; }
         public int OwnerId { get; set; }
         public string OwnerUsername { get; set; }
-        public IEnumerable<Comments> Comments { get; set; }
+        public IEnumerable<CommentInfoDto> Comments { get; set; }
     }
 }

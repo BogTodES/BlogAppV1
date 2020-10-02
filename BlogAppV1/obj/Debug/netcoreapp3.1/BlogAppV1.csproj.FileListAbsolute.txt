@@ -174,4 +174,4 @@ D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\U
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\UserInfo\SelfProfilePage.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Blog\EditableBlogPage.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Section\SectionDetails.cshtml.g.cs
-D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Post\PostDetails.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Post\PostDetailsPage.cshtml.g.cs

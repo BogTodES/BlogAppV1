@@ -48,10 +48,26 @@ namespace BlogAppV1.BusinessLogic
                 unit.Posts.Get().FirstOrDefault(p => p.Id == postId);
         }
 
-        public IEnumerable<Comments> CommentsOfPost(long postId)
+        public IEnumerable<CommentInfoDto> CommentsOfPost(long postId)
         {
-            return
-                unit.Comments.Get().Where(comm => comm.PostId == postId);
+            var q = 
+                unit.Comments.Get().Where(comm => comm.PostId == postId).ToList();
+
+            var result = new List<CommentInfoDto>();
+            foreach(var comm in q)
+            {
+                result.Add(new CommentInfoDto()
+                {
+                    Id = comm.Id,
+                    PostId = postId,
+                    Body = comm.Body,
+                    ElapsedTime = (DateTime.Now - comm.Date),
+                    Reacts = comm.UserCommentReacts,
+                    CommenterId = comm.UserId,
+                });
+            }
+
+            return result;
         }
 
         public PosterDto GetPosterInfo(long postId)

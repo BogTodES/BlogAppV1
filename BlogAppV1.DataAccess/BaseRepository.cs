@@ -1,6 +1,7 @@
 ﻿using BlogAppV1.Common;
 using BlogAppV1.DataAccess;
 using BlogAppV1.DataAccess.EFConfig;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,33 +13,34 @@ namespace BlogAppV1.DataAccess
         where TEntiy : class, IEntity
     {
         private readonly BlogAppDBContext _context;
-
+        protected DbSet<TEntiy> Query;
         public BaseRepository(BlogAppDBContext context)
         {
             this._context = context;
+            Query = _context.Set<TEntiy>();
         }
 
         public IQueryable<TEntiy> Get()
         {
-            return _context.Set<TEntiy>().AsQueryable();
+            return Query.AsQueryable();
         }
 
         public TEntiy Insert(TEntiy entity)
         {
-            _context.Set<TEntiy>().Add(entity);
+            Query.Add(entity);
             return entity;
         }
 
         public TEntiy Update(TEntiy entitty)
         {
-            _context.Set<TEntiy>().Update(entitty);
+            Query.Update(entitty);
 
             return entitty;
         }
 
         public void Delete(TEntiy entity)
         {
-            _context.Set<TEntiy>().Remove(entity);
+            Query.Remove(entity);
         }
     }
 }

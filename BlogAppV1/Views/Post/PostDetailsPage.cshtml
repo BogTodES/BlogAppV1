@@ -1,0 +1,96 @@
+﻿@{ 
+    ViewData["Title"] = "PostView";
+}
+
+@model BlogAppV1.ViewModels.PostVms.PostDetailsVm
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@Model.Title</title>
+</head>
+<body>
+    <div class="card border-danger m-2 p-2 mb-0">
+        <div class="card-body text-dark">
+            <h2 class="text-capitalize card-title">
+                @Model.Title
+            </h2>
+            <h6 class="card-subtitle">
+                posted on @Model.Date.Date.ToShortDateString() by @Model.OwnerUsername
+            </h6>
+            <hr />
+            <p class="card-text">
+                @Model.Body
+            </p>
+        </div>
+    </div>
+
+    <div class="container justify-content-center">
+        <div id="commentList" class="card border-info w-75">
+            <div class="card-header">
+                <h5 class="text-muted">
+                    Comments
+                </h5>
+            </div>
+            <div class="card-body ">
+                @foreach (var comm in Model.Comments)
+                {
+                <div class="border-bottom border-dark text-dark">
+                    <h5>
+                        @comm.CommenterId
+                    </h5>
+                    @if (comm.ElapsedTime.TotalSeconds < 60)
+                    {
+                        <p class="text-muted">
+                            @comm.ElapsedTime.Seconds seconds ago
+                        </p>
+                    }
+                    else if (comm.ElapsedTime.TotalMinutes < 60)
+                    {
+                        <p class="text-muted">
+                            @comm.ElapsedTime.Minutes mins ago
+                        </p>
+                    }
+                    else if (comm.ElapsedTime.TotalHours < 24)
+                    {
+                        <p class="text-muted">
+                            @comm.ElapsedTime.Hours hours ago
+                        </p>
+                    }
+                    else if (comm.ElapsedTime.TotalDays < 7)
+                    {
+                        <p class="text-muted">
+                            @comm.ElapsedTime.Days days ago
+                        </p>
+                    }
+                    else if (comm.ElapsedTime.TotalDays < 31)
+                    {
+                        <p class="text-muted">
+                            @(comm.ElapsedTime.Days / 7) weeks ago
+                        </p>
+                    }
+                    else if (comm.ElapsedTime.TotalDays < 365)
+                    {
+                        <p class="text-muted">
+                            @(comm.ElapsedTime.Days / 30) months ago
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="text-muted">
+                            @(comm.ElapsedTime.Days / 365) years ago
+                        </p>
+                    }
+                    <div class="d-block">
+                        <p>
+                            @comm.Body
+                        </p>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

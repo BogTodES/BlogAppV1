@@ -44,11 +44,11 @@ namespace BlogAppV1.BusinessLogic
             {
                 string result = string.Empty;
                 var salt = PasswordManager.HashPassword(newUser.PasswordHash, ref result);
-
+                var role = uow.Roles.Get().FirstOrDefault(r => r.Id == (int)RoleTypes.Basic);
                 newUser.PasswordHash = result;
-
+                
                 newUser.UsersRoles = new List<UsersRoles> { 
-                    new UsersRoles { RoleId = (int)RoleTypes.Basic, UserId = newUser.Id } 
+                    new UsersRoles { RoleId = (int)RoleTypes.Basic, UserId = newUser.Id, Role = role } 
                 };
 
                 newUser.Salts = new Salts()

@@ -27,10 +27,14 @@ namespace BlogAppV1.Controllers
         public IActionResult PostWith(long postId)
         {
             var post = postService.PostWithId(postId);
-            var comms = postService.CommentsOfPost(postId);
+            var tempComms = postService.CommentsOfPost(postId).ToList();
             var poster = postService.GetPosterInfo(postId);
 
-            return View("PostDetails", new PostDetailsVm()
+            /*foreach(var comm in tempComms)
+            {
+            }*/
+
+            return View("PostDetailsPage", new PostDetailsVm()
             {
                 Id = post.Id,
                 Title = post.Title,
@@ -39,7 +43,7 @@ namespace BlogAppV1.Controllers
                 SectId = post.SectionId,
                 OwnerId = poster.PosterId,
                 OwnerUsername = poster.PosterUsername,
-                Comments = comms
+                Comments = tempComms
             });
         }
     }
