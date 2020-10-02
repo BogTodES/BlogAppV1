@@ -24,18 +24,26 @@
         <div class="row justify-content-start">
             @foreach(var post in Model.Posts)
             {
-                <div class="row card border-danger m-2 p-2 w-100">
-                    <h3 class="text-capitalize">
-                        @post.Title
-                    </h3>
+                <div class="row card border-danger m-2 p-2 w-100 text-dark">
+                    <div class="card-title">
+                        <h3 class="text-capitalize card-title">
+                            <a asp-controller="Post" asp-action="PostWith" asp-route-postId="@post.Id" class="text-decoration-none">
+                                @post.Title
+                            </a>
+                        </h3>
+                        <h5 class="card-subtitle">
+                            posted on @post.Date.Date.ToShortDateString()
+                        </h5>
+                    </div>
                     <hr />
-                    <p class="text-muted">
+                    <p class="card-text text-muted">
                         @post.Body
                     </p>
                 </div>
             }
-            @if(CurrentUser.IsAuthenticated && CurrentUser.Username == Model.OwnerUsername)
+            @if(CurrentUser.IsAuthenticated && int.Parse(CurrentUser.Id) == Model.OwnerId)
             {
+                // pot sa adaug postari
             }
         </div>
     </div>

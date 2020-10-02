@@ -53,5 +53,30 @@ namespace BlogAppV1.BusinessLogic
             return
                 unit.Comments.Get().Where(comm => comm.PostId == postId);
         }
+
+        public PosterDto GetPosterInfo(long postId)
+        {
+            var user = unit.Users.Get()
+                .Join(unit.Blogs.Get(),
+                      usr => usr.Id,
+                      blg => blg.UserId,
+                      (usr, blg) => new { UsrId = usr.Id, UsrName = usr.Username, Blg = blg.Id })
+                .Join(unit.BlogsSections.Get(),
+                      usrAndBlg => usrAndBlg.Blg,
+                      blgSect => blgSect.BlogId,
+                      (usrAndBlg, blgSect) => new { UsrId = usrAndBlg.UsrId, UsrName = usrAndBlg.UsrName, SectId = blgSect.SectionId })
+                .Join(unit.Posts.Get(),
+                      usrAndSect => usrAndSect.SectId,
+                      post => post.SectionId,
+                      (usrAndSect, post) => new { UsrId = usrAndSect.UsrId, UsrName = usrAndSect.UsrName, PostId = post.Id })
+                .FirstOrDefault(usrAndPost => usrAndPost.PostId == postId);
+
+            return new PosterDto()
+            {
+                PosterUsername = user.UsrName,
+                PosterId = user.UsrId,
+                PostId = user.PostId
+            };
+        }
     }
 }

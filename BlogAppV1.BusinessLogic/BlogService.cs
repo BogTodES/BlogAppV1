@@ -60,13 +60,6 @@ namespace BlogAppV1.BusinessLogic
                     .Get().Where(bs => bs.BlogId == Id)
                     .Select(bs => bs.SectionId).ToList();
         }
-     
-        public UserNoPass OwnerOfBlog(int ownerId)
-        {
-            return new UserNoPass(
-                unit.Users.Get()
-                .FirstOrDefault(usr => usr.Id == ownerId));
-        }
 
         public int UpdateTitle(string newTitle, long blogId)
         {
@@ -79,6 +72,14 @@ namespace BlogAppV1.BusinessLogic
                 unit.Blogs.Update(blog);
                 return unit.Complete();
             });
+        }
+
+        public UserNoPass Owner(long blogId)
+        {
+            var blog = unit.Blogs.Get().FirstOrDefault(blg => blg.Id == blogId);
+
+            return new UserNoPass(
+                unit.Users.Get().FirstOrDefault(usr => usr.Id == blog.UserId));
         }
     }
 }

@@ -12,11 +12,13 @@ namespace BlogAppV1.Controllers
     public class BlogController : Controller
     {
         private readonly BlogService blogService;
+        private readonly UserInfoService userInfoService;
         private readonly IMapper Mapper;
 
-        public BlogController(BlogService blogService, IMapper mapper)
+        public BlogController(BlogService blogService, UserInfoService userInfoService, IMapper mapper)
         {
             this.blogService = blogService;
+            this.userInfoService = userInfoService;
             this.Mapper = mapper;
         }
 
@@ -24,7 +26,7 @@ namespace BlogAppV1.Controllers
         {
             var blog = blogService.GetBlogWithId(id);
             var sections = blogService.SectionsOfBlog(id);
-            var owner = blogService.OwnerOfBlog(blog.UserId);
+            var owner = userInfoService.GetUserWithIdSafe(blog.UserId);
 
             return View("DetailedBlogPage",
                 new DetailedBlogVm()
@@ -48,7 +50,7 @@ namespace BlogAppV1.Controllers
         {
             var blog = blogService.GetBlogWithId(Id);
             var sections = blogService.SectionsOfBlog(Id);
-            var owner = blogService.OwnerOfBlog(blog.UserId);
+            var owner = userInfoService.GetUserWithIdSafe(blog.UserId);
 
             return View("EditableBlogPage",
                 new DetailedBlogVm()
@@ -75,7 +77,7 @@ namespace BlogAppV1.Controllers
                 blogService.AddBlog("New Blog", int.Parse(blogService.CurrentUser.Id));
 
             var sections = blogService.SectionsOfBlog(newBlog.Id);
-            var owner = blogService.OwnerOfBlog(newBlog.UserId);
+            var owner = userInfoService.GetUserWithIdSafe(newBlog.UserId);
 
             return EditBlog(
                 new DetailedBlogVm()

@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace BlogAppV1.ViewModels.PostVms
 {
-    public class PostDetails
+    public class PostDetailsVm
     {
         public long Id { get; set; }
+        public string Title { get; set; }
+        public string Body { get; set; }
+        public DateTime Date { get; set; }
         public long SectId { get; set; }
         public int OwnerId { get; set; }
         public string OwnerUsername { get; set; }

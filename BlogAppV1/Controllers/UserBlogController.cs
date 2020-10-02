@@ -34,15 +34,13 @@ namespace BlogAppV1.Controllers
         public IActionResult BlogsOfUId(int userId)
         {
             var list = userBlogService.GetBlogsForUser(userId);
-            var user = userInfoService.GetUserWithId(userId);
-
-            var owner = mapper.Map<UserInfoVm>(user);
+            var user = userInfoService.GetUserWithIdSafe(userId);
 
             return RenderBlogList(new BlogListVm
             {
                 BlogList = list,
                 UserId = userId,
-                Username = owner.Username
+                Username = user.Username
             });
         }
 
@@ -50,14 +48,12 @@ namespace BlogAppV1.Controllers
         public IActionResult BlogsOfUser(string username)
         {
             var list = userBlogService.GetBlogsForUser(username);
-            var user = userInfoService.GetUserWithName(username);
-
-            var owner = mapper.Map<UserInfoVm>(user);
+            var user = userInfoService.GetUserWithNameSafe(username);
 
             return RenderBlogList(new BlogListVm()
             {
                 BlogList = list,
-                UserId = owner.Id,
+                UserId = user.Id,
                 Username = username
             });
         }

@@ -61,17 +61,20 @@ namespace BlogAppV1.BusinessLogic
 
         public IEnumerable<Blogs> BlogsUsingSectId(long sectId)
         {
+            // aflu ce blog-uri folosesc sectiunea cu Id specificat
+
             var q = unit.BlogsSections.Get().Where(bls => bls.SectionId == sectId);
 
-            var blogList = new List<Blogs>();
+            var blogs = unit.Blogs.Get().ToList();
+            var resultList = new List<Blogs>();
             foreach(var bl in q)
             {
-                var blog = unit.Blogs.Get().FirstOrDefault(b => b.Id == bl.BlogId);
+                var blog = blogs.FirstOrDefault(b => b.Id == bl.BlogId);
 
-                blogList.Add(blog);
+                resultList.Add(blog);
             }
 
-            return blogList;
+            return resultList;
         }
 
     }

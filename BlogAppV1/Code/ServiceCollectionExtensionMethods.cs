@@ -19,6 +19,7 @@ namespace BlogAppV1.Code
             services.AddScoped<BlogService>();
             services.AddScoped<SectionsService>();
             services.AddScoped<PostService>();
+            services.AddScoped<CommentService>();
             return services;
         }
 

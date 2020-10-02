@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlogAppV1.BusinessLogic;
+using BlogAppV1.ViewModels;
 using BlogAppV1.ViewModels.BlogStuff;
+using BlogAppV1.ViewModels.SectionVms;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogAppV1.Controllers
@@ -38,16 +40,19 @@ namespace BlogAppV1.Controllers
 
         public IActionResult SectionDetails(long sectId)
         {
-            // afisez postarile,
             var posts = sectionsService.AllPosts(sectId).ToList();
             var section = sectionsService.GetSectionWithId(sectId);
+            var blogs = sectionsService.BlogsUsingSectId(sectId);
 
-            return View("SectionDetails", new SmallSectionVm()
+            return View("SectionDetails", new DetailedSectionVm()
             {
                 Id = sectId,
-                BlogId = -1,
-                Title = section.Name,
-                Posts = posts
+                BlogId = (section.IsSystemCreated)? -1 : blogs.FirstOrDefault().Id, 
+                    // daca nu este systemCreated, tin minte la ce blog apartine cand afisez sectiunea
+                OwnerId = (section.IsSystemCreated) ? -1 : blogs.FirstOrDefault().UserId,
+                Name = section.Name,
+                Posts = posts,
+                IsSystemCreated = section.IsSystemCreated
             });
         }
     }
