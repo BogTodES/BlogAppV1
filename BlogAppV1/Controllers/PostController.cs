@@ -24,6 +24,19 @@ namespace BlogAppV1.Controllers
             this.userInfoService = userInfoService;
         }
 
+        [HttpPost]
+        public IActionResult AddPost(string newTitle, string newBody, long sectionId)
+        {
+            if (newBody is null)
+                newBody = string.Empty;
+            postService.AddPost(newTitle, newBody, sectionId);
+
+            return Json(new { 
+                flag = true 
+            });
+        }
+
+        [HttpGet]
         public IActionResult PostWith(long postId)
         {
             var post = postService.PostWithId(postId);
@@ -44,6 +57,19 @@ namespace BlogAppV1.Controllers
                 OwnerId = poster.PosterId,
                 OwnerUsername = poster.PosterUsername,
                 Comments = tempComms
+            });
+        }
+
+        [HttpPost]
+        public IActionResult AddComment(string body, long postId)
+        {
+            if (body is null)
+                body = string.Empty;
+            commentService.AddComment(body, postId);
+
+            return Json(new
+            {
+                flag = true
             });
         }
     }

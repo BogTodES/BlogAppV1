@@ -22,8 +22,9 @@ namespace BlogAppV1.BusinessLogic
                 var newPost = new Posts()
                 {
                     SectionId = sectId,
-                    Title = title,
-                    Body = body
+                    Title = title.Trim(),
+                    Body = body.Trim(),
+                    Date = DateTime.Now
                 };
 
                 unit.Posts.Insert(newPost);

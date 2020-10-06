@@ -352,3 +352,4 @@ D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\staticwebassets
 D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\BlogAppV1.dll
 D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\BlogAppV1.pdb
 D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\BlogAppV1.genruntimeconfig.cache
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\MainScreenSection\Editable.cshtml.g.cs

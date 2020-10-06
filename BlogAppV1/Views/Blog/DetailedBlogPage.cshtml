@@ -39,7 +39,7 @@
                     <div class="col border-info rounded m-3">
                         @*<vc:MainScreenSection id="@sectId">
                         </vc:MainScreenSection>*@
-                        @await Component.InvokeAsync("MainScreenSection", new { id = sectId, blogId = Model.BlogId })
+                        @await Component.InvokeAsync("MainScreenSection", new { id = sectId, blogId = Model.BlogId, isEditable = false })
                     </div>
                 }
         </div>
