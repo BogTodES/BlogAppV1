@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlogAppV1.BusinessLogic;
+using BlogAppV1.BusinessLogic.Services;
 using BlogAppV1.ViewModels.PostVms;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,16 +13,18 @@ namespace BlogAppV1.Controllers
     {
         private readonly PostService postService;
         private readonly CommentService commentService;
-        private readonly UserBlogService userBlogService;
-        private readonly UserInfoService userInfoService;
+        /*private readonly UserBlogService userBlogService;
+        private readonly UserInfoService userInfoService;*/
+        private readonly PostReactService postReactService;
 
         public PostController(PostService postService, 
-            CommentService commentService, UserBlogService userBlogService, UserInfoService userInfoService)
+            CommentService commentService, UserBlogService userBlogService, 
+            UserInfoService userInfoService)
         {
             this.postService = postService;
             this.commentService = commentService;
-            this.userBlogService = userBlogService;
-            this.userInfoService = userInfoService;
+            /*this.userBlogService = userBlogService;
+            this.userInfoService = userInfoService;*/
         }
 
         [HttpPost]
@@ -42,10 +45,6 @@ namespace BlogAppV1.Controllers
             var post = postService.PostWithId(postId);
             var tempComms = postService.CommentsOfPost(postId).ToList();
             var poster = postService.GetPosterInfo(postId);
-
-            /*foreach(var comm in tempComms)
-            {
-            }*/
 
             return View("PostDetailsPage", new PostDetailsVm()
             {

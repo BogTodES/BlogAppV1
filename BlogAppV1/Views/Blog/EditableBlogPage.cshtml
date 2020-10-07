@@ -21,8 +21,6 @@
                 @foreach (var sectId in Model.SectionsIds)
                 {
                     <div class="col border-info rounded m-3">
-                        @*<vc:MainScreenSection id="@sectId">
-                        </vc:MainScreenSection>*@
                         @await Component.InvokeAsync("MainScreenSection", 
                                     new { id = sectId, blogId = Model.BlogId, IsEditable = true })
                     </div>
@@ -31,11 +29,6 @@
             <button id="newSectBut" class="p-2 m-2 border rounded">
                 Add a new section
             </button>
-            @*<form asp-controller="Blog" asp-action="ShowBlogWith" asp-route-id="@Model.BlogId" method="get">
-                <button id="saveChangesBut" name="@Model.BlogId" class="p-2 m-2 border rounded but but-primary" data->
-                    Save changes
-                </button>
-            </form>*@
             <button id="saveChangesBut" name="@Model.BlogId">
                 Save Changes
             </button>

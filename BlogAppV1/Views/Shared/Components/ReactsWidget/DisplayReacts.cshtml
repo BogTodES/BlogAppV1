@@ -1,0 +1,38 @@
+﻿
+@model IEnumerable<BlogAppV1.ViewModels.ReactsVms.ReactTypeUserVm>
+
+@inject BlogAppV1.Entities.DTOs.CurrentUserDto CurrentUser
+
+
+@foreach (var react in Model)
+{
+    @*mai intaia fisez ce reactii au fost date deja*@
+
+    <li class="list-group-item">
+        @react.Type
+        @Model.Where(r => r.ReactId == react.ReactId).Count()
+    </li>
+}
+<li>
+    @*apoi fac un buton pentru ca userul sa poata reactiona si el*@
+    @{
+        var upr = Model.FirstOrDefault(r => r.UserId == int.Parse(CurrentUser.Id));
+        if (upr is null)
+        {
+            @*nu a reactionat pana acum*@
+            <button class="btn-outline-dark small reactBut">
+                Like
+            </button>
+        }
+        else
+        {
+            @*a reactioant deja, afisez ce a ales*@
+            <button class="btn-outline-info small reactBut">
+                @upr.Type
+            </button>
+        }
+    }
+    <input type="hidden"
+           @*data-userId="@CurrentUser.Id"*@
+           data-add-react-url="@Url.Action("ReactToPost", "Reactions")" />
+</li>

@@ -14,7 +14,7 @@ namespace BlogAppV1.DataAccess.EFConfig
 
             entity.Property(e => e.Body).IsRequired();
 
-            entity.Property(e => e.Date).HasColumnType("date");
+            entity.Property(e => e.Date).HasColumnType("datetime");
 
             entity.Property(e => e.PostId).HasColumnName("PostID");
 

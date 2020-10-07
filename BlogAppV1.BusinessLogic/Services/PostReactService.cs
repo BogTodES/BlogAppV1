@@ -47,7 +47,7 @@ namespace BlogAppV1.BusinessLogic.Services
             });
         }
 
-        public int ChangeReactToPost(int newReactId, int userId, long postId)
+        public int ChangeReact(int newReactId, int userId, long postId)
         {
             var newreact = new UserPostReacts()
             {
@@ -77,6 +77,13 @@ namespace BlogAppV1.BusinessLogic.Services
         {
             return unit.UsersPostsReacts
                 .Get().Where(upr => upr.UserId == userId).ToList();
+        }
+
+        public IEnumerable<UserPostReacts> ReactsOfPost(long postId)
+        {
+            return
+                unit.UsersPostsReacts
+                .Get().Where(upr => upr.PostId == postId).ToList();
         }
     }
 }

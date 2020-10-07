@@ -61,8 +61,8 @@ var saveSectionsChanges = function (oldSectNames, newSectNames, blogId) {
         var name = newSectNames.get(i).textContent;
 
         // introduc o sectiune noua doar daca are nume, si este diferit de cel default
-        if (title.length > 0 && title.localeCompare("New Section") != 0)
-            addSection(title, blogId);
+        if (name.length > 0 && name.localeCompare("New Section") != 0)
+            addSection(name, blogId);
     }
 }
 
@@ -99,7 +99,7 @@ saveChangesBut.on("click", function () {
     var newBlogTitle = $("#title");
     updateBlogTitle(newBlogTitle.get(0).textContent, blogId);
 
-    alert("am icnercat sa il trimit la " + redirectToBlogUrl)
+    // alert("am icnercat sa il trimit la " + redirectToBlogUrl)
     document.location.href = redirectToBlogUrl;
 });
 
@@ -149,6 +149,8 @@ addPostBut.on("click", function () {
 
 //----------------------------------------------------------------
 
+
+
 // add a comment
 var addCommBut = $("#addCommentBut");
 var addCommData = $("#addCommentAction");
@@ -194,4 +196,10 @@ $("#newCommentBody").keypress(function (event) {
 
 
 
-//-------------------------------------------------------
+//-----------------------------------------------------------------
+
+
+
+// react button
+
+var reactBut = $()
