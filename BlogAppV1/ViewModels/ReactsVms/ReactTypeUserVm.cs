@@ -11,5 +11,7 @@ namespace BlogAppV1.ViewModels.ReactsVms
         public string Username { get; set; }
         public int ReactId { get; set; }
         public string Type { get; set; }
+        public long? PostId { get; set; }
+        public long? CommId { get; set; }
     }
 }

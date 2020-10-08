@@ -31,5 +31,42 @@ namespace BlogAppV1.Controllers
                 flag = true
             });
         }
+
+        public IActionResult ReactToComm(int reactId, long commId)
+        {
+            commReactService.ReactToComm(commId, reactId);
+
+            return Json(new
+            {
+                flag = true
+            });
+        }
+
+        public IActionResult RemoveReactFromPost(long postId)
+        {
+            postReactService.RemoveReactionFromPost(postId);
+
+            return Json(new
+            {
+                flag = true
+            });
+        }
+
+        public IActionResult RemoveReactFromComm(long commId)
+        {
+            commReactService.RemoveReactionFromComm(commId);
+
+            return Json(new
+            {
+                flag = true
+            });
+        }
+
+        [HttpGet]
+        public IActionResult GetAllAvailableReactions()
+        {
+            var allReacts = reactionService.AllReacts();
+            return ViewComponent("FloaterReactions", allReacts);
+        }
     }
 }

@@ -16,12 +16,6 @@
             <h2 class="text-capitalize card-title">
                 @Model.Title
             </h2>
-            <div id="reactsDiv">
-                <ul class="list-group list-group-horizontal">
-                    @await Component.InvokeAsync("ReactsWidget",
-                                new { postId = Model.Id, commId = (long)-1 })
-                </ul>
-            </div>
             <h6 class="card-subtitle">
                 posted on @Model.Date.Date.ToShortDateString() by @Model.OwnerUsername
             </h6>
@@ -30,8 +24,11 @@
                 @Model.Body
             </p>
         </div>
-        <div class="card-footer">
-
+        <div class="card-footer" id="reactsDiv">
+            <ul class="list-group list-group-horizontal list-unstyled small">
+                @await Component.InvokeAsync("PostReactsWidget",
+                            new { postId = Model.Id })
+            </ul>
         </div>
     </div>
 
@@ -45,58 +42,62 @@
             <ul class="commentsList list-group list-group-flush w-100">
                 @foreach (var comm in Model.Comments)
                 {
-                    <li class="border-dark text-dark p-2 m-2 list-group-item rounded">
-                        <h5>
-                            @comm.CommenterId
-                        </h5>
-                        @if (comm.ElapsedTime.TotalSeconds < 60)
-                        {
-                            <p class="text-muted">
-                                @comm.ElapsedTime.Seconds seconds ago
-                            </p>
-                        }
-                        else if (comm.ElapsedTime.TotalMinutes < 60)
-                        {
-                            <p class="text-muted">
-                                @comm.ElapsedTime.Minutes mins ago
-                            </p>
-                        }
-                        else if (comm.ElapsedTime.TotalHours < 24)
-                        {
-                            <p class="text-muted">
-                                @comm.ElapsedTime.Hours hours ago
-                            </p>
-                        }
-                        else if (comm.ElapsedTime.TotalDays < 7)
-                        {
-                            <p class="text-muted">
-                                @comm.ElapsedTime.Days days ago
-                            </p>
-                        }
-                        else if (comm.ElapsedTime.TotalDays < 31)
-                        {
-                            <p class="text-muted">
-                                @(comm.ElapsedTime.Days / 7) weeks ago
-                            </p>
-                        }
-                        else if (comm.ElapsedTime.TotalDays <= 365)
-                        {
-                            <p class="text-muted">
-                                @(comm.ElapsedTime.Days / 30) months ago
-                            </p>
-                        }
-                        else
-                        {
-                            <p class="text-muted">
-                                @(comm.ElapsedTime.Days / 365) years ago
-                            </p>
-                        }
-                        <div class="d-block">
-                            <p>
-                                @comm.Body
-                            </p>
-                        </div>
-                    </li>
+                <li class="border-dark text-dark p-2 m-2 list-group-item rounded">
+                    <h5>
+                        @comm.CommenterId
+                    </h5>
+                    <ul class="list-group list-group-horizontal float-right list-unstyled small">
+                        @await Component.InvokeAsync("CommReactsWidget",
+                                    new { commId = comm.Id })
+                    </ul>
+                    @if (comm.ElapsedTime.TotalSeconds < 60)
+                    {
+                        <p class="text-muted">
+                            @comm.ElapsedTime.Seconds seconds ago
+                        </p>
+                    }
+                    else if (comm.ElapsedTime.TotalMinutes < 60)
+                    {
+                        <p class="text-muted">
+                            @comm.ElapsedTime.Minutes mins ago
+                        </p>
+                    }
+                    else if (comm.ElapsedTime.TotalHours < 24)
+                    {
+                        <p class="text-muted">
+                            @comm.ElapsedTime.Hours hours ago
+                        </p>
+                    }
+                    else if (comm.ElapsedTime.TotalDays < 7)
+                    {
+                        <p class="text-muted">
+                            @comm.ElapsedTime.Days days ago
+                        </p>
+                    }
+                    else if (comm.ElapsedTime.TotalDays < 31)
+                    {
+                        <p class="text-muted">
+                            @(comm.ElapsedTime.Days / 7) weeks ago
+                        </p>
+                    }
+                    else if (comm.ElapsedTime.TotalDays <= 365)
+                    {
+                        <p class="text-muted">
+                            @(comm.ElapsedTime.Days / 30) months ago
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="text-muted">
+                            @(comm.ElapsedTime.Days / 365) years ago
+                        </p>
+                    }
+                    <div class="d-block">
+                        <p>
+                            @comm.Body
+                        </p>
+                    </div>
+                </li>
                 }
             </ul>
             <div class="card-footer">

@@ -1,6 +1,7 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
+
 // Write your JavaScript code.
 
 
@@ -200,6 +201,117 @@ $("#newCommentBody").keypress(function (event) {
 
 
 
-// react button
+// react to post
 
-var reactBut = $()
+var reactButPost = $("#reactButPost");
+var postData = {
+    postId: $("#wtf").data("post-id"),
+    postUrlAdd: $("#wtf").data("post-url-add"),
+    postUrlRemove: $("#wtf").data("post-url-remove")
+};
+
+reactButPost.on("click", function () {
+    /*alert("postData = " + postData.postId);*/
+
+    if (reactButPost.hasClass("liked")) {
+        console.log(postData.postId + " " + postData.postUrlAdd + " " + postData.postUrlRemove);
+        // in caz ca exista deja react, la click se sterge
+        $.ajax({
+            url: postData.postUrlRemove,
+            data: {
+                postId: postData.postId
+            },
+            success: function () {
+                reactButPost.removeClass("liked btn-info");
+                reactButPost.addClass("btn-outline-dark");
+                console.log("removed react from " + postData.postId);
+            },
+            error: function () {
+                console.log("nu o functionat da sa mor io daca stiu de ce");
+            }
+        });
+    }
+    else {
+        // nu reactionase inainte
+        console.log(postData.postId + " " + postData.postUrlAdd + " " + postData.postUrlRemove);
+        $.ajax({
+            url: postData.postUrlAdd,
+            data: {
+                postId: postData.postId,
+                reactId: 1
+            },
+            success: function () {
+                reactButPost.removeClass("btn-outline-dark");
+                reactButPost.addClass("liked btn-info");
+                console.log("added react to " + postData.postId);
+            },
+            error: function () {
+                console.log("nu o functionat da sa mor io daca stiu de ce");
+            }
+        });
+    }
+});
+
+
+// react to comm
+var reactButCommList = $(".reactButComm");
+var commUrls = {
+    commUrlAdd: $("#commData").data("comm-url-add"),
+    commUrlRemove: $("#commData").data("comm-url-remove")
+}
+
+var c = document.getElementsByClassName("reactButComm");
+console.log(commUrls.commUrlAdd);
+
+for (reactButComm of c) {
+    reactButComm = $(reactButComm);
+
+    console.log(reactButComm);
+
+    commId = Number(reactButComm.attr("id"));
+
+    // pt fiecare buton de comm adaug event-urile de click (like si unlike rapid)
+    reactButComm.on("click", function () {
+        thisBut = $(this);
+        commId = Number(thisBut.attr("id"));
+
+        if (thisBut.hasClass("liked")) {
+            // in caz ca exista deja react, la click se sterge
+            $.ajax({
+                url: commUrls.commUrlRemove,
+                data: {
+                    commId: commId
+                },
+                success: function () {
+                    thisBut.removeClass("liked btn-info");
+                    thisBut.addClass("btn-outline-dark");
+                    console.log("removed react from " + commId);
+                },
+                error: function () {
+                    console.log("nu o functionat da sa mor io daca stiu de ce");
+                }
+            });
+        }
+        else {
+            // nu reactionase inainte
+            $.ajax({
+                url: commUrls.commUrlAdd,
+                data: {
+                    commId: commId,
+                    reactId: 1
+                },
+                success: function () {
+                    thisBut.removeClass("btn-outline-dark");
+                    thisBut.addClass("liked btn-info");
+                    console.log("added react to " + commId);
+                },
+                error: function () {
+                    console.log("nu o functionat da sa mor io daca stiu de ce");
+                }
+            });
+        }
+    });
+
+
+}
+

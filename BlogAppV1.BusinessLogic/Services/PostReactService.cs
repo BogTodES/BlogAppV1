@@ -47,6 +47,11 @@ namespace BlogAppV1.BusinessLogic.Services
             });
         }
 
+        public int RemoveReactionFromPost(long postId)
+        {
+            return RemoveReactionFromPost(int.Parse(CurrentUser.Id), postId);
+        }
+
         public int ChangeReact(int newReactId, int userId, long postId)
         {
             var newreact = new UserPostReacts()
