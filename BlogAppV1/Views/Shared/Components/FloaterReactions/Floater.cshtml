@@ -1,0 +1,14 @@
+﻿@model IEnumerable<BlogAppV1.DataAccess.ReactTypes>
+
+
+
+<div class="clearfix float-right reactFloater">
+    <ul class="list-group list-group-horizontal small border-secondary rounded">
+        @foreach (var react in Model)
+        {
+            <li class="list-group-item">
+                @react.Name
+            </li>
+        }
+    </ul>
+</div>

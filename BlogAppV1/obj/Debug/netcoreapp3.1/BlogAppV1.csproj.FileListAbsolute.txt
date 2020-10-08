@@ -355,3 +355,4 @@ D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\BlogAppV1.genru
 D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\MainScreenSection\Editable.cshtml.g.cs
 D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\CommReactsWidget\DisplayReactsComm.cshtml.g.cs
 D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\PostReactsWidget\DisplayReactsPost.cshtml.g.cs
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\FloaterReactions\Floater.cshtml.g.cs

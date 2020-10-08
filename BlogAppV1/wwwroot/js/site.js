@@ -263,7 +263,7 @@ var commUrls = {
 var c = document.getElementsByClassName("reactButComm");
 console.log(commUrls.commUrlAdd);
 
-for (reactButComm of c) {
+for (var reactButComm of c) {
     reactButComm = $(reactButComm);
 
     console.log(reactButComm);
@@ -312,6 +312,40 @@ for (reactButComm of c) {
         }
     });
 
+    reactButComm.hover(
+        function (e) {
+            $(this).append(
+                $('<div class="reactFloater">aici</div>')
+                    .css({
+                        "left": e.pageX + 'px',
+                        "top": e.pageY + 'px'
+                    })
+            );
+            console.log($(this));
+        },
+        function () {
+            $(this).find("div.reactFloater").last().remove();
+        }
+    );
 
+    /*reactButComm.on("mouseenter", function (e) {
+        var reactFloater = $('<div class="reactFloater">aici</div>')
+            .css({
+                "left": e.pageX + 'px',
+                "top": e.pageY + 'px'
+            })
+            .appendTo(document.body);
+        console.log(reactFloater);
+        setTimeout(function () {
+            reactFloater.addClass("grow");
+        }, 200);
+    });
+    reactButComm.on("mouseleave", function () {
+        var reactFloater = $(".reactFloater");
+        setTimeout(function () {
+            reactFloater.removeClass("grow");
+            reactFloater.addClass("fade-out");
+        }, 100);
+    });*/
 }
 
