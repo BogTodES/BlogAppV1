@@ -314,17 +314,20 @@ for (var reactButComm of c) {
 
     reactButComm.hover(
         function (e) {
-            $(this).append(
-                $('<div class="reactFloater">aici</div>')
-                    .css({
-                        "left": e.pageX + 'px',
-                        "top": e.pageY + 'px'
-                    })
+            var floater = $('<div class="reactFloater">aici</div>').css({
+                "left": e.pageX + 'px',
+                "bottom": e.pageY + 'px'
+            });
+            $(this).parent().append(
+                floater
             );
-            console.log($(this));
+            console.log($(floater));
+            setTimeout(function () {
+                $(floater).addClass("grow");
+            }, 200);
         },
         function () {
-            $(this).find("div.reactFloater").last().remove();
+            $("div.reactFloater").remove();
         }
     );
 
