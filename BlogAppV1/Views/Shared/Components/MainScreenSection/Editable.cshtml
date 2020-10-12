@@ -1,0 +1,25 @@
+﻿@model BlogAppV1.ViewModels.BlogStuff.SmallSectionVm
+
+@*aici se afiseaza O SECTIUNE CU POSTARILE EI*@
+@*si pot sa updatez titlurile*@
+
+
+<div class="border border-danger">
+    <div>
+        <h2 class="text-center" contenteditable="true" data-sect-Id>
+            @Model.Title
+        </h2>
+    </div>
+    <hr />
+    @foreach (var post in Model.Posts)
+    {
+        <div class="border border-info m-2 p-2">
+            <h3 class="text-capitalize">
+                @post.Title
+            </h3>
+            <p class="text-muted">
+                @post.Body
+            </p>
+        </div>
+    }
+</div>

@@ -20,12 +20,23 @@ namespace BlogAppV1.ViewComponents
             this.sectionsService = sectionsService;
         }
 
-        public IViewComponentResult Invoke(long Id, long blogId)
+        public IViewComponentResult Invoke(long Id, long blogId, bool IsEditable)
         {
             var posts = sectionsService.Top5Posts(Id);
             var sect = sectionsService.GetSectionWithId(Id);
 
-            return View(new SmallSectionVm()
+            if(IsEditable)
+            {
+                return View("Editable", new SmallSectionVm()
+                {
+                    Id = sect.Id,
+                    BlogId = blogId,
+                    Title = sect.Name,
+                    Posts = posts
+                });
+            }
+
+            return View("Default", new SmallSectionVm()
             {
                 Id = sect.Id,
                 BlogId = blogId,

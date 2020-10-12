@@ -14,6 +14,11 @@ namespace BlogAppV1.DataAccess
             this._context = context;
         }
 
+        public int Complete()
+        {
+            return this._context.SaveChanges();
+        }
+
         private BaseRepository<Users> users;
         public BaseRepository<Users> Users => users ??= (new BaseRepository<Users>(_context));
 
@@ -65,10 +70,5 @@ namespace BlogAppV1.DataAccess
 
         private BaseRepository<UsersRoles> usersRoles;
         public BaseRepository<UsersRoles> UsersRoles => usersRoles ??= (new BaseRepository<UsersRoles>(_context));
-
-        public int Complete()
-        {
-            return this._context.SaveChanges();
-        }
     }
 }

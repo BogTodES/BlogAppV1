@@ -1,0 +1,43 @@
+﻿@model BlogAppV1.ViewModels.ReactsVms.ReactsAndPostVm
+
+@inject BlogAppV1.Entities.DTOs.CurrentUserDto CurrentUser
+
+@foreach (var react in Model.TypesAndUsers)
+{
+    @*mai intaia fisez ce reactii au fost date deja*@
+
+    <li class="list-group-item">
+        @react.Type
+        @Model.TypesAndUsers.Where(r => r.ReactId == react.ReactId).Count()
+    </li>
+}
+
+@if (CurrentUser.IsAuthenticated)
+{
+    <li>
+        @*apoi fac un buton pentru ca userul sa poata reactiona si el*@
+        @{
+            var upr = Model.TypesAndUsers
+                .FirstOrDefault(r => r.UserId == int.Parse(CurrentUser.Id));
+            if (upr is null)
+            {
+                @*nu a reactionat pana acum*@
+                <button id="reactButPost" class="btn-outline-dark small">
+                    Like
+                </button>
+            }
+            else
+            {
+                @*a reactioant deja, afisez ce a ales*@
+                <button id="reactButPost" class="btn-info small liked">
+                    @upr.Type
+                </button>
+            }
+        }
+    </li>
+
+    <input type="hidden" id="wtf"
+           data-post-id="@Model.PostId"
+           data-post-url-add="@Url.Action("ReactToPost", "Reactions")"
+           data-post-url-remove="@Url.Action("RemoveReactFromPost", "Reactions")">
+}

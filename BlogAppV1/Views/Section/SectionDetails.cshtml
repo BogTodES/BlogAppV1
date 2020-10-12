@@ -43,8 +43,20 @@
             }
             @if(CurrentUser.IsAuthenticated && int.Parse(CurrentUser.Id) == Model.OwnerId)
             {
-                <div>
+                <div id="newShortPost" class="card border-danger m-2 p-2 w-100 text-dark">
+                        <div class="card-title">
+                            <h3 id="newTitle" contenteditable="true" class="text-capitalize card-title text-decoration-none border-dark">
+                            </h3>
+                        </div>
+                        <hr />
+                        <textarea id="newBody" class="card-text text-muted text-decoration-none border-dark" contenteditable="true">
 
+                        </textarea>
+                        <button id="addNewPostBut" name="@Model.Id" class="btn btn-secondary clearfix w-25 float-right"
+                                >
+                            Post It!
+                        </button>
+                        <input type="hidden" id="addNewPostAction" data-add-new-post-url="@Url.Action("AddPost", "Post")"/>
                 </div>
             }
         </div>

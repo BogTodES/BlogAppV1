@@ -1,4 +1,5 @@
 ﻿using BlogAppV1.BusinessLogic;
+using BlogAppV1.BusinessLogic.Services;
 using BlogAppV1.Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,9 @@ namespace BlogAppV1.Code
             services.AddScoped<SectionsService>();
             services.AddScoped<PostService>();
             services.AddScoped<CommentService>();
+            services.AddScoped<PostReactService>();
+            services.AddScoped<CommReactService>();
+            services.AddScoped<ReactionService>();
             return services;
         }
 

@@ -8,19 +8,23 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\bogdan.toderica\\.nuget\\packages\\": {}
+    "C:\\Users\\toder\\.nuget\\packages\\": {},
+    "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\miscVisStudProjects\\BlogAppV1\\BlogAppV1.CustomAttributes\\BlogAppV1.CustomAttributes.csproj",
+      "projectUniqueName": "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.CustomAttributes\\BlogAppV1.CustomAttributes.csproj",
       "projectName": "BlogAppV1.CustomAttributes",
-      "projectPath": "D:\\miscVisStudProjects\\BlogAppV1\\BlogAppV1.CustomAttributes\\BlogAppV1.CustomAttributes.csproj",
-      "packagesPath": "C:\\Users\\bogdan.toderica\\.nuget\\packages\\",
-      "outputPath": "D:\\miscVisStudProjects\\BlogAppV1\\BlogAppV1.CustomAttributes\\obj\\",
+      "projectPath": "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.CustomAttributes\\BlogAppV1.CustomAttributes.csproj",
+      "packagesPath": "C:\\Users\\toder\\.nuget\\packages\\",
+      "outputPath": "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.CustomAttributes\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\bogdan.toderica\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\toder\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -58,7 +62,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

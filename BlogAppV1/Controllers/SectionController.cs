@@ -33,7 +33,7 @@ namespace BlogAppV1.Controllers
         [HttpPost]
         public IActionResult AddSection(string name, long blogId)
         {
-            this.sectionsService.AddSection(name, blogId);
+            sectionsService.AddSection(name, blogId);
 
             return RedirectToAction("ShowBlogWith", "Blog", new { id = blogId });
         }

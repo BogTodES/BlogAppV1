@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\CommentVms\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>

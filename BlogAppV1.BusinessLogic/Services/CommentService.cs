@@ -15,7 +15,7 @@ namespace BlogAppV1.BusinessLogic
         {
         }
 
-        public int AddComment(string body, long postId, int userId)
+        public int AddComment(string body, long postId)
         {
             return ExecuteInTransaction(unit =>
             {
@@ -23,7 +23,9 @@ namespace BlogAppV1.BusinessLogic
                 {
                     Body = body,
                     PostId = postId,
-                    UserId = userId
+                    Date = DateTime.Now,
+                    UserId = int.Parse(CurrentUser.Id)
+                        // daca se adauga un comentariu, mereu va fi din partea userului curent
                 };
 
                 unit.Comments.Insert(newComm);

@@ -5765,19 +5765,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\bogdan.toderica\\.nuget\\packages\\": {}
+    "C:\\Users\\toder\\.nuget\\packages\\": {},
+    "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\miscVisStudProjects\\BlogAppV1\\BlogAppV1.BusinessLogic\\BlogAppV1.BusinessLogic.csproj",
+      "projectUniqueName": "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.BusinessLogic\\BlogAppV1.BusinessLogic.csproj",
       "projectName": "BlogAppV1.BusinessLogic",
-      "projectPath": "D:\\miscVisStudProjects\\BlogAppV1\\BlogAppV1.BusinessLogic\\BlogAppV1.BusinessLogic.csproj",
-      "packagesPath": "C:\\Users\\bogdan.toderica\\.nuget\\packages\\",
-      "outputPath": "D:\\miscVisStudProjects\\BlogAppV1\\BlogAppV1.BusinessLogic\\obj\\",
+      "projectPath": "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.BusinessLogic\\BlogAppV1.BusinessLogic.csproj",
+      "packagesPath": "C:\\Users\\toder\\.nuget\\packages\\",
+      "outputPath": "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.BusinessLogic\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\bogdan.toderica\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\toder\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5790,11 +5794,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\miscVisStudProjects\\BlogAppV1\\BlogAppV1.Common\\BlogAppV1.Common.csproj": {
-              "projectPath": "D:\\miscVisStudProjects\\BlogAppV1\\BlogAppV1.Common\\BlogAppV1.Common.csproj"
+            "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.Common\\BlogAppV1.Common.csproj": {
+              "projectPath": "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.Common\\BlogAppV1.Common.csproj"
             },
-            "D:\\miscVisStudProjects\\BlogAppV1\\BlogAppV1.DataAccess\\BlogAppV1.DataAccess.csproj": {
-              "projectPath": "D:\\miscVisStudProjects\\BlogAppV1\\BlogAppV1.DataAccess\\BlogAppV1.DataAccess.csproj"
+            "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.DataAccess\\BlogAppV1.DataAccess.csproj": {
+              "projectPath": "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.DataAccess\\BlogAppV1.DataAccess.csproj"
             }
           }
         }
@@ -5822,7 +5826,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

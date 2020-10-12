@@ -10,3 +10,15 @@ D:\miscVisStudProjects\BlogAppV1\BlogAppV1.Entities\bin\Debug\netcoreapp3.1\Blog
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1.Entities\bin\Debug\netcoreapp3.1\BlogAppV1.Common.pdb
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1.Entities\obj\Debug\netcoreapp3.1\BlogAppV1.Entities.csprojAssemblyReference.cache
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1.Entities\obj\Debug\netcoreapp3.1\BlogAppV1.Entities.csproj.CopyComplete
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.Entities\bin\Debug\netcoreapp3.1\BlogAppV1.Entities.deps.json
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.Entities\bin\Debug\netcoreapp3.1\BlogAppV1.Entities.dll
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.Entities\bin\Debug\netcoreapp3.1\BlogAppV1.Entities.pdb
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.Entities\bin\Debug\netcoreapp3.1\BlogAppV1.Common.dll
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.Entities\bin\Debug\netcoreapp3.1\BlogAppV1.Common.pdb
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.Entities\obj\Debug\netcoreapp3.1\BlogAppV1.Entities.csprojAssemblyReference.cache
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.Entities\obj\Debug\netcoreapp3.1\BlogAppV1.Entities.AssemblyInfoInputs.cache
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.Entities\obj\Debug\netcoreapp3.1\BlogAppV1.Entities.AssemblyInfo.cs
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.Entities\obj\Debug\netcoreapp3.1\BlogAppV1.Entities.csproj.CoreCompileInputs.cache
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.Entities\obj\Debug\netcoreapp3.1\BlogAppV1.Entities.csproj.CopyComplete
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.Entities\obj\Debug\netcoreapp3.1\BlogAppV1.Entities.dll
+D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.Entities\obj\Debug\netcoreapp3.1\BlogAppV1.Entities.pdb
