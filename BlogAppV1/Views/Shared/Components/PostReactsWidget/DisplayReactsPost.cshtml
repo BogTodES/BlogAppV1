@@ -2,13 +2,17 @@
 
 @inject BlogAppV1.Entities.DTOs.CurrentUserDto CurrentUser
 
-@foreach (var react in Model.TypesAndUsers)
-{
-    @*mai intaia fisez ce reactii au fost date deja*@
+@{ 
+    var reactSet = Model.TypesAndUsers.Select(tu => tu.Type).ToHashSet();
+}
 
-    <li class="list-group-item">
-        @react.Type
-        @Model.TypesAndUsers.Where(r => r.ReactId == react.ReactId).Count()
+@foreach (var type in reactSet)
+{
+    @*mai intai afisez ce reactii au fost date deja*@
+
+    <li class="list-group-item @type" data-post-id="@Model.PostId">
+        @type
+        @Model.TypesAndUsers.Where(r => r.Type == type).Count()
     </li>
 }
 

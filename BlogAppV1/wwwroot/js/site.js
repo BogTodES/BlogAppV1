@@ -189,8 +189,6 @@ $("#newCommentBody").keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     console.log(keycode);
     if (keycode == '13') {
-        
-        
         sendComment();
     }
 }); // daca am apasat enter pe textbox, trimit comentariul
@@ -200,8 +198,93 @@ $("#newCommentBody").keypress(function (event) {
 //-----------------------------------------------------------------
 
 
+// get reacts
+var reacts;
+(function () {
+    var reactUrl = $("#reactMeta").data("reacts-url");
+    $.get({
+        type: "GET",
+        url: reactUrl
+    })
+        .done(function (data) {
+            reacts = data;
+            console.log(reacts);
+        });
+})();
 
 // react to post
+
+var sendPostReact = function (reactType, postId, postAddUrl) {
+    $.ajax({
+        url: postAddUrl,
+        data: {
+            postId: postId,
+            reactId: reactType
+        },
+        success: function () {
+            reactButPost.removeClass("btn-outline-dark");
+            reactButPost.addClass("liked btn-info");
+            console.log("added react to " + postId);
+        },
+        error: function () {
+            console.log("nu o functionat da sa mor io daca stiu de ce");
+        }
+    });
+}
+
+var removePostReact = function (postId, postRemoveUrl) {
+    // in caz ca exista deja react, la click se sterge
+    $.ajax({
+        url: postRemoveUrl,
+        data: {
+            postId: postId
+        },
+        success: function () {
+            reactButPost.removeClass("liked btn-info");
+            reactButPost.addClass("btn-outline-dark");
+            console.log("removed react from " + postId);
+        },
+        error: function () {
+            console.log("nu o functionat da sa mor io daca stiu de ce");
+        }
+    });
+}
+
+var sendCommReact = function (reactType, commId, commAddUrl) {
+        $.ajax({
+            url: commAddUrl,
+            data: {
+                commId: commId,
+                reactId: reactType
+            },
+            success: function () {
+                reactButPost.removeClass("btn-outline-dark");
+                reactButPost.addClass("liked btn-info");
+                console.log("added react to " + commId);
+            },
+            error: function () {
+                console.log("nu o functionat da sa mor io daca stiu de ce");
+            }
+        });
+}
+
+var removeCommReact = function (commId, commRemoveUrl) {
+    // in caz ca exista deja react, la click se sterge
+    $.ajax({
+        url: commRemoveUrl,
+        data: {
+            postId: commId
+        },
+        success: function () {
+            reactButPost.removeClass("liked btn-info");
+            reactButPost.addClass("btn-outline-dark");
+            console.log("removed react from " + commId);
+        },
+        error: function () {
+            console.log("nu o functionat da sa mor io daca stiu de ce");
+        }
+    });
+}
 
 var reactButPost = $("#reactButPost");
 var postData = {
@@ -214,44 +297,61 @@ reactButPost.on("click", function () {
     /*alert("postData = " + postData.postId);*/
 
     if (reactButPost.hasClass("liked")) {
-        console.log(postData.postId + " " + postData.postUrlAdd + " " + postData.postUrlRemove);
         // in caz ca exista deja react, la click se sterge
-        $.ajax({
-            url: postData.postUrlRemove,
-            data: {
-                postId: postData.postId
-            },
-            success: function () {
-                reactButPost.removeClass("liked btn-info");
-                reactButPost.addClass("btn-outline-dark");
-                console.log("removed react from " + postData.postId);
-            },
-            error: function () {
-                console.log("nu o functionat da sa mor io daca stiu de ce");
-            }
-        });
+        removePostReact(postData.postId, postData.postUrlRemove);
     }
     else {
         // nu reactionase inainte
-        console.log(postData.postId + " " + postData.postUrlAdd + " " + postData.postUrlRemove);
-        $.ajax({
-            url: postData.postUrlAdd,
-            data: {
-                postId: postData.postId,
-                reactId: 1
-            },
-            success: function () {
-                reactButPost.removeClass("btn-outline-dark");
-                reactButPost.addClass("liked btn-info");
-                console.log("added react to " + postData.postId);
-            },
-            error: function () {
-                console.log("nu o functionat da sa mor io daca stiu de ce");
-            }
-        });
+        sendPostReact(1, postData.postId, postData.postUrlAdd);
     }
 });
 
+reactButPost.hover(
+    function (event) {
+        var thisBut = this;
+        var cList = $('<ul/>')
+            .addClass("clearfix")
+            .addClass("position-absolute")
+            .addClass("grow")
+            .addClass("small")
+            .addClass("list-group")
+            .addClass("floater")
+            .css("position", "absolute")
+            .css("left", $(thisBut).position().left + "px")
+            .css("top", $(thisBut).position().top + "px")
+            .appendTo(document.activeElement)
+            .fadeIn(500);
+
+        $.each(reacts, function (i) {
+            var li = $('<li/>')
+                .addClass("list-group-item")
+                .addClass("small")
+                .addClass("h-2")
+                .appendTo(cList);
+            var r = $('<button/>')
+                .addClass("small")
+                .addClass("btn btn-secondary")
+                .text(reacts[i].name)
+                .attr("name", reacts[i].id)
+                .click(function () {
+                    sendPostReact(Number($(this).attr("name")), postData.postId, postData.postUrlAdd);
+                    reactButPost.text($(this).text());
+                })
+                .appendTo(li);
+        });
+    },
+    function () {
+        var cList = $('ul.floater');
+        setTimeout(function () {
+            /*cList = $('ul.reactFloater');*/
+            cList.fadeOut();
+
+        }, 2000);
+        setTimeout(function () {
+            $(cList).remove();
+        }, 3000)
+    }
+);
 
 // react to comm
 var reactButCommList = $(".reactButComm");
@@ -273,82 +373,73 @@ for (var reactButComm of c) {
     // pt fiecare buton de comm adaug event-urile de click (like si unlike rapid)
     reactButComm.on("click", function () {
         thisBut = $(this);
-        commId = Number(thisBut.attr("id"));
+        // commId = Number(thisBut.attr("id"));
 
         if (thisBut.hasClass("liked")) {
             // in caz ca exista deja react, la click se sterge
-            $.ajax({
-                url: commUrls.commUrlRemove,
-                data: {
-                    commId: commId
-                },
-                success: function () {
-                    thisBut.removeClass("liked btn-info");
-                    thisBut.addClass("btn-outline-dark");
-                    console.log("removed react from " + commId);
-                },
-                error: function () {
-                    console.log("nu o functionat da sa mor io daca stiu de ce");
-                }
-            });
+            removeCommReact(commId, commUrls.commUrlRemove);
         }
         else {
             // nu reactionase inainte
-            $.ajax({
-                url: commUrls.commUrlAdd,
-                data: {
-                    commId: commId,
-                    reactId: 1
-                },
-                success: function () {
-                    thisBut.removeClass("btn-outline-dark");
-                    thisBut.addClass("liked btn-info");
-                    console.log("added react to " + commId);
-                },
-                error: function () {
-                    console.log("nu o functionat da sa mor io daca stiu de ce");
-                }
-            });
+            sendCommReact(1, commId, commRemoveUrl);
         }
     });
 
     reactButComm.hover(
-        function (e) {
-            var floater = $('<div class="reactFloater">aici</div>').css({
-                "left": e.pageX + 'px',
-                "bottom": e.pageY + 'px'
+        function (event) {
+            var triggerBut = this;
+            var cList = $('<ul/>')
+                .addClass("clearfix")
+                .addClass("position-absolute")
+                .addClass("grow")
+                .addClass("small")
+                .addClass("list-group")
+                .addClass("floater")
+                .css("position", "absolute")
+                .css("left", $(triggerBut).position().left + "px")
+                .css("top", $(triggerBut).position().top + "px")
+                .appendTo(document.activeElement)
+                .fadeIn(500);
+
+            $.each(reacts, function (i) {
+                var li = $('<li/>')
+                    .addClass("list-group-item")
+                    .addClass("small")
+                    .addClass("h-2")
+                    .appendTo(cList);
+                var r = $('<button/>')
+                    .addClass("small")
+                    .addClass("btn btn-secondary")
+                    .text(reacts[i].name)
+                    .attr("name", reacts[i].id)
+                    .click(function () {
+                        sendCommReact(Number($(this).attr("name")), commId, commUrls.commUrlAdd);
+                        $(triggerBut).text($(this).text());
+                    })
+                    .appendTo(li);
             });
-            $(this).parent().append(
-                floater
-            );
-            console.log($(floater));
-            setTimeout(function () {
-                $(floater).addClass("grow");
-            }, 200);
         },
         function () {
-            $("div.reactFloater").remove();
+            var cList = $('ul.floater');
+            setTimeout(function () {
+                /*cList = $('ul.reactFloater');*/
+                cList.fadeOut();
+            }, 2000);
+            setTimeout(function () {
+                $(cList).remove();
+            }, 3000)
         }
     );
-
-    /*reactButComm.on("mouseenter", function (e) {
-        var reactFloater = $('<div class="reactFloater">aici</div>')
-            .css({
-                "left": e.pageX + 'px',
-                "top": e.pageY + 'px'
-            })
-            .appendTo(document.body);
-        console.log(reactFloater);
-        setTimeout(function () {
-            reactFloater.addClass("grow");
-        }, 200);
-    });
-    reactButComm.on("mouseleave", function () {
-        var reactFloater = $(".reactFloater");
-        setTimeout(function () {
-            reactFloater.removeClass("grow");
-            reactFloater.addClass("fade-out");
-        }, 100);
-    });*/
 }
 
+var searchUrl = $("#searchMeta").data("search-url");
+(function () {
+    $.ajax({
+        url: searchUrl,
+        data: "pls"
+    }).done(function (data) {
+        console.log(data);
+    }).fail(function () {
+        console.log("nu merge sa searchu");
+    })
+})();

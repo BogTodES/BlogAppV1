@@ -17,6 +17,8 @@ namespace BlogAppV1.BusinessLogic.Services
 
         public int ReactToPost(long postId, int reactId, int userId)
         {
+            RemoveReactionFromPost(userId, postId);
+
             return ExecuteInTransaction(unit =>
             {
                 var upr = new UserPostReacts()
@@ -42,7 +44,8 @@ namespace BlogAppV1.BusinessLogic.Services
 
             return ExecuteInTransaction(unit =>
             {
-                unit.UsersPostsReacts.Delete(q);
+                if(!(q is null))
+                    unit.UsersPostsReacts.Delete(q);
                 return unit.Complete();
             });
         }
