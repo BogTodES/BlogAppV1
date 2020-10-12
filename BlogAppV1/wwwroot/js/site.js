@@ -200,6 +200,19 @@ $("#newCommentBody").keypress(function (event) {
 //-----------------------------------------------------------------
 
 
+// get reacts
+var reacts;
+(function () {
+    var reactUrl = $("#reactMeta").data("reacts-url");
+    $.get({
+        type: "GET",
+        url: reactUrl
+    })
+        .done(function (data) {
+            reacts = data;
+            console.log(reacts);
+        });
+})();
 
 // react to post
 
@@ -252,6 +265,49 @@ reactButPost.on("click", function () {
     }
 });
 
+reactButPost.hover(
+    function (event) {
+        console.log("nush ce are vere");
+        var thisBut = this;
+        var cList = $('<ul/>')
+            .addClass("clearfix")
+            .addClass("position-absolute")
+            .addClass("grow")
+            .addClass("small")
+            .addClass("list-group")
+            .addClass("floater")
+            .css("position", "absolute")
+            .css("left", $(thisBut).position().left + "px")
+            .css("top", $(thisBut).position().top + "px")
+            .appendTo(document.activeElement)
+            .fadeIn(500);
+        //console.log("cica like-u se afla la " + $(thisBut).position().left + " si " + $(thisBut).position().top);
+
+        $.each(reacts, function (i) {
+            var li = $('<li/>')
+                .addClass("list-group-item")
+                .addClass("small")
+                .addClass("h-2")
+                .appendTo(cList);
+            var r = $('<button/>')
+                .addClass("small")
+                .addClass("btn btn-secondary")
+                .text(reacts[i].name)
+                .appendTo(li);
+        });
+    },
+    function () {
+        var cList = $('ul.floater');
+        setTimeout(function () {
+            /*cList = $('ul.reactFloater');*/
+            cList.fadeOut();
+            
+        }, 2000);
+        setTimeout(function () {
+            $(cList).remove();
+        }, 3000)
+    }
+);
 
 // react to comm
 var reactButCommList = $(".reactButComm");

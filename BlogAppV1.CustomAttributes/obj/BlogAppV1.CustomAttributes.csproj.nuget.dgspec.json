@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.CustomAttributes\\BlogAppV1.CustomAttributes.csproj": {}
+    "D:\\ProgVisStud2019\\BlogAppV1\\BlogAppV1.CustomAttributes\\BlogAppV1.CustomAttributes.csproj": {}
   },
   "projects": {
-    "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.CustomAttributes\\BlogAppV1.CustomAttributes.csproj": {
+    "D:\\ProgVisStud2019\\BlogAppV1\\BlogAppV1.CustomAttributes\\BlogAppV1.CustomAttributes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.CustomAttributes\\BlogAppV1.CustomAttributes.csproj",
+        "projectUniqueName": "D:\\ProgVisStud2019\\BlogAppV1\\BlogAppV1.CustomAttributes\\BlogAppV1.CustomAttributes.csproj",
         "projectName": "BlogAppV1.CustomAttributes",
-        "projectPath": "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.CustomAttributes\\BlogAppV1.CustomAttributes.csproj",
-        "packagesPath": "C:\\Users\\toder\\.nuget\\packages\\",
-        "outputPath": "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.CustomAttributes\\obj\\",
+        "projectPath": "D:\\ProgVisStud2019\\BlogAppV1\\BlogAppV1.CustomAttributes\\BlogAppV1.CustomAttributes.csproj",
+        "packagesPath": "C:\\Users\\Bobel\\.nuget\\packages\\",
+        "outputPath": "D:\\ProgVisStud2019\\BlogAppV1\\BlogAppV1.CustomAttributes\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\toder\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Bobel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -55,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -82,20 +82,3 @@ body {
 html body {
     background: #c0c0c0 !important;
 }
-
-.reactFloater {
-    position: absolute;
-    opacity: 1;
-    transform: translate(0%, 50%);
-}
-.reactFloater .fade-out {
-    opacity: 0;
-    display: none;
-    transition: opacity 0.6s ease-out;
-}
-
-.reactFloater .grow {
-    transform: scale(1);
-    display: normal;
-    transition: all 0.3s ease-in-out;
-}

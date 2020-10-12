@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "0FpZ6LWoh84bx2GM8HaegQO1ONFKG3se9ut1/2c6+uP8OvZCxHM0yAdUxwb//a85sroak2kXgB1j2lp4WHX8SQ==",
+  "dgSpecHash": "E6PGaiZxPM4eU4Ggrxopuvd31B3uoY73wWHHNIZFnLAZGvgyz3MKI1wJc11hxsosyVglquQcVhTKQuYN1eiBIw==",
   "success": true,
-  "projectFilePath": "D:\\PROIECTE_VIS_STUD\\BlogAppV1\\BlogAppV1.Entities\\BlogAppV1.Entities.csproj",
+  "projectFilePath": "D:\\ProgVisStud2019\\BlogAppV1\\BlogAppV1.Entities\\BlogAppV1.Entities.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\toder\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.8\\microsoft.aspnetcore.cryptography.internal.3.1.8.nupkg.sha512",
-    "C:\\Users\\toder\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.8\\microsoft.aspnetcore.cryptography.keyderivation.3.1.8.nupkg.sha512"
+    "C:\\Users\\Bobel\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.8\\microsoft.aspnetcore.cryptography.internal.3.1.8.nupkg.sha512",
+    "C:\\Users\\Bobel\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.8\\microsoft.aspnetcore.cryptography.keyderivation.3.1.8.nupkg.sha512"
   ],
   "logs": []
 }

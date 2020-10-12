@@ -65,7 +65,12 @@ namespace BlogAppV1.Controllers
         [HttpGet]
         public IActionResult GetAllAvailableReactions()
         {
-            return ViewComponent("FloaterReactions");
+            var reacts = reactionService.AllReacts()
+                .Select(r => new { r.Id, r.Name })
+                .ToList();
+
+            var json = Json(reacts);
+            return json;
         }
     }
 }
