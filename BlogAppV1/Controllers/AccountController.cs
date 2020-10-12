@@ -25,6 +25,7 @@ namespace BlogAppV1.Controllers
             userAccountService = userServ;
         }
 
+
         [HttpGet]
         public IActionResult Register()
         {
