@@ -1,9 +1,11 @@
 ﻿using BlogAppV1.DataAccess;
 using BlogAppV1.Entities.DTOs;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace BlogAppV1.ViewModels.SearchVms
 {
@@ -12,7 +14,7 @@ namespace BlogAppV1.ViewModels.SearchVms
         public string Username { get; set; }
         public string Email { get; set; }
         public int Id { get; set; }
-        public IEnumerable<Blogs> Blogs { get; set; }
+        public IEnumerable<string> Blogs { get; set; }
 
         public UserSearchResult(string Keyword, UserNoPass User, IEnumerable<Blogs> Blogs) 
             : base(Keyword, "UserResult")
@@ -20,7 +22,10 @@ namespace BlogAppV1.ViewModels.SearchVms
             this.Username = User.Username;
             this.Email = User.Email;
             this.Id = User.Id;
-            this.Blogs = Blogs;
+            this.Blogs = Blogs.Select(b => b.Title);
+
+            ObjectInfo = System.Text.Json.JsonSerializer
+                .Serialize(new { UserId = Id, Username = Username, Email = Email, Blogs = this.Blogs });
         }
     }
 }

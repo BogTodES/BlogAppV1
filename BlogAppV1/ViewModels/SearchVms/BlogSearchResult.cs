@@ -21,6 +21,9 @@ namespace BlogAppV1.ViewModels.SearchVms
             this.Title = Blog.Title;
             this.OwnerId = Owner.Id;
             this.OwnerName = Owner.Username;
+
+            ObjectInfo = System.Text.Json.JsonSerializer
+                .Serialize(new { BlogId = Id, Title = Title, OwnerId = OwnerId, OwnerName = OwnerName });
         }
     }
 }

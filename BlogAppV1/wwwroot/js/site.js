@@ -308,7 +308,7 @@ reactButPost.on("click", function () {
 
 reactButPost.hover(
     function (event) {
-        var thisBut = this;
+        var triggerPostFloater = this;
         var cList = $('<ul/>')
             .addClass("clearfix")
             .addClass("position-absolute")
@@ -317,8 +317,8 @@ reactButPost.hover(
             .addClass("list-group")
             .addClass("floater")
             .css("position", "absolute")
-            .css("left", $(thisBut).position().left + "px")
-            .css("top", $(thisBut).position().top + "px")
+            .css("left", $(triggerPostFloater).position().left + "px")
+            .css("top", $(triggerPostFloater).position().top + "px")
             .appendTo(document.activeElement)
             .fadeIn(500);
 
@@ -335,7 +335,7 @@ reactButPost.hover(
                 .attr("name", reacts[i].id)
                 .click(function () {
                     sendPostReact(Number($(this).attr("name")), postData.postId, postData.postUrlAdd);
-                    reactButPost.text($(this).text());
+                    $(triggerPostFloater).text($(this).text());
                 })
                 .appendTo(li);
         });
@@ -368,26 +368,27 @@ for (var reactButComm of c) {
 
     console.log(reactButComm);
 
-    commId = Number(reactButComm.attr("id"));
+    //commId = Number(reactButComm.attr("id"));
 
     // pt fiecare buton de comm adaug event-urile de click (like si unlike rapid)
     reactButComm.on("click", function () {
-        thisBut = $(this);
-        // commId = Number(thisBut.attr("id"));
+        let triggerCommReact = this;
+        var commId = Number(thisBut.attr("id"));
 
-        if (thisBut.hasClass("liked")) {
+        if ($(triggerCommReact).hasClass("liked")) {
             // in caz ca exista deja react, la click se sterge
             removeCommReact(commId, commUrls.commUrlRemove);
         }
         else {
             // nu reactionase inainte
-            sendCommReact(1, commId, commRemoveUrl);
+            sendCommReact(1, commId, commUrls.commUrlAdd);
         }
     });
 
     reactButComm.hover(
         function (event) {
-            var triggerBut = this;
+            var triggerCommFloater = this;
+            var commId = Number($(triggerCommFloater).attr("id"));
             var cList = $('<ul/>')
                 .addClass("clearfix")
                 .addClass("position-absolute")
@@ -396,11 +397,11 @@ for (var reactButComm of c) {
                 .addClass("list-group")
                 .addClass("floater")
                 .css("position", "absolute")
-                .css("left", $(triggerBut).position().left + "px")
-                .css("top", $(triggerBut).position().top + "px")
+                .css("left", $(triggerCommFloater).position().left + "px")
+                .css("top", $(triggerCommFloater).position().top + "px")
                 .appendTo(document.activeElement)
                 .fadeIn(500);
-
+            
             $.each(reacts, function (i) {
                 var li = $('<li/>')
                     .addClass("list-group-item")
@@ -414,7 +415,7 @@ for (var reactButComm of c) {
                     .attr("name", reacts[i].id)
                     .click(function () {
                         sendCommReact(Number($(this).attr("name")), commId, commUrls.commUrlAdd);
-                        $(triggerBut).text($(this).text());
+                        $(triggerCommFloater).text($(this).text());
                     })
                     .appendTo(li);
             });
@@ -432,14 +433,88 @@ for (var reactButComm of c) {
     );
 }
 
+
+
+
+console.clear();
+// -------------------------------------------------
+
+var profileOfUrl = $("#goToUserPageMeta").data("user-page-url");
+
+
+// search functionality
 var searchUrl = $("#searchMeta").data("search-url");
-(function () {
+var searchBar = $("#searchBar")
+
+var renderSearchResults = function (data, searchbar) {
+    var select = $('<select>').prop('id', 'results')
+        .prop('name', 'results');
+
+    $.each(data, function () {
+        let newOpt = $("<option>");
+
+        if (this.objectType === "UserResult") {
+            newOpt.prop('value', this);
+
+            var obj = JSON.parse(this.objectInfo);
+            console.log(obj);
+
+            var mainInfo = $('<h5/>')
+                .text(obj.Username)
+                .appendTo(newOpt);
+            var secInfo = $('<h6/>')
+                .text(obj.Blogs)
+                .addClass("text-muted")
+                .appendTo(newOpt);
+
+            newOpt.click(function () {
+                window.location.href = profileOfUrl + "/" + obj.UserId;
+            });
+        }
+
+        select.append($(newOpt));
+    });
+
+    var label = $("<label>").prop('for', 'results')
+        .text("We found: ");
+    // var br = $("<br>");
+    $('#searchResultContainer').append(label).append(select).append(br);
+
+    /*var resultUl = $('<ul/>')
+        .addClass('list-group-flush')
+        .addClass('list-unstyled')
+        .appendTo(searchbar);
+    for (let i = 0; i < data.length; ++i) {
+        var resultLi = $('<li/>')
+            .add('list-item')
+            .text(data[i])
+            .appendTo(resultUl);
+    }*/
+}
+
+
+var getSearchResults = function (thisBar) {
+    var inputField = document.getElementById("searchBar");
+    keyword = inputField.value;
+
+    console.log(keyword);
+
     $.ajax({
         url: searchUrl,
-        data: "pls"
+        data: {
+            keyword: keyword
+        }
     }).done(function (data) {
         console.log(data);
-    }).fail(function () {
-        console.log("nu merge sa searchu");
-    })
-})();
+        renderSearchResults(data, thisBar);
+    });
+}
+
+var tid;
+searchBar.keyup(function (e) {
+    thisBar = this;
+    clearTimeout(tid);
+    tid = setTimeout(function () {
+        getSearchResults(thisBar);
+    }, 500);
+})

@@ -29,16 +29,20 @@ namespace BlogAppV1.Controllers
             this.userBlogService = userBlogService;
         }
 
-        [HttpGet]
         public IActionResult SearchWith(string keyword)
         {
+            // return Json("sunt in functie coaie nush ce are");
             var resultsList = new List<SearchResult>();
+
+            if (keyword is null || keyword == "")
+                return Json(resultsList);
 
             var blogResults = searchService.BlogsWithKeyword(keyword);
             foreach(var blg in blogResults)
             {
                 var owner = blogService.Owner(blg.Id);
-                resultsList.Add(new BlogSearchResult(keyword, blg, owner));
+                var newResult = new BlogSearchResult(keyword, blg, owner);
+                resultsList.Add(newResult);
             }
 
             var userResults = searchService.UsersWithKeyword(keyword);

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta id="searchMeta" data-search-url="@Url.Action("SearchWith", "Search")"/>
     <meta id="reactMeta" data-reacts-url="@Url.Action("GetAllAvailableReactions", "Reactions")" />
+    <meta id="goToUserPageMeta" data-user-page-url="@Url.Action("ProfileOf", "UserInfo")" />
     <title>@ViewData["Title"] - BlogAppV1</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
@@ -22,6 +23,12 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item ml-sm-auto">
+                            <input id="searchBar" type="text" name="searchBar" placeholder="Search..." />
+                            <div id="searchResultContainer">
+
+                            </div>
                         </li>
                         <li class="nav-item ml-sm-auto">
                             <partial name="_LoginPartial" />
