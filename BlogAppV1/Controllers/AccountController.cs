@@ -103,7 +103,7 @@ namespace BlogAppV1.Controllers
             };
             user.UsersRoles
                 .ToList()
-                .ForEach(r => claims.Add(new Claim(ClaimTypes.Role, r.Role.Name)));
+                .ForEach(r => claims.Add(new Claim(ClaimTypes.Role, r.Role.Name.Trim())));
 
             var identity = new ClaimsIdentity(claims, "Cookies");
             var principal = new ClaimsPrincipal(identity);

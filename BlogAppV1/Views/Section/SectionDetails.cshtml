@@ -19,6 +19,16 @@
                 <h1 class="text-capitalize text-center">
                     @Model.Name
                 </h1>
+                <span class="clearfix float-right">
+                    @if (CurrentUser.IsAuthenticated)
+                        if (int.Parse(CurrentUser.Id) == Model.OwnerId
+                            || User.IsInRole("Admin"))
+                        {
+                            <button id="s_@Model.Id" class="removeSection btn btn-sm btn-outline-danger">
+                                Delete
+                            </button>
+                        }
+                </span>
             </div>
         </div>
         <div class="row justify-content-start">
@@ -27,16 +37,27 @@
                 <div class="row card border-danger m-2 p-2 w-100 text-dark">
                     <div class="card-title">
                         <h3 class="text-capitalize card-title">
-                            <a asp-controller="Post" asp-action="PostWith" asp-route-postId="@post.Id" class="text-decoration-none">
+                            <a asp-controller="Post" asp-action="PostWith" 
+                               asp-route-postId="@post.Id" class="text-decoration-none text-dark">
                                 @post.Title
                             </a>
                         </h3>
-                        <h5 class="card-subtitle">
+                        <span class="clearfix float-right">
+                            @if (CurrentUser.IsAuthenticated)
+                                if (int.Parse(CurrentUser.Id) == Model.OwnerId
+                                    || User.IsInRole("Admin"))
+                                {
+                                    <button id="p_@post.Id" class="removePost btn btn-sm btn-outline-danger">
+                                        Delete
+                                    </button>
+                                }
+                        </span>
+                        <h6 class="card-subtitle text-muted">
                             posted on @post.Date.Date.ToShortDateString()
-                        </h5>
+                        </h6>
                     </div>
                     <hr />
-                    <p class="card-text text-muted">
+                    <p class="card-text text-dark">
                         @post.Body
                     </p>
                 </div>

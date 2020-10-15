@@ -38,10 +38,23 @@ namespace BlogAppV1.Controllers
             return RedirectToAction("ShowBlogWith", "Blog", new { id = blogId });
         }
 
+        public IActionResult RemoveSection(long sectId)
+        {
+            sectionsService.RemoveSection(sectId);
+
+            return Json(new
+            {
+                flag = true
+            }); ;
+        }
+
         public IActionResult SectionDetails(long sectId)
         {
-            var posts = sectionsService.AllPosts(sectId).ToList();
             var section = sectionsService.GetSectionWithId(sectId);
+            if (section is null)
+                return NotFound("The Section you are looking for has been deleted or is unaccessible");
+
+            var posts = sectionsService.AllPosts(sectId).ToList();
             var blogs = sectionsService.BlogsUsingSectId(sectId);
 
             return View("SectionDetails", new DetailedSectionVm()

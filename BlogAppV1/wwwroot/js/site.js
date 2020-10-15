@@ -2,6 +2,8 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 
+
+
 // Write your JavaScript code.
 
 
@@ -101,9 +103,35 @@ saveChangesBut.on("click", function () {
     updateBlogTitle(newBlogTitle.get(0).textContent, blogId);
 
     // alert("am icnercat sa il trimit la " + redirectToBlogUrl)
-    document.location.href = redirectToBlogUrl;
+    setTimeout(function() {
+        document.location.href = redirectToBlogUrl;
+    }, 200);
 });
 
+
+// remove section
+
+var removeSectUrl = $("#removeSectMeta").data("del-sect-url");
+var removeSectButs = $(".removeSection");
+
+$.each(removeSectButs, function (i) {
+    $(removeSectButs.get(i)).click(function () {
+        var thisRemoveSectBut = this;
+        var sectToDeleteId = Number($(thisRemoveSectBut).attr("id").slice(2));
+
+        $.ajax({
+            type: "delete",
+            url: removeSectUrl,
+            data: {
+                sectId: sectToDeleteId
+            },
+            success: function () {
+                console.log("da frate am sters sectId " + sectToDeleteId);
+                document.location.reload();
+            },
+        });
+    });
+});
 
 
 //----------------------------------------------------------------
@@ -145,6 +173,34 @@ addPostBut.on("click", function () {
         }
     });
 
+});
+
+// remove post
+
+var delPostUrl = $("#removePostMeta").data("del-post-url");
+var delPostButs = $(".removePost");
+$.each(delPostButs, function (i) {
+    $(delPostButs.get(i)).click(function () {
+        var thisDelPostBut = this;
+        var postToDeleteId = Number($(thisDelPostBut).attr("id").slice(2));
+
+        console.log("incerc sa sterg postId" + postToDeleteId + " folosind " + delPostUrl);
+
+        $.ajax({
+            type: "delete",
+            url: delPostUrl,
+            data: {
+                postId: postToDeleteId
+            },
+            success: function () {
+                console.log("felicitari am sters post " + postToDeleteId)
+                document.location.reload();
+            },
+            error: function () {
+                console.log("what dafak");
+            }
+        })
+    });
 });
 
 
@@ -193,6 +249,31 @@ $("#newCommentBody").keypress(function (event) {
     }
 }); // daca am apasat enter pe textbox, trimit comentariul
 
+
+
+// delete comment
+var delCommUrl = $("#removeCommMeta").data("del-comm-url");
+var commDelButs = $(".removeComm");
+
+$.each(commDelButs, function (i) {
+    $(commDelButs.get(i)).click(function () {
+        var thisCommDelBut = this;
+        var commToDeleteId = Number($(thisCommDelBut).attr("id").slice(2));
+        $.ajax({
+            url: delCommUrl,
+            data: {
+                commId: commToDeleteId
+            },
+            success: function () {
+                console.log("sters comm " + commToDeleteId);
+                document.location.reload();
+            },
+            error: function (errorAns) {
+                console.log(errorAns.responseText);
+            }
+        });
+    });
+});
 
 
 //-----------------------------------------------------------------
@@ -428,68 +509,137 @@ for (var reactButComm of c) {
             }, 2000);
             setTimeout(function () {
                 $(cList).remove();
-            }, 3000)
+            }, 2000)
         }
     );
 }
 
 
-
-
-console.clear();
 // -------------------------------------------------
 
 var profileOfUrl = $("#goToUserPageMeta").data("user-page-url");
-
+var blogPageUrl = $("#goToBlogPageMeta").data("blog-page-url");
+var sectPageUrl = $("#goToSectionMeta").data("sect-page-url");
 
 // search functionality
 var searchUrl = $("#searchMeta").data("search-url");
-var searchBar = $("#searchBar")
+var searchBar = $("#searchBar");
+var searchResultsDropdown = $("#searchResultContainer");
 
 var renderSearchResults = function (data, searchbar) {
-    var select = $('<select>').prop('id', 'results')
-        .prop('name', 'results');
+    /*var dropMenu = $('<div/>')
+        .addClass("dropdown-menu")
+        .attr("id", "dropMenu")
+        .appendTo($("#searchResultContainer"));*/
 
     $.each(data, function () {
-        let newOpt = $("<option>");
+        /*let infoDiv = $('<div/>')
+            .addClass("dropdown-item")
+            .appendTo(searchResultsDropdown);*/
 
-        if (this.objectType === "UserResult") {
-            newOpt.prop('value', this);
+        switch (this.objectType) {
+            case "UserResult":
+                var obj = JSON.parse(this.objectInfo);
+                console.log(obj);
 
-            var obj = JSON.parse(this.objectInfo);
-            console.log(obj);
+                var item = $('<a/>')
+                    .addClass("text-dark dropdown-item")
+                    .attr("href", profileOfUrl + "?username=" + obj.Username)
+                    .appendTo(searchResultsDropdown);
 
-            var mainInfo = $('<h5/>')
-                .text(obj.Username)
-                .appendTo(newOpt);
-            var secInfo = $('<h6/>')
-                .text(obj.Blogs)
-                .addClass("text-muted")
-                .appendTo(newOpt);
+                var div = $('<div/>')
+                    .addClass("resultDiv")
+                    .appendTo(item);
 
-            newOpt.click(function () {
-                window.location.href = profileOfUrl + "/" + obj.UserId;
-            });
+                var mainInfo = $('<h5/>')
+                    .text(obj.Username)
+                    .addClass("font-weight-bold text-primary")
+                    .appendTo(div);
+                // $('<br>').appendTo(div);
+                if (obj.Blogs != "") {
+                    var secInfo = $('<h6/>')
+                        .addClass("text-secondary")
+                        .appendTo(div);
+
+                    $('<span/>')
+                        .text(" owns " + obj.Blogs)
+                        .addClass("text-dark")
+                        .appendTo(secInfo);
+                }
+                else {
+                    var secInfo = $('<h6/>')
+                        .text("no blogs")
+                        .addClass("text-secondary")
+                        .appendTo(div);
+                }
+
+                break;
+
+            case "BlogResult":
+                var obj = JSON.parse(this.objectInfo);
+                console.log(obj);
+
+               var item = $('<a/>')
+                    .addClass("text-dark dropdown-item")
+                    .attr("href", blogPageUrl + "/" + obj.BlogId)
+                    .appendTo(searchResultsDropdown);
+
+                var div = $('<div/>')
+                    .addClass("resultDiv")
+                    .appendTo(item);
+
+                var mainInfo = $('<h5/>')
+                    .text(obj.Title)
+                    .addClass("font-weight-bold text-info")
+                    .appendTo(div);
+
+                var secInfo = $('<h6/>')
+                    .addClass("text-secondary")
+                    .text(" owned by ")
+                    .appendTo(div);
+
+                $('<span/>')
+                    .text(obj.OwnerName)
+                    .addClass("text-dark")
+                    .appendTo(secInfo);
+
+                break;
+
+            case "SectionResult":
+                var obj = JSON.parse(this.objectInfo);
+                console.log(obj);
+                console.log(sectPageUrl + "?sectId=" + obj.SectId)
+                var item = $('<a/>')
+                    .addClass("text-dark dropdown-item")
+                    .attr("href", sectPageUrl + "?sectId=" + obj.SectId)
+                    .appendTo(searchResultsDropdown);
+
+                var div = $('<div/>')
+                    .addClass("resultDiv")
+                    .appendTo(item);
+
+                var mainInfo = $('<h5/>')
+                    .text(obj.Name)
+                    .addClass("font-weight-bold text-success")
+                    .appendTo(div);
+
+                if (obj.Blogs != "") {
+                    var secInfo = $('<h6/>')
+                        .addClass("text-secondary")
+                        .appendTo(div);
+                    $('<span/>')
+                        .text("is found in " + obj.Blogs)
+                        .addClass("text-dark")
+                }
+                break;
+            default:
+                break;
         }
+        $('<div/>').addClass("dropdown-divider").appendTo(searchResultsDropdown);
 
-        select.append($(newOpt));
     });
 
-    var label = $("<label>").prop('for', 'results')
-        .text("We found: ");
-    // var br = $("<br>");
-    $('#searchResultContainer').append(label).append(select).append(br);
-
-    /*var resultUl = $('<ul/>')
-        .addClass('list-group-flush')
-        .addClass('list-unstyled')
-        .appendTo(searchbar);
-    for (let i = 0; i < data.length; ++i) {
-        var resultLi = $('<li/>')
-            .add('list-item')
-            .text(data[i])
-            .appendTo(resultUl);
-    }*/
+    $("#dropDownToggle").trigger("click");
 }
 
 
@@ -497,24 +647,52 @@ var getSearchResults = function (thisBar) {
     var inputField = document.getElementById("searchBar");
     keyword = inputField.value;
 
-    console.log(keyword);
+    if (keyword.length == 0)
+        deleteOldresults(thisBar);
+    else {
+        console.log(keyword);
 
-    $.ajax({
-        url: searchUrl,
-        data: {
-            keyword: keyword
-        }
-    }).done(function (data) {
-        console.log(data);
-        renderSearchResults(data, thisBar);
-    });
+        $.ajax({
+            url: searchUrl,
+            data: {
+                keyword: keyword
+            }
+        }).done(function (data) {
+            console.log(data);
+            renderSearchResults(data, thisBar);
+        });
+    }
+}
+
+var deleteOldresults = function (searchBar) {
+    /*$("#results").remove();
+    $("#resultLabel").remove();
+    $("#resultBr").remove();*/
+    $(searchResultsDropdown).removeClass("dropdown-toggle");
+    $("#dropMenu").remove();
+    $(".dropdown-item").remove();
 }
 
 var tid;
-searchBar.keyup(function (e) {
+searchBar.keydown(function (e) {
     thisBar = this;
     clearTimeout(tid);
     tid = setTimeout(function () {
+        $(searchResultsDropdown).addClass("dropdown-toggle");
         getSearchResults(thisBar);
+        deleteOldresults(thisBar);
     }, 500);
-})
+});
+
+
+//----------------------------------------------
+
+// media functionality
+
+var uploadProfileImgBut = $("#uploadProfileImage");
+var displayProfileImg = $("#profilePic");
+
+uploadProfileImgBut.click(function () {
+    console.log($("#changeProfilePic"));
+    displayProfileImg.attr("src", $("#changeProfilePic").value);
+});

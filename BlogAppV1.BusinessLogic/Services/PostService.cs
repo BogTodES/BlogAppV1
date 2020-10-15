@@ -51,8 +51,11 @@ namespace BlogAppV1.BusinessLogic
 
         public IEnumerable<CommentInfoDto> CommentsOfPost(long postId)
         {
-            var q = 
-                unit.Comments.Get().Where(comm => comm.PostId == postId).ToList();
+            var q =  unit.Comments.Get()
+                .Where(comm => comm.PostId == postId).ToList();
+
+            var commenterNames = unit.Users.Get()
+                .Select(usr => new { usr.Id, usr.Username }).ToList();
 
             var result = new List<CommentInfoDto>();
             foreach(var comm in q)
@@ -65,6 +68,8 @@ namespace BlogAppV1.BusinessLogic
                     ElapsedTime = (DateTime.Now - comm.Date),
                     Reacts = comm.UserCommentReacts,
                     CommenterId = comm.UserId,
+                    CommenterUsername = commenterNames
+                        .FirstOrDefault(usr => usr.Id == comm.UserId).Username
                 });
             }
 

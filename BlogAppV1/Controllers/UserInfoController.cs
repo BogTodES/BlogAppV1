@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BlogAppV1.BusinessLogic;
+using BlogAppV1.BusinessLogic.Services;
 using BlogAppV1.DataAccess;
 using BlogAppV1.Entities.DTOs;
 using BlogAppV1.ViewModels;
@@ -67,6 +69,7 @@ namespace BlogAppV1.Controllers
         {
             if(ModelState.IsValid)
             {
+
                 var updatedUser = UpdateInformation(userwithNewInfo);
                 userInfoService.UpdateUser(updatedUser);
                 //return RedirectToAction("Logout", "Account");

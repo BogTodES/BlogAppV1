@@ -15,6 +15,14 @@
             <div class="flex-column col-md-2">
                 <ul class="list-unstyled">
                     <li>
+                        <h1>User Info</h1>
+                    </li>
+                    <li>
+                        <a asp-action="BlogsOfUId" asp-controller="UserBlog" asp-route-userId="@Model.Id">
+                            Blogs
+                        </a>
+                    </li>
+                    <li>
                         Add Friend
                     </li>
                     <li>

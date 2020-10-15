@@ -3,12 +3,21 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta id="searchMeta" data-search-url="@Url.Action("SearchWith", "Search")"/>
+    <meta id="searchMeta" data-search-url="@Url.Action("SearchWith", "Search")" />
     <meta id="reactMeta" data-reacts-url="@Url.Action("GetAllAvailableReactions", "Reactions")" />
     <meta id="goToUserPageMeta" data-user-page-url="@Url.Action("ProfileOf", "UserInfo")" />
+    <meta id="goToBlogPageMeta" data-blog-page-url="@Url.Action("ShowBlogWith", "Blog")" />
+    <meta id="goToSectionMeta" data-sect-page-url="@Url.Action("SectionDetails", "Section")"/>
+
+    <meta id="removeSectMeta" data-del-sect-url="@Url.Action("RemoveSection", "Section")"/>
+    <meta id="removeCommMeta" data-del-comm-url="@Url.Action("RemoveComment", "Post")"/>
+    <meta id="removePostMeta" data-del-post-url="@Url.Action("RemovePost", "Post")" />
+
     <title>@ViewData["Title"] - BlogAppV1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
 </head>
 <body>
     <header>
@@ -24,11 +33,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item ml-sm-auto">
-                            <input id="searchBar" type="text" name="searchBar" placeholder="Search..." />
-                            <div id="searchResultContainer">
-
+                        <li class="nav-item">
+                            <div id="nuInteleg" class="container justify-content-center">
+                                <div id="searchResultContainer" class="dropdown-menu">
+                                    Results
+                                </div>
+                                <button id="dropDownToggle" class="btn btn-secondary btn-lg dropdown-toggle" hidden
+                                        type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </button>
                             </div>
+                            <input id="searchBar" type="text" name="searchBar" placeholder="Search..." />
+                            
                         </li>
                         <li class="nav-item ml-sm-auto">
                             <partial name="_LoginPartial" />

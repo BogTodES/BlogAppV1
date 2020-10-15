@@ -30,5 +30,8 @@ namespace BlogAppV1.ViewModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/mm/yyyy}")]
         public DateTime? Birthdate { get; set; }
         public byte? Gender { get; set; }
+
+
+        public byte[] Photo { get; set; }
     }
 }

@@ -39,10 +39,23 @@ namespace BlogAppV1.Controllers
             });
         }
 
+        public IActionResult RemovePost(long postId)
+        {
+            postService.DeletePost(postId);
+
+            return Json(new {
+                flag = true
+            });
+        }
+
         [HttpGet]
         public IActionResult PostWith(long postId)
         {
             var post = postService.PostWithId(postId);
+
+            if (post is null)
+                return NotFound("The Post you are looking for has been deleted or is unaccessible");
+
             var tempComms = postService.CommentsOfPost(postId).ToList();
             var poster = postService.GetPosterInfo(postId);
 
@@ -68,6 +81,20 @@ namespace BlogAppV1.Controllers
 
             return Json(new
             {
+                flag = true
+            });
+        }
+
+        /*public IActionResult RemoveComment(long commId, long postId)
+        {
+            commentService.RemoveComment(commId);
+            return PostWith(postId);
+        }*/
+
+        public IActionResult RemoveComment(long commId)
+        {
+            commentService.RemoveComment(commId);
+            return Json(new {
                 flag = true
             });
         }

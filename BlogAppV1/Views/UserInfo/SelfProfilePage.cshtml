@@ -31,7 +31,7 @@
             </div>
             <hr />
             <div class="flex-column col-md-10 border-left border-top border-dark">
-                <form asp-action="UpdateInfo" asp-controller="UserInfo" method="post">
+                <form asp-action="UpdateInfo" asp-controller="UserInfo" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Username" class="control-label"></label>
@@ -54,16 +54,25 @@
                             <input asp-for="Birthdate" value=@Model.Birthdate?.Date.ToShortDateString();/>
                         <span asp-validation-for="Birthdate"></span>
                     </div>
-                    @*<div>      
-                        <label asp-for="Id" value=@Model.Id class="hide"/>
-                    </div>*@
+
+                    <div class="form-group">
+                        <label asp-for="Photo" class="control-label"></label>
+                        <input type="file" id="uploadProfilePhoto"/>
+                        <span asp-validation-for="Photo"></span>
+                    </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-5">
                             <input type="submit" class="btn btn-primary" value="Save Changes" />
                         </div>
                     </div>
-
                 </form>
+                <div id="photoDiv" class="border-danger">
+                    <img id="profilePic" src="@Model.Photo" alt="nu ai imagine" />
+                    <input type="file" name="changePhoto" id="changeProfilePic"/>
+                    <button id="uploadProfileImage">
+                        Change Photo
+                    </button>
+                </div>
             </div>
         </div>
     </div>

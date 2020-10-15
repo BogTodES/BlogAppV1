@@ -1,10 +1,8 @@
 ﻿using BlogAppV1.BusinessLogic.BaseServ;
 using BlogAppV1.DataAccess;
 using BlogAppV1.Entities.DTOs;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BlogAppV1.BusinessLogic
 {
@@ -33,6 +31,17 @@ namespace BlogAppV1.BusinessLogic
                     Section = newSect
                 };
                 unit.BlogsSections.Insert(newBlogSect);
+
+                return unit.Complete();
+            });
+        }
+
+        public int RemoveSection(long sectId)
+        {
+            return ExecuteInTransaction(unit =>
+            {
+                var sect = unit.Sections.Get().FirstOrDefault(s => s.Id == sectId);
+                unit.Sections.Delete(sect);
 
                 return unit.Complete();
             });

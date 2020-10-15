@@ -19,6 +19,16 @@
             <h6 class="card-subtitle">
                 posted on @Model.Date.Date.ToShortDateString() by @Model.OwnerUsername
             </h6>
+            <span>
+                @if (CurrentUser.IsAuthenticated)
+                    if ((int.Parse(CurrentUser.Id) == Model.OwnerId
+                      || User.IsInRole("Admin")))
+                    {
+                        <button id="p_@Model.Id" class="removePost btn btn-sm btn-outline-danger">
+                            Delete
+                        </button>
+                    }
+            </span>
             <hr />
             <p class="card-text">
                 @Model.Body
@@ -42,62 +52,76 @@
             <ul class="commentsList list-group list-group-flush w-100">
                 @foreach (var comm in Model.Comments)
                 {
-                <li class="border-dark text-dark p-2 m-2 list-group-item rounded">
-                    <h5>
-                        @comm.CommenterId
-                    </h5>
-                    <ul class="list-group list-group-horizontal float-right list-unstyled small">
-                        @await Component.InvokeAsync("CommReactsWidget",
-                                    new { commId = comm.Id })
-                    </ul>
-                    @if (comm.ElapsedTime.TotalSeconds < 60)
-                    {
-                        <p class="text-muted">
-                            @comm.ElapsedTime.Seconds seconds ago
-                        </p>
-                    }
-                    else if (comm.ElapsedTime.TotalMinutes < 60)
-                    {
-                        <p class="text-muted">
-                            @comm.ElapsedTime.Minutes mins ago
-                        </p>
-                    }
-                    else if (comm.ElapsedTime.TotalHours < 24)
-                    {
-                        <p class="text-muted">
-                            @comm.ElapsedTime.Hours hours ago
-                        </p>
-                    }
-                    else if (comm.ElapsedTime.TotalDays < 7)
-                    {
-                        <p class="text-muted">
-                            @comm.ElapsedTime.Days days ago
-                        </p>
-                    }
-                    else if (comm.ElapsedTime.TotalDays < 31)
-                    {
-                        <p class="text-muted">
-                            @(comm.ElapsedTime.Days / 7) weeks ago
-                        </p>
-                    }
-                    else if (comm.ElapsedTime.TotalDays <= 365)
-                    {
-                        <p class="text-muted">
-                            @(comm.ElapsedTime.Days / 30) months ago
-                        </p>
-                    }
-                    else
-                    {
-                        <p class="text-muted">
-                            @(comm.ElapsedTime.Days / 365) years ago
-                        </p>
-                    }
-                    <div class="d-block">
-                        <p>
-                            @comm.Body
-                        </p>
-                    </div>
-                </li>
+                    <li class="border-dark text-dark p-2 m-2 list-group-item rounded">
+                        <h4 class="font-weight-bold">
+                            <a asp-controller="UserInfo" asp-action="ProfileOf" 
+                               asp-route-username="@comm.CommenterUsername"
+                               class="text-decoration-none">
+                            @comm.CommenterUsername
+                            </a>
+                        </h4>
+                        @if(CurrentUser.IsAuthenticated)
+                            if((int.Parse(CurrentUser.Id) == Model.OwnerId 
+                                || int.Parse(CurrentUser.Id) == comm.CommenterId)
+                              || User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                        {
+                            <button id="c_@comm.Id" class="removeComm btn btn-sm btn-outline-secondary">
+                                Delete
+                            </button>
+                        }
+
+                        <ul class="list-group list-group-horizontal float-right list-unstyled small">
+                            @await Component.InvokeAsync("CommReactsWidget",
+                                        new { commId = comm.Id })
+                        </ul>
+                        @if (comm.ElapsedTime.TotalSeconds < 60)
+                        {
+                            <p class="text-muted">
+                                @comm.ElapsedTime.Seconds seconds ago
+                            </p>
+                        }
+                        else if (comm.ElapsedTime.TotalMinutes < 60)
+                        {
+                            <p class="text-muted">
+                                @comm.ElapsedTime.Minutes mins ago
+                            </p>
+                        }
+                        else if (comm.ElapsedTime.TotalHours < 24)
+                        {
+                            <p class="text-muted">
+                                @comm.ElapsedTime.Hours hours ago
+                            </p>
+                        }
+                        else if (comm.ElapsedTime.TotalDays < 7)
+                        {
+                            <p class="text-muted">
+                                @comm.ElapsedTime.Days days ago
+                            </p>
+                        }
+                        else if (comm.ElapsedTime.TotalDays < 31)
+                        {
+                            <p class="text-muted">
+                                @(comm.ElapsedTime.Days / 7) weeks ago
+                            </p>
+                        }
+                        else if (comm.ElapsedTime.TotalDays <= 365)
+                        {
+                            <p class="text-muted">
+                                @(comm.ElapsedTime.Days / 30) months ago
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="text-muted">
+                                @(comm.ElapsedTime.Days / 365) years ago
+                            </p>
+                        }
+                        <div class="d-block">
+                            <p class="font-weight-light">
+                                @comm.Body
+                            </p>
+                        </div>
+                    </li>
                 }
             </ul>
             <div class="card-footer">
