@@ -18,22 +18,48 @@
                         <h1>User Info</h1>
                     </li>
                     <li>
-                        <a asp-action="BlogsOfUId" asp-controller="UserBlog" asp-route-userId="@Model.Id">
+                        <a asp-action="BlogsOfUId" asp-controller="UserBlog"
+                           asp-route-userId="@Model.Id">
                             Blogs
                         </a>
                     </li>
-                    @{ 
-                        if(Model.FriendState == 3) // sunt prieteni
-                        {
-                            <li>
-                                <button class="btn btn-outline-danger btn-sm" 
-                                        data-unfriend-url="@Url.Action("Unfriend", "Friends")">
-                                    Unfriend
-                                </button>
-
-                            </li>
+                    <li>
+                        @{
+                            switch (Model.FriendState)
+                            {
+                                case 3:
+                                    <button class="btn btn-outline-danger btn-sm" id="unfriendBut"
+                                            name="@Model.Id"
+                                            data-unfriend-url="@Url.Action("Unfriend", "Friends")">
+                                        Unfriend
+                                    </button>
+                                    break;
+                                case 2:
+                                    <button id="confirm_@Model.Id"
+                                            class="btn btn-outline-success rounded-circle confirmReq">
+                                        Confirm
+                                    </button>
+                                    <button id="decl_@Model.Id"
+                                            class="btn btn-outline-danger rounded-circle declineReq">
+                                        Decline
+                                    </button>
+                                    break;
+                                case 1:
+                                    <button class="btn btn-outline-secondary btn-sm" id="removeFrReqBut"
+                                            name="@Model.Id"
+                                            data-remove-req-url="@Url.Action("RemoveRequest", "Friends")">
+                                        Remove Request
+                                    </button>
+                                    break;
+                                case 0:
+                                    <button class="btn btn-outline-primary btn-sm sendFrReqBut"
+                                            name="@Model.Id">
+                                        Add Friend
+                                    </button>
+                                    break;
+                            }
                         }
-                    }
+                    </li>
                     <li>
                         Block
                     </li>

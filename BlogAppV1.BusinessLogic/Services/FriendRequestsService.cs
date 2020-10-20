@@ -23,7 +23,7 @@ namespace BlogAppV1.BusinessLogic.Services
         public IEnumerable<FriendRequests> ReceivedFriendRequests(int userId)
         {
             return unit.FriendRequests
-                .Get().Where(fr => fr.ReceiverId == userId && !fr.IsDeleted);
+                .Get().Where(fr => fr.ReceiverId == userId && !fr.IsDeleted).ToList();
 
         }
 
@@ -58,6 +58,15 @@ namespace BlogAppV1.BusinessLogic.Services
         {
             return ExecuteInTransaction(unit =>
             {
+                // o sterg pe cea veche daca exista si adaug una noua
+
+                var oldFr = unit.FriendRequests.Get()
+                    .FirstOrDefault(fr => (fr.SenderId == senderId && fr.ReceiverId == receiverId) ||
+                                          (fr.SenderId == receiverId && fr.ReceiverId == senderId));
+
+                if(oldFr != null)
+                    unit.FriendRequests.Delete(oldFr);
+
                 var newFr = new FriendRequests()
                 {
                     SenderId = senderId,
@@ -81,7 +90,9 @@ namespace BlogAppV1.BusinessLogic.Services
             return ExecuteInTransaction(unit =>
             {
                 var delFr = unit.FriendRequests
-                    .Get().FirstOrDefault(fr => fr.SenderId == senderId && fr.ReceiverId == receiverId);
+                    .Get()
+                    .FirstOrDefault(fr => (fr.SenderId == senderId && fr.ReceiverId == receiverId) ||
+                                          (fr.SenderId == receiverId && fr.ReceiverId == senderId));
 
                 unit.FriendRequests.Delete(delFr);
                 return unit.Complete();
@@ -98,7 +109,9 @@ namespace BlogAppV1.BusinessLogic.Services
             return ExecuteInTransaction(unit =>
             {
                 var updFr = unit.FriendRequests
-                    .Get().FirstOrDefault(fr => fr.SenderId == senderId && fr.ReceiverId == receiverId);
+                    .Get()
+                    .FirstOrDefault(fr => (fr.SenderId == senderId && fr.ReceiverId == receiverId) ||
+                                          (fr.SenderId == receiverId && fr.ReceiverId == senderId));
 
                 updFr.IsDeleted = true;
                 unit.FriendRequests.Update(updFr);

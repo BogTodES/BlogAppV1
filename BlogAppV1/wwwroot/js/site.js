@@ -702,7 +702,15 @@ searchBar.keypress(function (e) {
 
 //----------------------------------------------
 
-// friends list functionality
+// friendship functionality
+var sendRequestUrl = $("#sendFriendRequestMeta").data("send-fr-req-url");
+var acceptFriendRequestUrl = $("#acceptFriendRequestMeta").data("accept-fr-req-url");
+var hideFriendRequestUrl = $("#hideFriendRequestsMeta").data("hide-fr-req-url");
+
+// friends list stuff
+$('.dropdown-menu').click(function (e) {
+    e.stopPropagation();
+});
 
 var friendsListDiv = $("#friendListDisplay");
 var friendLists;
@@ -714,3 +722,109 @@ var friendLists;
     });
 }());
 
+
+
+var confirmReqButs = $(".confirmReq");
+$.each(confirmReqButs, function (i) {
+    var iCRB = confirmReqButs.get(i);
+    $(iCRB).click(function () {
+        var thisBut = this;
+        var senderId = Number($(thisBut).attr("id").slice(8));
+
+        $.ajax({
+            url: acceptFriendRequestUrl,
+            data: {
+                senderId: senderId
+            },
+            success: function () {
+                console.log("felicitari esti prieten cu " + senderId);
+                $(".req_" + senderId).remove();
+            }
+        });
+    });
+});
+
+
+var declineReqButs = $(".declineReq");
+$.each(declineReqButs, function (i) {
+    var iDRB = declineReqButs.get(i);
+    $(iDRB).click(function () {
+        var thisBut = this;
+        var senderId = Number($(thisBut).attr("id").slice(5));
+
+        $.ajax({
+            url: hideFriendRequestUrl,
+            data: {
+                senderId: senderId
+            },
+            success: function () {
+                console.log("felicitari ai dat decline la " + senderId);
+                $(".req_" + senderId).remove();
+            }
+        });
+    });
+});
+
+
+
+// unfriend
+var unfriendBut = $("#unfriendBut");
+var unfriendUrl = $(unfriendBut).data("unfriend-url");
+
+unfriendBut.click(function () {
+    var senderId = Number($(this).attr("name"));
+
+    $.ajax({
+        url: unfriendUrl,
+        data: {
+            unfriendId: senderId
+        },
+        success: function () {
+            alert("bv nu mai esti prieten cu " + senderId);
+            document.location.reload();
+        }
+    });
+});
+
+
+// add friend
+var addFriendButs = $(".sendFrReqBut");
+
+$.each(addFriendButs, function (i) {
+    var b = addFriendButs.get(i);
+    $(b).click(function () {
+        var thisAddFrBut = this;
+        var receiverId = Number($(thisAddFrBut).attr("name"));
+
+        $.ajax({
+            url: sendRequestUrl,
+            data: {
+                toUserId: receiverId
+            },
+            success: function () {
+                alert("ok vere vezi poate-ti raspunde " + receiverId);
+                document.location.reload();
+            }
+        });
+    });
+});
+
+
+// remove (retract) request, eu am trimis-o
+
+var removeRequestBut = $("#removeFrReqBut");
+removeRequestBut.click(function () {
+    var receiverId = Number($(this).attr("name"));
+    var removeFrReqUrl = $(this).data("remove-req-url");
+
+    $.ajax({
+        url: removeFrReqUrl,
+        data: {
+            receiverId: receiverId
+        },
+        success: function () {
+            console.log("ok nu mai vrei safii prieten cu " + receiverId);
+            document.location.reload();
+        }
+    });
+});

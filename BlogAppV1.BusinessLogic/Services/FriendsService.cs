@@ -33,7 +33,9 @@ namespace BlogAppV1.BusinessLogic.Services
             foreach(var f in friends)
             {
                 retList
-                    .Add(users.FirstOrDefault(u => u.Id == f.SenderId || u.Id == f.ReceiverId));
+                    .Add(users.FirstOrDefault(u => 
+                            (u.Id == f.SenderId || u.Id == f.ReceiverId) &&  
+                             u.Id != userId));
             }
 
             return retList;
@@ -68,6 +70,13 @@ namespace BlogAppV1.BusinessLogic.Services
                 if (AreFriends(userId1, userId2) != null)
                     return -1;
 
+                var x = unit.FriendRequests.Get()
+                    .FirstOrDefault(fr => (fr.SenderId == userId1 && fr.ReceiverId == userId2) ||
+                                          (fr.SenderId == userId2 && fr.ReceiverId == userId1));
+                if (x != null)
+                    unit.FriendRequests.Delete(x);
+
+
                 var newFriendship = new Friends()
                 {
                     SenderId = userId1,
@@ -78,6 +87,11 @@ namespace BlogAppV1.BusinessLogic.Services
                 unit.Friends.Insert(newFriendship);
                 return unit.Complete();
             });
+        }
+
+        public int MakeFriend(int userId)
+        {
+            return MakeFriend(userId, int.Parse(CurrentUser.Id));
         }
 
         public int Unfriend(int userId1, int userId2)

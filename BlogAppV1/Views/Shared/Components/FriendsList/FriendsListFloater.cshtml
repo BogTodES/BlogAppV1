@@ -31,8 +31,11 @@
     </div>
 </div>
 <div id="friendListDisplay" class="m-2 mt-1 p-2">
-    @foreach (var fr in Model.FriendsList)
+    @if (Model.FriendsList.Any())
     {
+        <span>Friends</span>
+        foreach(var fr in Model.FriendsList)
+        {
         <a class="dropdown-item" asp-controller="UserInfo"
            asp-action="ProfileOf" asp-route-username="@fr.FriendUsername">
             <img alt="pz" />
@@ -40,26 +43,36 @@
                 @fr.FriendUsername
             </span>
         </a>
+        } 
     }
     <div class="dropdown-divider"></div>
-    @foreach (var fr in Model.ReceivedRequestsList)
-    {
-        <a class="dropdown-item">
+    @if (Model.ReceivedRequestsList.Any())
+    {   
+        <span>Pending</span>
+        foreach(var fr in Model.ReceivedRequestsList)
+        {
+        <div class="dropdown-item req_@fr.SenderId">
             <img alt="pz" />
             <span>
-                @fr.SenderUsername
+                <a asp-controller="UserInfo"
+                   asp-action="ProfileOf" asp-route-username="@fr.SenderUsername">
+                    <img alt="pz" />
+                    <span>
+                        @fr.SenderUsername
+                    </span>
+                </a>
             </span>
-        </a>
-    }
-    <div class="dropdown-divider"></div>
-    @foreach (var fr in Model.SentRequestsList)
-    {
-        <a class="dropdown-item">
-            <img alt="pz" />
-            <span>
-                @fr.ReceiverUsername
+            <span class="btn-group-sm">
+                <button id="confirm_@fr.SenderId" 
+                        class="btn btn-outline-success rounded-circle confirmReq">
+                    C
+                </button>
+                <button id="decl_@fr.SenderId" 
+                        class="btn btn-outline-danger rounded-circle declineReq">
+                    D
+                </button>
             </span>
-        </a>
+        </div>
+        }
     }
-    <div></div>
 </div>

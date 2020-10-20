@@ -16,7 +16,10 @@
     <meta id="removeCommMeta" data-del-comm-url="@Url.Action("RemoveComment", "Post")"/>
     <meta id="removePostMeta" data-del-post-url="@Url.Action("RemovePost", "Post")" />
 
-    <meta id=""/>
+    <meta id="sendFriendRequestMeta" data-send-fr-req-url="@Url.Action("SendFrRequest", "Friends")"/>
+    <meta id="acceptFriendRequestMeta" data-accept-fr-req-url="@Url.Action("AcceptFrRequestFrom", "Friends")"/>
+    <meta id="hideFriendRequestsMeta" data-hide-fr-req-url="@Url.Action("DeclineRequest", "Friends")"/>
+
     <title>@ViewData["Title"] - BlogAppV1</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -56,23 +59,23 @@
                 </div>
             </div>
         </nav>
-        @if (CurrentUser.IsAuthenticated)
-        {
-            <div class="dropdown mr-5">
-                <button class="btn btn-sm btn-success dropdown-toggle rounded-circle pull-right"
-                        type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    Friends
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" 
-                     style="max-height: inherit">
-                    @await Component.InvokeAsync("FriendsList");
-                </div>
-            </div>
-        }
     </header>
+    @if (CurrentUser.IsAuthenticated)
+    {
+        <div class="dropdown mr-5 mt-3 sticky-top">
+            <button class="btn btn-sm btn-success dropdown-toggle rounded-circle pull-right"
+                    type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                Friends
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                 style="max-height: inherit">
+                @await Component.InvokeAsync("FriendsList")
+            </div>
+        </div>
+    }
     <div class="container">
-        
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

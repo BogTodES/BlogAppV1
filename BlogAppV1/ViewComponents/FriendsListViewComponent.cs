@@ -31,7 +31,7 @@ namespace BlogAppV1.ViewComponents
 
             var friends = friendsService.FriendsOf()
                 .Select(f => new MainFriendVm(new UserNoPass(f)));
-            friendRequestsService
+            /*friendRequestsService
                 .SentFriendRequests()
                 .ToList()
                 .ForEach(sReq => {
@@ -43,15 +43,16 @@ namespace BlogAppV1.ViewComponents
                         Date = sReq.CreateDate,
                         IsDeleted = sReq.IsDeleted
                     });
-                });
+                });*/
             friendRequestsService
                 .ReceivedFriendRequests()
                 .ToList()
                 .ForEach(rReq => {
                     var s = userInfoService.GetUserWithId(rReq.SenderId);
-                    sentRequests.Add(new FriendRequestVm()
+                    receivedRequests.Add(new FriendRequestVm()
                     {
                         SenderUsername = s.Username,
+                        SenderId = s.Id,
                         SenderPhoto = s.Photo,
                         Date = rReq.CreateDate,
                         IsDeleted = rReq.IsDeleted

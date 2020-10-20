@@ -17,7 +17,7 @@ namespace BlogAppV1.ViewModels
 
         [Required]
         //[DataType(DataType.EmailAddress)]
-        [Remote("IsTaken", "Account", ErrorMessage = "Email is already in use (forgot password?).")] // nu merge
+        [Remote("IsTaken", "Account", ErrorMessage = "Already in use (forgot password?).")] // nu merge
         public string Email { get; set; }
 
         [Required]

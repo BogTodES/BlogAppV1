@@ -56,5 +56,49 @@ namespace BlogAppV1.Controllers
                 flag = flag
             });
         }
+
+        public IActionResult SendFrRequest(int toUserId)
+        {
+            var rows = friendRequestsService.SendFriendRequest(toUserId);
+
+            return Json(new
+            {
+                flag = (rows >= 0) ? true : false
+            });
+        }
+
+        public IActionResult AcceptFrRequestFrom(int senderId)
+        {
+            var rows1 = friendRequestsService
+                .DeleteFriendRequest(senderId, int.Parse(friendsService.CurrentUser.Id));
+
+            var rows2 = friendsService.MakeFriend(senderId);
+
+            return Json(new
+            {
+                flag = ((rows1 + rows2) >= 1) ? true : false
+            });
+        }
+
+        public IActionResult DeclineRequest(int senderId)
+        {
+            var rows = friendRequestsService
+                .HideFriendRequest(senderId, int.Parse(friendsService.CurrentUser.Id));
+
+            return Json(new
+            {
+                flag = true
+            });
+        }
+
+        public IActionResult RemoveRequest(int receiverId)
+        {
+            var rows = friendRequestsService.DeleteFriendRequest(receiverId);
+
+            return Json(new 
+            {
+                flag = (rows >= 0)
+            });
+        }
     }
 }
