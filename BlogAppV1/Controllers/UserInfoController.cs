@@ -9,6 +9,7 @@ using BlogAppV1.BusinessLogic.Services;
 using BlogAppV1.DataAccess;
 using BlogAppV1.Entities.DTOs;
 using BlogAppV1.ViewModels;
+using BlogAppV1.ViewModels.FriendVms;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +18,16 @@ namespace BlogAppV1.Controllers
     public class UserInfoController : Controller
     {
         private readonly UserInfoService userInfoService;
+        private readonly FriendRequestsService friendRequestsService;
+        private readonly FriendsService friendsService;
         private readonly IMapper Mapper;
 
-        public UserInfoController(UserInfoService userInfo, IMapper mapper)
+        public UserInfoController(UserInfoService userInfo, FriendRequestsService friendRequestsService, 
+            FriendsService friendsService,IMapper mapper)
         {
             this.userInfoService = userInfo;
+            this.friendRequestsService = friendRequestsService;
+            this.friendsService = friendsService;
             this.Mapper = mapper;
         }
 
@@ -50,11 +56,13 @@ namespace BlogAppV1.Controllers
                 return RedirectToAction("Index", "Home");
 
             var model = Mapper.Map<UserInfoVm>(user);
+            model.Birthdate = user.Birthdate;
 
             if (userInfoService.CurrentUser.IsAuthenticated && 
                 userInfoService.CurrentUser.Username == Username)
                 return View("SelfProfilePage", model);
 
+            model.FriendState = friendsService.CheckRelationshipWith(model.Id);
             return View("OthersProfilePage", model);
         }
 
@@ -127,5 +135,7 @@ namespace BlogAppV1.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+       
     }
 }

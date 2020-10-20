@@ -1,4 +1,7 @@
 ﻿<!DOCTYPE html>
+
+@inject BlogAppV1.Entities.DTOs.CurrentUserDto CurrentUser
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,6 +16,7 @@
     <meta id="removeCommMeta" data-del-comm-url="@Url.Action("RemoveComment", "Post")"/>
     <meta id="removePostMeta" data-del-post-url="@Url.Action("RemovePost", "Post")" />
 
+    <meta id=""/>
     <title>@ViewData["Title"] - BlogAppV1</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -34,8 +38,8 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <div id="nuInteleg" class="container justify-content-center">
-                                <div id="searchResultContainer" class="dropdown-menu">
+                            <div id="nuInteleg" class="container">
+                                <div id="searchResultContainer" class="dropdown-menu justify-content-center">
                                     Results
                                 </div>
                                 <button id="dropDownToggle" class="btn btn-secondary btn-lg dropdown-toggle" hidden
@@ -43,7 +47,7 @@
                                 </button>
                             </div>
                             <input id="searchBar" type="text" name="searchBar" placeholder="Search..." />
-                            
+
                         </li>
                         <li class="nav-item ml-sm-auto">
                             <partial name="_LoginPartial" />
@@ -52,8 +56,23 @@
                 </div>
             </div>
         </nav>
+        @if (CurrentUser.IsAuthenticated)
+        {
+            <div class="dropdown mr-5">
+                <button class="btn btn-sm btn-success dropdown-toggle rounded-circle pull-right"
+                        type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    Friends
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" 
+                     style="max-height: inherit">
+                    @await Component.InvokeAsync("FriendsList");
+                </div>
+            </div>
+        }
     </header>
     <div class="container">
+        
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

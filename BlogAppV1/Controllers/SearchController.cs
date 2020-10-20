@@ -37,7 +37,7 @@ namespace BlogAppV1.Controllers
             if (keyword is null || keyword == "")
                 return Json(resultsList);
 
-            var blogResults = searchService.BlogsWithKeyword(keyword);
+            var blogResults = searchService.BlogsWithKeyword(keyword).Take(3);
             foreach(var blg in blogResults)
             {
                 var owner = blogService.Owner(blg.Id);
@@ -45,14 +45,14 @@ namespace BlogAppV1.Controllers
                 resultsList.Add(newResult);
             }
 
-            var userResults = searchService.UsersWithKeyword(keyword);
+            var userResults = searchService.UsersWithKeyword(keyword).Take(3);
             foreach (var usr in userResults)
             {
                 var blogs = userBlogService.GetBlogsForUser(usr.Id);
                 resultsList.Add(new UserSearchResult(keyword, new UserNoPass(usr), blogs));
             }
 
-            var sectionResults = searchService.SectionsWithKeyword(keyword);
+            var sectionResults = searchService.SectionsWithKeyword(keyword).Take(3);
             foreach(var sect in sectionResults)
             {
                 var blogs = sectionsService.BlogsUsingSectId(sect.Id);

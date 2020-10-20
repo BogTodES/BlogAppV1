@@ -18,30 +18,36 @@
 
 @if (CurrentUser.IsAuthenticated)
 {
-    <li>
-        @*apoi fac un buton pentru ca userul sa poata reactiona si el*@
-        @{
-            var upr = Model.TypesAndUsers
-                .FirstOrDefault(r => r.UserId == int.Parse(CurrentUser.Id));
-            if (upr is null)
-            {
-                @*nu a reactionat pana acum*@
-                <button id="@Model.CommId" class="btn-outline-dark small reactButComm">
+<li>
+    @*apoi fac un buton pentru ca userul sa poata reactiona si el*@
+    @{
+        var upr = Model.TypesAndUsers
+            .FirstOrDefault(r => r.UserId == int.Parse(CurrentUser.Id));
+        if (upr is null)
+        {
+            @*nu a reactionat pana acum*@
+            @*<button id="@Model.CommId" class="btn-outline-dark small reactButComm">
                     Like
-                </button>
-            }
-            else
-            {
-                @*a reactioant deja, afisez ce a ales*@
-                <button id="@Model.CommId" class="btn-info small liked reactButComm">
-                    @upr.Type
-                </button>
-            }
+                </button>*@
 
-            @*in acest caz reactionez la postare*@
-            <input type="hidden" id="commData"
-                   data-comm-url-add="@Url.Action("ReactToComm", "Reactions")"
-                   data-comm-url-remove="@Url.Action("RemoveReactFromComm", "Reactions")">
+            <button class="btn btn-secondary dropdown-toggle" 
+                    type="button" id="dropdownMenuButton" 
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Like
+            </button>
         }
-    </li>
+        else
+        {
+            @*a reactioant deja, afisez ce a ales*@
+            <button id="@Model.CommId" class="btn-info small liked reactButComm">
+                @upr.Type
+            </button>
+        }
+
+        @*in acest caz reactionez la postare*@
+        <input type="hidden" id="commData"
+               data-comm-url-add="@Url.Action("ReactToComm", "Reactions")"
+               data-comm-url-remove="@Url.Action("RemoveReactFromComm", "Reactions")">
+    }
+</li>
 }

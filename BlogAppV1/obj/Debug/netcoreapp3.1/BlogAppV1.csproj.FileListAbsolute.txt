@@ -360,3 +360,6 @@ D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\S
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\FloaterReactions\Floater.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\MainScreenSection\Editable.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\PostReactsWidget\DisplayReactsPost.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Friends\MainFriendsList.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_FriendsListPartial.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\FriendsList\FriendsListFloater.cshtml.g.cs

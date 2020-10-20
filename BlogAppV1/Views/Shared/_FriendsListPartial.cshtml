@@ -1,0 +1,22 @@
+﻿@model IEnumerable<BlogAppV1.ViewModels.FriendVms.MainFriendVm>
+
+@{ 
+    if (Model.Any())
+    {
+        foreach (var friend in Model)
+        {
+        <a class="dropdown-item">
+            <img alt="pz"/>
+            <span class="text-muted dropdown-item-text">
+                @friend.FriendUsername
+            </span>
+        </a>
+        }
+    }
+    else
+    {
+        <span class="dropdown-item">
+            Try adding some friends!
+        </span>
+    }
+}

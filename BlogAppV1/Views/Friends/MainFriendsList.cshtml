@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Main Friends List";
+}
+
+@inject BlogAppV1.Entities.DTOs.CurrentUserDto CurrentUser
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Friends List</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="flex-column col-md-2">
+                <ul class="list-unstyled">
+                    <li>
+                        <a asp-action="ProfileOf" asp-controller="UserInfo"
+                           asp-route-username="@CurrentUser.Username">
+                            Your Info
+                        </a>
+                    </li>
+                    <li>
+                        <h1>Friends List</h1>
+                    </li>
+                    <li>
+                        <a asp-action="ChangePassword" asp-controller="UserInfo">
+                            Change Password
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="DeleteAccount" asp-controller="UserInfo">
+                            Delete Account
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex-column col-md-10 border-left border-top border-dark">
+                <h2 class="text-primary">
+                    This will remove all information about you.
+                    <span class="text-danger">IT CANNOT BE RECOVERED.</span>
+                    This will not delete your existing blogs.
+                </h2>
+                <hr />
+                <form asp-action="AcceptDeleteAccount" asp-controller="UserInfo" method="post">
+                    <input type="submit" class="btn btn-danger" value="Delete Account" />
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

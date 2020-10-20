@@ -647,9 +647,8 @@ var getSearchResults = function (thisBar) {
     var inputField = document.getElementById("searchBar");
     keyword = inputField.value;
 
-    if (keyword.length == 0)
-        deleteOldresults(thisBar);
-    else {
+    deleteOldresults(thisBar);
+    
         console.log(keyword);
 
         $.ajax({
@@ -661,7 +660,7 @@ var getSearchResults = function (thisBar) {
             console.log(data);
             renderSearchResults(data, thisBar);
         });
-    }
+    
 }
 
 var deleteOldresults = function (searchBar) {
@@ -669,30 +668,49 @@ var deleteOldresults = function (searchBar) {
     $("#resultLabel").remove();
     $("#resultBr").remove();*/
     $(searchResultsDropdown).removeClass("dropdown-toggle");
+    $("#dropMenu").children().remove();
     $("#dropMenu").remove();
+    $(".dropdown-divider").remove();
     $(".dropdown-item").remove();
 }
 
 var tid;
-searchBar.keydown(function (e) {
+/*searchBar.keypress(function (e) {
     thisBar = this;
     clearTimeout(tid);
+    if (e.keyCode == 8) {
+        deleteOldresults(thisBar);
+    }
     tid = setTimeout(function () {
         $(searchResultsDropdown).addClass("dropdown-toggle");
-        getSearchResults(thisBar);
         deleteOldresults(thisBar);
-    }, 500);
-});
+        getSearchResults(thisBar);
+    }, 200);
+});*/
+
+searchBar.keypress(function (e) {
+    thisBar = this;
+    if (e.keyCode == 13) {
+        clearTimeout(tid);
+        tid = setTimeout(function () {
+            $(searchResultsDropdown).addClass("dropdown-toggle");
+            getSearchResults(thisBar);
+        }, 500);
+    }
+})
 
 
 //----------------------------------------------
 
-// media functionality
+// friends list functionality
 
-var uploadProfileImgBut = $("#uploadProfileImage");
-var displayProfileImg = $("#profilePic");
+var friendsListDiv = $("#friendListDisplay");
+var friendLists;
 
-uploadProfileImgBut.click(function () {
-    console.log($("#changeProfilePic"));
-    displayProfileImg.attr("src", $("#changeProfilePic").value);
-});
+(function () {
+    // iau listele de prieteni
+    $.ajax({
+
+    });
+}());
+

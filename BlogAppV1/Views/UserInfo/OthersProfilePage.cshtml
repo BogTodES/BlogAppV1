@@ -22,9 +22,18 @@
                             Blogs
                         </a>
                     </li>
-                    <li>
-                        Add Friend
-                    </li>
+                    @{ 
+                        if(Model.FriendState == 3) // sunt prieteni
+                        {
+                            <li>
+                                <button class="btn btn-outline-danger btn-sm" 
+                                        data-unfriend-url="@Url.Action("Unfriend", "Friends")">
+                                    Unfriend
+                                </button>
+
+                            </li>
+                        }
+                    }
                     <li>
                         Block
                     </li>

@@ -1,0 +1,65 @@
+﻿@model BlogAppV1.ViewModels.FriendVms.CombinedFriendsVm
+
+<div id="friendListSelector" class="p-2 m-2 mt-0">
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio"
+               name="exampleRadios" id="rad" value="mainFriendsList" checked>
+        <label class="form-check-label" for="exampleRadios1">
+            All
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio"
+               name="exampleRadios" id="rad" value="mainFriendsList" >
+        <label class="form-check-label" for="exampleRadios1">
+            Friends
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio"
+               name="exampleRadios" id="exampleRadios1" value="receivedRequestsList">
+        <label class="form-check-label" for="exampleRadios1">
+            Received
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio"
+               name="exampleRadios" id="exampleRadios1" value="sentRequestsList">
+        <label class="form-check-label" for="exampleRadios1">
+            Sent
+        </label>
+    </div>
+</div>
+<div id="friendListDisplay" class="m-2 mt-1 p-2">
+    @foreach (var fr in Model.FriendsList)
+    {
+        <a class="dropdown-item" asp-controller="UserInfo"
+           asp-action="ProfileOf" asp-route-username="@fr.FriendUsername">
+            <img alt="pz" />
+            <span>
+                @fr.FriendUsername
+            </span>
+        </a>
+    }
+    <div class="dropdown-divider"></div>
+    @foreach (var fr in Model.ReceivedRequestsList)
+    {
+        <a class="dropdown-item">
+            <img alt="pz" />
+            <span>
+                @fr.SenderUsername
+            </span>
+        </a>
+    }
+    <div class="dropdown-divider"></div>
+    @foreach (var fr in Model.SentRequestsList)
+    {
+        <a class="dropdown-item">
+            <img alt="pz" />
+            <span>
+                @fr.ReceiverUsername
+            </span>
+        </a>
+    }
+    <div></div>
+</div>

@@ -26,6 +26,8 @@ namespace BlogAppV1.Code
             services.AddScoped<ReactionService>();
             services.AddScoped<SearchService>();
             services.AddScoped<MediaService>();
+            services.AddScoped<FriendsService>();
+            services.AddScoped<FriendRequestsService>();
             return services;
         }
 

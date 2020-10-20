@@ -16,6 +16,11 @@ namespace BlogAppV1.BusinessLogic
         {
         }
 
+        /*public IEnumerable<Users> GetAll()
+        {
+            return unit.Users.Get().ToList();
+        }*/
+
         public Users GetUserWithId(int Id)
         {
             return

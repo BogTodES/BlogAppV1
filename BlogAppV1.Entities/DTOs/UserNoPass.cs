@@ -8,7 +8,7 @@ namespace BlogAppV1.Entities.DTOs
     public class UserNoPass
     {
         public int Id { get; set; }
-        public int? PhotoId { get; set; }
+        public long? PhotoId { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public DateTime? Birthdate { get; set; }

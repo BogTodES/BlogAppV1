@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BlogAppV1.DataAccess;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,13 +26,13 @@ namespace BlogAppV1.ViewModels
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/mm/yyyy}")]
         public DateTime? Birthdate { get; set; }
         public byte? Gender { get; set; }
 
+        public Media Photo { get; set; }
 
-        public byte[] Photo { get; set; }
+        public int FriendState { get; set; }
     }
 }
