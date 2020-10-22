@@ -45,9 +45,10 @@
         </a>
         } 
     }
-    <div class="dropdown-divider"></div>
+    
     @if (Model.ReceivedRequestsList.Any())
     {   
+        <div class="dropdown-divider"></div>
         <span>Pending</span>
         foreach(var fr in Model.ReceivedRequestsList)
         {

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BlogAppV1.Common\BlogAppV1.Common.csproj" />
     <ProjectReference Include="..\BlogAppV1.DataAccess\BlogAppV1.DataAccess.csproj" />
   </ItemGroup>

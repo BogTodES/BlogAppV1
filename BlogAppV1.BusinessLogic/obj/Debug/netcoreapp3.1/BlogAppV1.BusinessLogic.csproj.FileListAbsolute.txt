@@ -4,7 +4,6 @@ D:\miscVisStudProjects\BlogAppV1\BlogAppV1.BusinessLogic\bin\Debug\netcoreapp3.1
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1.BusinessLogic\obj\Debug\netcoreapp3.1\BlogAppV1.BusinessLogic.csprojAssemblyReference.cache
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1.BusinessLogic\obj\Debug\netcoreapp3.1\BlogAppV1.BusinessLogic.AssemblyInfoInputs.cache
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1.BusinessLogic\obj\Debug\netcoreapp3.1\BlogAppV1.BusinessLogic.AssemblyInfo.cs
-D:\miscVisStudProjects\BlogAppV1\BlogAppV1.BusinessLogic\obj\Debug\netcoreapp3.1\BlogAppV1.BusinessLogic.csproj.CoreCompileInputs.cache
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1.BusinessLogic\obj\Debug\netcoreapp3.1\BlogAppV1.BusinessLogic.dll
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1.BusinessLogic\obj\Debug\netcoreapp3.1\BlogAppV1.BusinessLogic.pdb
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1.BusinessLogic\bin\Debug\netcoreapp3.1\BlogAppV1.Common.dll
@@ -30,3 +29,4 @@ D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.BusinessLogic\obj\Debug\netcoreapp3.1\B
 D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.BusinessLogic\obj\Debug\netcoreapp3.1\BlogAppV1.BusinessLogic.csproj.CopyComplete
 D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.BusinessLogic\obj\Debug\netcoreapp3.1\BlogAppV1.BusinessLogic.dll
 D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1.BusinessLogic\obj\Debug\netcoreapp3.1\BlogAppV1.BusinessLogic.pdb
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.BusinessLogic\obj\Debug\netcoreapp3.1\BlogAppV1.BusinessLogic.csproj.CoreCompileInputs.cache

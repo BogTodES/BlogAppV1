@@ -16,7 +16,9 @@ namespace BlogAppV1.DataAccess.EFConfig
                 .IsRequired()
                 .HasDefaultValueSql("('Text')");
 
-            entity.Property(e => e.Date).HasColumnType("date");
+            entity.Property(e => e.Date)
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("(getdate())");
 
             entity.Property(e => e.PhotoId).HasColumnName("PhotoID");
 

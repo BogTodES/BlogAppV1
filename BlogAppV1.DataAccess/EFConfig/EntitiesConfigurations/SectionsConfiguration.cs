@@ -22,6 +22,7 @@ namespace BlogAppV1.DataAccess.EFConfig
                 .WithMany(p => p.Sections)
                 .HasForeignKey(d => d.PhotoId)
                 .HasConstraintName("FK_Sections_Media");
+
         }
     }
 }

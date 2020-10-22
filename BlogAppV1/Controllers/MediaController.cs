@@ -18,21 +18,68 @@ namespace BlogAppV1.Controllers
             this.mediaService = mediaService;
         }
 
+        [HttpPost]
         public IActionResult AddUserPhoto(IFormFile img)
         {
+            if(img == null)
+                return RedirectToActionPermanent("ProfileOf", "UserInfo", new { username = mediaService.CurrentUser.Username });
+
             var title = img.FileName;
 
-            MemoryStream ms = new MemoryStream();
+            var ms = new MemoryStream();
             img.CopyTo(ms);
 
             mediaService.AddUserPhoto(ms);
 
-            /*ms.Close();
-            ms.Dispose();*/
-
-            return Json(new {
-                flag = true
-            });
+            return RedirectToActionPermanent("ProfileOf", "UserInfo", new { username = mediaService.CurrentUser.Username });
         }
+
+        [HttpPost]
+        public IActionResult AddSectPhoto(IFormFile img, long sectId)
+        {
+            if (img == null)
+                return RedirectToActionPermanent("SectionDetails", "Section", new { sectId = sectId });
+
+            var ms = new MemoryStream();
+            img.CopyTo(ms);
+
+            mediaService.AddSectPhoto(ms, sectId);
+
+            return RedirectToActionPermanent("SectionDetails", "Section", new { sectId = sectId });
+        }
+
+        [HttpPost]
+        public IActionResult AddBlogPhoto(IFormFile img, long blogId)
+        {
+            if (img == null)
+                return RedirectToActionPermanent("ShowBlogWith", "Blog", new { blogId = blogId });
+
+            var ms = new MemoryStream();
+            img.CopyTo(ms);
+
+            mediaService.AddBlogPhoto(ms, blogId);
+
+            return RedirectToActionPermanent("ShowBlogWith", "Blog", new { blogId = blogId });
+        }
+
+        public FileResult GetPhoto(long photoId)
+        {
+            var img = mediaService.GetPhoto(photoId);
+            if (img == null)
+                return null;
+
+            return File(img.Content, "image/jpeg");
+        }
+
+
+        public FileResult GetUserPhoto(int userId)
+        {
+            var img = mediaService.GetImageForUser(userId);
+            if (img == null)
+                return null;
+
+            return File(img.Content, "image/jpeg");
+        }
+
     }
 }

@@ -363,3 +363,6 @@ D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\S
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Friends\MainFriendsList.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_FriendsListPartial.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\FriendsList\FriendsListFloater.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authorization.dll
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Metadata.dll
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\PersonalBlockedUsers\PersonalBlockedList.cshtml.g.cs

@@ -68,7 +68,7 @@
                     aria-haspopup="true" aria-expanded="false">
                 Friends
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+            <div class="dropdown-menu" id="friendsDropdown" aria-labelledby="dropdownMenuButton"
                  style="max-height: inherit">
                 @await Component.InvokeAsync("FriendsList")
             </div>

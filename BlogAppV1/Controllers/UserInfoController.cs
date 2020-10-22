@@ -20,42 +20,58 @@ namespace BlogAppV1.Controllers
         private readonly UserInfoService userInfoService;
         private readonly FriendRequestsService friendRequestsService;
         private readonly FriendsService friendsService;
+        private readonly BlockService blockService;
         private readonly IMapper Mapper;
 
-        public UserInfoController(UserInfoService userInfo, FriendRequestsService friendRequestsService, 
-            FriendsService friendsService,IMapper mapper)
+        public UserInfoController(UserInfoService userInfoService, FriendRequestsService friendRequestsService, 
+            FriendsService friendsService, BlockService blockService, IMapper mapper)
         {
-            this.userInfoService = userInfo;
+            this.userInfoService = userInfoService;
             this.friendRequestsService = friendRequestsService;
             this.friendsService = friendsService;
+            this.blockService = blockService;
             this.Mapper = mapper;
         }
 
-        /*[HttpGet]
-        public IActionResult ProfileOf(int Id)
+        public IActionResult ProfileOf(int userId)
         {
-            var user = userInfoService?.GetUserWithId(Id);
+            var user = userInfoService?.GetUserWithId(userId);
             if (user is null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToActionPermanent("Index", "Home");
 
-            var model = this.Mapper.Map<UserInfoVm>(user);
+            var model = Mapper.Map<UserInfoVm>(user);
 
-            if (CurrentUser.IsAuthenticated && int.Parse(CurrentUser.Id.Trim()) == Id)
+            model.IsBlocked = blockService
+                .UserBlockedUser(int.Parse(userInfoService.CurrentUser.Id), model.Id) != null;
+            if (model.IsBlocked)
+                return NotFound("Could not find user :(");
+
+            model.Birthdate = user.Birthdate;
+
+            if (userInfoService.CurrentUser.IsAuthenticated &&
+                int.Parse(userInfoService.CurrentUser.Username) == userId)
                 return View("SelfProfilePage", model);
-            // daca sunt conectat si caut pagina mea, 
-            // ajung pe pagina asta unde am si optiunea de update
 
-            return View("ProfilePage", model);
-        }*/
+            model.FriendState = friendsService.CheckRelationshipWith(model.Id);
+            model.BanState = blockService.GetBanSate(model.Id);
+
+            return View("OthersProfilePage", model);
+        }
 
         [HttpGet]
         public IActionResult ProfileOf(string Username)
         {
             var user = userInfoService?.GetUserWithName(Username);
             if (user is null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToActionPermanent("Index", "Home");
 
             var model = Mapper.Map<UserInfoVm>(user);
+
+            model.IsBlocked = blockService
+                .UserBlockedUser(int.Parse(userInfoService.CurrentUser.Id), model.Id) != null;
+            if (model.IsBlocked)
+                return NotFound("Could not find user :(");
+
             model.Birthdate = user.Birthdate;
 
             if (userInfoService.CurrentUser.IsAuthenticated && 
@@ -63,6 +79,8 @@ namespace BlogAppV1.Controllers
                 return View("SelfProfilePage", model);
 
             model.FriendState = friendsService.CheckRelationshipWith(model.Id);
+            model.BanState = blockService.GetBanSate(model.Id);
+
             return View("OthersProfilePage", model);
         }
 
@@ -83,7 +101,7 @@ namespace BlogAppV1.Controllers
                 //return RedirectToAction("Logout", "Account");
             }
 
-            return ProfileOf(userwithNewInfo.Username);
+            return RedirectToActionPermanent("ProfileOf", "UserInfo", new { username = userwithNewInfo.Username });
         }
 
         [HttpGet]
@@ -110,14 +128,14 @@ namespace BlogAppV1.Controllers
 
         private Users UpdateInformation(UserInfoVm userwithNewInfo)
         {
-            var userUpdateInfo = userInfoService.GetUserWithId(
-                int.Parse(userInfoService.CurrentUser.Id));
+            var userUpdateInfo = userInfoService
+                .GetUserWithId(int.Parse(userInfoService.CurrentUser.Id));
 
             userUpdateInfo.Username = userwithNewInfo.Username;
             userUpdateInfo.Email = userwithNewInfo.Email;
-            userUpdateInfo.Birthdate = userwithNewInfo.Birthdate;
+            userUpdateInfo.Birthdate = 
+                (userwithNewInfo.Birthdate == null)? userUpdateInfo.Birthdate : userwithNewInfo.Birthdate;
             userUpdateInfo.Gender = userwithNewInfo.Gender;
-            // photo ID
 
             return userUpdateInfo;
         }
@@ -133,9 +151,7 @@ namespace BlogAppV1.Controllers
         {
             userInfoService.RemoveAccountWithId(int.Parse(userInfoService.CurrentUser.Id));
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToActionPermanent("Index", "Home");
         }
-
-       
     }
 }

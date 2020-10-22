@@ -10,7 +10,7 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: /*#55ECEA*/ #55ECEA;
 }
 
 .btn-primary {
@@ -80,7 +80,8 @@ body {
 }
 
 html body {
-    background: #c0c0c0 !important;
+    background: /*#34526f */ #222235 !important;
+    color: /*#FFFFFF*/ #E0E0E0 !important;
 }
 
 .reactFloater {
@@ -98,4 +99,9 @@ html body {
     transform: scale(1);
     display: normal;
     transition: all 0.3s ease-in-out;
+}
+
+
+bgText {
+    color: 
 }

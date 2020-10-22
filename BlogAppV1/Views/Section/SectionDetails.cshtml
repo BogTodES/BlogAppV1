@@ -13,7 +13,12 @@
     </title>
 </head>
 <body>
-    <div class="container justify-content-center">
+    <div class="container justify-content-center sectBg"
+         style="background-image: url('@Url.Action("GetPhoto", "Media", new { photoId = Model.PhotoId })');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;                height: 100%;
+                position: absolute">
         <div class="row justify-content-center">
             <div class="flex-column text-center">
                 <h1 class="text-capitalize text-center">
@@ -32,12 +37,12 @@
             </div>
         </div>
         <div class="row justify-content-start">
-            @foreach(var post in Model.Posts)
+            @foreach (var post in Model.Posts)
             {
                 <div class="row card border-danger m-2 p-2 w-100 text-dark">
                     <div class="card-title">
                         <h3 class="text-capitalize card-title">
-                            <a asp-controller="Post" asp-action="PostWith" 
+                            <a asp-controller="Post" asp-action="PostWith"
                                asp-route-postId="@post.Id" class="text-decoration-none text-dark">
                                 @post.Title
                             </a>
@@ -62,22 +67,21 @@
                     </p>
                 </div>
             }
-            @if(CurrentUser.IsAuthenticated && int.Parse(CurrentUser.Id) == Model.OwnerId)
+            @if (CurrentUser.IsAuthenticated && int.Parse(CurrentUser.Id) == Model.OwnerId)
             {
                 <div id="newShortPost" class="card border-danger m-2 p-2 w-100 text-dark">
-                        <div class="card-title">
-                            <h3 id="newTitle" contenteditable="true" class="text-capitalize card-title text-decoration-none border-dark">
-                            </h3>
-                        </div>
-                        <hr />
-                        <textarea id="newBody" class="card-text text-muted text-decoration-none border-dark" contenteditable="true">
+                    <div class="card-title">
+                        <h3 id="newTitle" contenteditable="true" class="text-capitalize card-title text-decoration-none border-dark">
+                        </h3>
+                    </div>
+                    <hr />
+                    <textarea id="newBody" class="card-text text-muted text-decoration-none border-dark" contenteditable="true">
 
                         </textarea>
-                        <button id="addNewPostBut" name="@Model.Id" class="btn btn-secondary clearfix w-25 float-right"
-                                >
-                            Post It!
-                        </button>
-                        <input type="hidden" id="addNewPostAction" data-add-new-post-url="@Url.Action("AddPost", "Post")"/>
+                    <button id="addNewPostBut" name="@Model.Id" class="btn btn-secondary clearfix w-25 float-right">
+                        Post It!
+                    </button>
+                    <input type="hidden" id="addNewPostAction" data-add-new-post-url="@Url.Action("AddPost", "Post")" />
                 </div>
             }
         </div>

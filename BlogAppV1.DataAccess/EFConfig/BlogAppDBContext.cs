@@ -15,6 +15,7 @@ namespace BlogAppV1.DataAccess.EFConfig
         {
         }
 
+        public virtual DbSet<Blocks> Blocks { get; set; }
         public virtual DbSet<Blogs> Blogs { get; set; }
         public virtual DbSet<BlogsSections> BlogsSections { get; set; }
         public virtual DbSet<Comments> Comments { get; set; }
@@ -60,6 +61,8 @@ namespace BlogAppV1.DataAccess.EFConfig
             modelBuilder.ApplyConfiguration(new FriendsConfiguration());
             modelBuilder.ApplyConfiguration(new FriendRequestsConfiguration());
 
+            modelBuilder.ApplyConfiguration(new BlocksConfiguration());
+
             modelBuilder.ApplyConfiguration(new PermissionsConfiguration());
             modelBuilder.ApplyConfiguration(new RolesConfiguration());
 
@@ -69,10 +72,6 @@ namespace BlogAppV1.DataAccess.EFConfig
             modelBuilder.ApplyConfiguration(new UsersRolesConfiguration());
 
             modelBuilder.ApplyConfiguration(new SaltsConfiguration());
-
-            OnModelCreatingPartial(modelBuilder);
-
-            
 
             OnModelCreatingPartial(modelBuilder);
         }

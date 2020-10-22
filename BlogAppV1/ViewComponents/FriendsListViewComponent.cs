@@ -31,19 +31,6 @@ namespace BlogAppV1.ViewComponents
 
             var friends = friendsService.FriendsOf()
                 .Select(f => new MainFriendVm(new UserNoPass(f)));
-            /*friendRequestsService
-                .SentFriendRequests()
-                .ToList()
-                .ForEach(sReq => {
-                    var r = userInfoService.GetUserWithId(sReq.ReceiverId);
-                    sentRequests.Add(new FriendRequestVm()
-                    {
-                        ReceiverUsername = r.Username,
-                        ReceiverPhoto = r.Photo,
-                        Date = sReq.CreateDate,
-                        IsDeleted = sReq.IsDeleted
-                    });
-                });*/
             friendRequestsService
                 .ReceivedFriendRequests()
                 .ToList()

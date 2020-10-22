@@ -4,7 +4,6 @@
 
 @model BlogAppV1.ViewModels.UserInfoVm
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>@Model.Username's profile</title>
@@ -12,66 +11,90 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="flex-column col-md-2">
-                <ul class="list-unstyled">
-                    <li>
-                        <h1>Your Info</h1>
+            <div class="flex-column col-2 border-dark rounded-left p-2">
+                <ul class="list-unstyled list-group-flush">
+                    <li class="list-group-item">
+                        <a class="btn btn-light" asp-action="ProfileOf" asp-controller="UserInfo"
+                           asp-route-username="@Model.Username">
+                            Your Info
+                        </a>
                     </li>
-                    <li>
-                        <a asp-action="ChangePassword" asp-controller="UserInfo">
+                    <li class="list-group-item">
+                        <a class="btn btn-outline-info" asp-action="ChangePassword" asp-controller="UserInfo">
                             Change Password
                         </a>
                     </li>
-                    <li>
-                        <a asp-action="DeleteAccount" asp-controller="UserInfo">
+                    <li class="list-group-item">
+                        <a class="btn btn-danger" asp-action="DeleteAccount" asp-controller="UserInfo">
                             Delete Account
                         </a>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" 
+                                    type="button" id="dropdownBlockedButton" 
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Blocked Users
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownBlockedButton">
+                                @await Component.InvokeAsync("PersonalBlockedUsers") 
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
             <hr />
-            <div class="flex-column col-md-10 border-left border-top border-dark">
-                <form asp-action="UpdateInfo" asp-controller="UserInfo" method="post" enctype="multipart/form-data">
+            <div class="flex-column col-10 border-dark">
+                <form asp-action="UpdateInfo" asp-controller="UserInfo"
+                      method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Username" class="control-label"></label>
-                        <h2 class="text-dark">@Model.Username</h2>
+                        <h2 class="text-light">@Model.Username</h2>
                         <span class="text-secondary">Modify: </span>
-                            <input asp-for="Username" value=@Model.Username />
+                        <input asp-for="Username" value=@Model.Username />
                         <span asp-validation-for="Username"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Email" class="control-label"></label>
-                        <h2 class="text-dark">@Model.Email</h2>
+                        <h2 class="text-light">@Model.Email</h2>
                         <span class="text-secondary">Modify: </span>
-                            <input asp-for="Email" value=@Model.Email />
+                        <input asp-for="Email" value=@Model.Email />
                         <span asp-validation-for="Email"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Birthdate" class="control-label"></label>
-                        <h2 class="text-dark">@Model.Birthdate</h2>
+                        <h2 class="text-light">@Model.Birthdate</h2>
                         <span class="text-secondary">Modify: </span>
-                            <input asp-for="Birthdate" value=@Model.Birthdate?.Date.ToShortDateString();/>
+                        <input asp-for="Birthdate" value=@Model.Birthdate?.Date.ToShortDateString() ; />
                         <span asp-validation-for="Birthdate"></span>
                     </div>
 
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <label asp-for="Photo" class="control-label"></label>
-                        <input type="file" id="uploadProfilePhoto"/>
+                        <input type="file" id="uploadProfilePhoto" />
                         <span asp-validation-for="Photo"></span>
-                    </div>
+                    </div>*@
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-5">
                             <input type="submit" class="btn btn-primary" value="Save Changes" />
                         </div>
                     </div>
                 </form>
-                <div id="photoDiv" class="border-danger">
-                    <img id="profilePic" src="@Model.Photo" alt="nu ai imagine" />
-                    <input type="file" name="changePhoto" id="changeProfilePic"/>
-                    <button id="uploadProfileImage">
-                        Change Photo
-                    </button>
+                <div class="clearfix float-right">
+                    <img src="@Url.Action("GetUserPhoto", "Media", new { userId = Model.Id })" 
+                         id="actualProfilePic" />
+
+                    <form asp-action="AddUserPhoto" asp-controller="Media" enctype="multipart/form-data" >
+                        <div class="form-group">
+                            <label asp-for="Photo" class="control-label mb-0"></label>
+                            <input type="file" accept="image/*" class="form-control"
+                                   id="inputImgToLoad" name="img"/>
+                            <span asp-validation-for="Photo" class="text-danger"></span>
+                            <input type="hidden" asp-for="Photo" id="imgTest" />
+                            <input type="submit" class="btn btn-primary" value="UploadPhoto" />
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

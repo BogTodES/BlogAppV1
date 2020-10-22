@@ -33,6 +33,8 @@ namespace BlogAppV1.DataAccess
         public virtual ICollection<FriendRequests> FriendRequestsSender { get; set; }
         public virtual ICollection<Friends> FriendsReceiver { get; set; }
         public virtual ICollection<Friends> FriendsSender { get; set; }
+        public virtual ICollection<Blocks> BlocksBlocked { get; set; }
+        public virtual ICollection<Blocks> BlocksSender { get; set; }
         public virtual ICollection<UserCommentReacts> UserCommentReacts { get; set; }
         public virtual ICollection<UserPostReacts> UserPostReacts { get; set; }
         public virtual ICollection<UsersRoles> UsersRoles { get; set; }

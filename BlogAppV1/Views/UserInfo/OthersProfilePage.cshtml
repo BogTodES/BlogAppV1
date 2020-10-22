@@ -12,18 +12,18 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="flex-column col-md-2">
-                <ul class="list-unstyled">
+            <div class="flex-column col-3 border-dark rounded-left p-2">
+                <ul class="list-unstyled list-group-flush">
                     <li>
                         <h1>User Info</h1>
                     </li>
-                    <li>
-                        <a asp-action="BlogsOfUId" asp-controller="UserBlog"
+                    <li class="list-group-item">
+                        <a class="btn btn-light" asp-action="BlogsOfUId" asp-controller="UserBlog"
                            asp-route-userId="@Model.Id">
                             Blogs
                         </a>
                     </li>
-                    <li>
+                    <li class="list-group-item">
                         @{
                             switch (Model.FriendState)
                             {
@@ -52,7 +52,7 @@
                                     </button>
                                     break;
                                 case 0:
-                                    <button class="btn btn-outline-primary btn-sm sendFrReqBut"
+                                    <button class="btn btn-outline-info btn-sm sendFrReqBut"
                                             name="@Model.Id">
                                         Add Friend
                                     </button>
@@ -60,31 +60,75 @@
                             }
                         }
                     </li>
-                    <li>
-                        Block
+                    <li class="list-group-item">
+                        <a class="btn btn-outline-danger" asp-controller="Blocks" asp-action="BlockUser"
+                           asp-route-blockedId="@Model.Id">
+                            Block
+                        </a>
                     </li>
-                    <li>
-                        Report Account
-                    </li>
+                    @if (Model.BanState == 0)
+                    {
+                        if (User.IsInRole("Moderator"))
+                        {
+                            <li class="list-group-item">
+                                <a class="btn btn-info" asp-controller="Blocks" asp-action="SoftBan"
+                                   asp-route-blockedId="@Model.Id">
+                                    Soft ban
+                                </a>
+                            </li>
+                        }
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li class="list-group-item">
+                                <a class="btn btn-info" asp-controller="Blocks" asp-action="HardBan"
+                                   asp-route-blockedId="@Model.Id">
+                                    Hard ban
+                                </a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        if (Model.BanState == 1)
+                        {
+                            if (User.IsInRole("Moderator"))
+                            {
+                                <li class="list-group-item">
+                                    <a class="btn btn-info" asp-controller="Blocks" asp-action="SoftBan"
+                                       asp-route-blockedId="@Model.Id">
+                                        Lift soft ban
+                                    </a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li class="list-group-item">
+                                    <a class="btn btn-info" asp-controller="Blocks" asp-action="HardBan"
+                                       asp-route-blockedId="@Model.Id">
+                                        Lift hard ban
+                                    </a>
+                                </li>
+                            }
+                        }
+                    }
                 </ul>
             </div>
-            <div class="flex-column col-md-10">
+            <div class="flex-column col-9 border-dark rounded-right">
                 <form asp-action="UpdateInfo" asp-controller="UserInfo" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Username" class="control-label"></label>
-                        <h2 class="text-dark">@Model.Username</h2>
-                        <span asp-validation-for="Username"></span>
+                        <h2 class="text-light">@Model.Username</h2>
                     </div>
                     <div class="form-group">
                         <label asp-for="Email" class="control-label"></label>
-                        <h2 class="text-dark">@Model.Email</h2>
-                        <span asp-validation-for="Email"></span>
+                        <h2 class="text-light">@Model.Email</h2>                      
                     </div>
                     <div class="form-group">
                         <label asp-for="Birthdate" class="control-label"></label>
-                        <h2 class="text-dark">@Model.Birthdate?.Date.ToShortDateString()</h2>
-                        <span asp-validation-for="Birthdate"></span>
+                        <h2 class="text-light">@Model.Birthdate?.Date.ToShortDateString()</h2>
                     </div>
                 </form>
             </div>

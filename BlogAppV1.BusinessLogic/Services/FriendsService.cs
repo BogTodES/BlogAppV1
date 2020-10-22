@@ -60,7 +60,9 @@ namespace BlogAppV1.BusinessLogic.Services
         public bool IsFriend(int receiverId)
         {
             // daca am null in expresia de mai jos, inseamna ca nu exista prietenie
-            return (AreFriends(int.Parse(CurrentUser.Id), receiverId) != null);
+            if (CurrentUser.IsAuthenticated)
+                return (AreFriends(int.Parse(CurrentUser.Id), receiverId) != null);
+            else return false;
         }
 
         public int MakeFriend(int userId1, int userId2)
@@ -116,16 +118,20 @@ namespace BlogAppV1.BusinessLogic.Services
 
         public int CheckRelationshipWith(int userId)
         {
-            if (IsFriend(userId))
-                return 3;   // suntem prieteni deja
+            if (CurrentUser.IsAuthenticated)
+            {
+                if (IsFriend(userId))
+                    return 3;   // suntem prieteni deja
 
-            var sReq = friendRequestsService.IsSentRequest(userId);
-            var rReq = friendRequestsService.IsSentRequest(userId, int.Parse(CurrentUser.Id));
+                var sReq = friendRequestsService.IsSentRequest(userId);
+                var rReq = friendRequestsService.IsSentRequest(userId, int.Parse(CurrentUser.Id));
 
-            if (sReq) return 1; // eu am trimis si astept
-            if (rReq) return 2; // el a trimis
+                if (sReq) return 1; // eu am trimis si astept
+                if (rReq) return 2; // el a trimis
 
-            return 0; // nu a fost facuta nicio actiune de prietenie
+                return 0; // nu a fost facuta nicio actiune de prietenie
+            }
+            return -1;
         }
     }
 }

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<BlogAppV1.Entities.DTOs.UserNoPass>
+
+
+<input type="hidden" id="unblockPersonalUrl" 
+       data-ublock-pers-url="@Url.Action("UnblockUser", "Blocks")"/>
+@foreach (var usr in Model)
+{
+    <div class="dropdown-item">
+        <img alt="pz" />
+        <span>
+            <a asp-controller="UserInfo" asp-action="ProfileOf" 
+               asp-route-username="@usr.Username">
+                @usr.Username
+            </a>
+        </span>
+        <span>
+            <button id="unblock_@usr.Id" 
+                    class="btn-sm btn-outline-secondary personalBlockBut">
+                Unblock
+            </button>
+        </span>
+    </div>
+}

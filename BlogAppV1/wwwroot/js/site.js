@@ -738,7 +738,9 @@ $.each(confirmReqButs, function (i) {
             },
             success: function () {
                 console.log("felicitari esti prieten cu " + senderId);
+                $("#friendsDropdown").dropdown('update');
                 $(".req_" + senderId).remove();
+                document.location.reload();
             }
         });
     });
@@ -759,7 +761,9 @@ $.each(declineReqButs, function (i) {
             },
             success: function () {
                 console.log("felicitari ai dat decline la " + senderId);
+                $("#friendsDropdown").dropdown('update');
                 $(".req_" + senderId).remove();
+                document.location.reload();
             }
         });
     });
@@ -828,3 +832,41 @@ removeRequestBut.click(function () {
         }
     });
 });
+
+
+// --------------------------------------------------------
+
+// unblocking functionality
+
+var unblockPersButs = $(".personalBlockBut");
+var unblockPersUrl = $("#unblockPersonalUrl").data("ublock-pers-url");
+
+$.each(unblockPersButs, function (i) {
+    var UPB = unblockPersButs.get(i);
+    $(UPB).click(function () {
+        var thisUPB = this;
+        var unblockId = Number($(thisUPB).attr("id").slice(8));
+
+        $.ajax({
+            url: unblockPersUrl,
+            data: {
+                blockedId: unblockId
+            },
+            success: function () {
+                console.log("ok l-ai deblocat pe " + unblockId);
+                $(thisUPB).parentsUntil("div.dropdown-item").remove();
+                $(thisUPB).remove();
+                document.location.reload();
+            }
+        });
+    });
+});
+
+
+
+//------------------------
+
+
+// media stuff
+
+console.log($("#actualProfilePic").attr("src"));

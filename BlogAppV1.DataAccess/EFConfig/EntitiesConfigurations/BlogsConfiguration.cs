@@ -10,6 +10,10 @@ namespace BlogAppV1.DataAccess.EFConfig
     {
         public void Configure(EntityTypeBuilder<Blogs> entity)
         {
+            entity.HasIndex(e => e.Id)
+                    .HasName("IX_Blogs")
+                    .IsUnique();
+
             entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.Property(e => e.PhotoId).HasColumnName("PhotoID");

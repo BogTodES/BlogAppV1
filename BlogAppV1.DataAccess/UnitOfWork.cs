@@ -46,6 +46,9 @@ namespace BlogAppV1.DataAccess
         private BaseRepository<Friends> friends;
         public BaseRepository<Friends> Friends => friends ??= (new BaseRepository<Friends>(_context));
 
+        private BaseRepository<Blocks> blocks;
+        public BaseRepository<Blocks> Blocks => blocks ??= (new BaseRepository<Blocks>(_context));
+
         private BaseRepository<ReactTypes> reactTypes;
         public BaseRepository<ReactTypes> ReactTypes => reactTypes ??= (new BaseRepository<ReactTypes>(_context));
 

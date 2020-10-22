@@ -6,25 +6,27 @@ using System.Text;
 
 namespace BlogAppV1.DataAccess.EFConfig
 {
-    class FriendRequestsConfiguration : IEntityTypeConfiguration<FriendRequests>
+    class FriendsConfiguration : IEntityTypeConfiguration<Friends>
     {
-        public void Configure(EntityTypeBuilder<FriendRequests> entity)
+        public void Configure(EntityTypeBuilder<Friends> entity)
         {
             entity.HasKey(e => new { e.SenderId, e.ReceiverId });
 
-            entity.Property(e => e.CreateDate).HasColumnType("date");
+            entity.Property(e => e.CreateDate)
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("(getdate())");
 
             entity.HasOne(d => d.Receiver)
-                .WithMany(p => p.FriendRequestsReceiver)
+                .WithMany(p => p.FriendsReceiver)
                 .HasForeignKey(d => d.ReceiverId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_FriendRequests_Users1");
+                .HasConstraintName("FK_Friends_Users1");
 
             entity.HasOne(d => d.Sender)
-                .WithMany(p => p.FriendRequestsSender)
+                .WithMany(p => p.FriendsSender)
                 .HasForeignKey(d => d.SenderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_FriendRequests_Users");
+                .HasConstraintName("FK_Friends_Users");
         }
     }
 }

@@ -51,7 +51,9 @@ namespace BlogAppV1.BusinessLogic.Services
 
         public bool IsSentRequest(int receiverId)
         {
-            return IsSentRequest(int.Parse(CurrentUser.Id), receiverId);
+            if(CurrentUser.IsAuthenticated)
+                return IsSentRequest(int.Parse(CurrentUser.Id), receiverId);
+            return false;
         }
 
         public int SendFriendRequest(int senderId, int receiverId)

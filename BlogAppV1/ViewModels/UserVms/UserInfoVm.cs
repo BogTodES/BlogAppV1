@@ -34,5 +34,7 @@ namespace BlogAppV1.ViewModels
         public Media Photo { get; set; }
 
         public int FriendState { get; set; }
+        public bool IsBlocked { get; set; }
+        public int BanState { get; set; }
     }
 }

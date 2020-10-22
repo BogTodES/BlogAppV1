@@ -65,6 +65,7 @@ namespace BlogAppV1.Controllers
                 OwnerId = (section.IsSystemCreated) ? -1 : blogs.FirstOrDefault().UserId,
                 Name = section.Name,
                 Posts = posts,
+                PhotoId = section.PhotoId,
                 IsSystemCreated = section.IsSystemCreated
             });
         }

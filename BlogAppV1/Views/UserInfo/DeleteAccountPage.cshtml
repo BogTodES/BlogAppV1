@@ -9,29 +9,29 @@
     <title>Delete Account</title>
 </head>
 <body>
-    
-
     <div class="container">
         <div class="row">
-            <div class="flex-column col-md-2">
-                <ul class="list-unstyled">
-                    <li>
-                        <a asp-action="ProfileOf" asp-controller="UserInfo"
+            <div class="flex-column col-md-2 border-dark rounded-left p-2">
+                <ul class="list-unstyled list-group-flush">
+                    <li class="list-group-item">
+                        <a class="btn btn-light" asp-action="ProfileOf" asp-controller="UserInfo"
                            asp-route-username="@CurrentUser.Username">
                             Your Info
                         </a>
                     </li>
-                    <li>
-                        <a asp-action="ChangePassword" asp-controller="UserInfo">
+                    <li class="list-group-item">
+                        <a class="btn btn-outline-info" asp-action="ChangePassword" asp-controller="UserInfo">
                             Change Password
                         </a>
                     </li>
-                    <li>
-                        <h1>Delete Account</h1>
+                    <li class="list-group-item">
+                        <a class="btn btn-danger" asp-action="DeleteAccount" asp-controller="UserInfo">
+                            Delete Account
+                        </a>
                     </li>
                 </ul>
             </div>
-            <div class="flex-column col-md-10 border-left border-top border-dark">
+            <div class="flex-column col-md-9 border-left border-top border-dark">
                 <h2 class="text-primary">
                     This will remove all information about you.
                     <span class="text-danger">IT CANNOT BE RECOVERED.</span>

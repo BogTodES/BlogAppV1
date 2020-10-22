@@ -45,6 +45,25 @@ namespace BlogAppV1
                     options.AccessDeniedPath = new PathString("/Account/Login");
                     options.LoginPath = new PathString("/Account/Login");
                 });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin",
+                    authBuilder =>
+                    {
+                        authBuilder.RequireRole("Admin");
+                    });
+                options.AddPolicy("Moderator",
+                    authBuilder =>
+                    {
+                        authBuilder.RequireRole("Moderator");
+                    });
+                options.AddPolicy("Basic",
+                    authBuilder =>
+                    {
+                        authBuilder.RequireRole("Basic");
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
