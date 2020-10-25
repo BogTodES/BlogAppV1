@@ -4,25 +4,10 @@
 
 @inject BlogAppV1.Entities.DTOs.CurrentUserDto CurrentUser
 
-<div class="text-center">
-    @if (CurrentUser.IsAuthenticated)
-    {
-        <h1>
-            @CurrentUser.Username
-        </h1>
-        <h2>
-            @{
-                var list = User.Claims.Where(claim => claim.Type.Contains("/role")).ToList();
-                foreach(var cl in list)
-                {
-                    <span>
-                        @cl.Value
-                    </span>
-                }
-            }
-        </h2>
-    }
 
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid grid text-dark">
+    @await Component.InvokeAsync("MainPageData")
+</div>
+<div id="progress" style="display:none">
+    <h4>Loading...</h4>
 </div>

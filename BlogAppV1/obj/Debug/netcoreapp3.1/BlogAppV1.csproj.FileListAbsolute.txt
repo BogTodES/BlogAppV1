@@ -166,7 +166,6 @@ D:\miscVisStudProjects\BlogAppV1\BlogAppV1\bin\Debug\netcoreapp3.1\AutoMapper.Ex
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\BlogAppV1.csproj.CoreCompileInputs.cache
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\BlogAppV1.MvcApplicationPartsAssemblyInfo.cache
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Blog\DetailedBlogPage.cshtml.g.cs
-D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\MainScreenSection\Default.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\UserBlog\BlogListPage.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\UserInfo\ChangePasswordPage.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\UserInfo\DeleteAccountPage.cshtml.g.cs
@@ -358,7 +357,6 @@ D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Sha
 D:\PROIECTE_VIS_STUD\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\FloaterReactions\Floater.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\CommReactsWidget\DisplayReactsComm.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\FloaterReactions\Floater.cshtml.g.cs
-D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\MainScreenSection\Editable.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\PostReactsWidget\DisplayReactsPost.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Friends\MainFriendsList.cshtml.g.cs
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_FriendsListPartial.cshtml.g.cs
@@ -366,3 +364,7 @@ D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\S
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authorization.dll
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Metadata.dll
 D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\PersonalBlockedUsers\PersonalBlockedList.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\SmallBlog\SectionRow.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\MainPageData\HomeResults.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\MainScreenSections\Default.cshtml.g.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\MainScreenSections\Editable.cshtml.g.cs

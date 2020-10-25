@@ -13,7 +13,7 @@ namespace BlogAppV1.ViewModels.SectionVms
         public long BlogId { get; set; }
         public long? PhotoId { get; set; }
         public int OwnerId { get; set; }
-        /* public string OwnerUsername { get; set; }*/
+        public string OwnerUsername { get; set; }
         public IEnumerable<Posts> Posts { get; set; }
         public bool IsSystemCreated { get; set; }
     }

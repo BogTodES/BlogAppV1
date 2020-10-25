@@ -17,6 +17,7 @@ namespace BlogAppV1.DataAccess
         public long? PhotoId { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
+        public bool IsEdited { get; set; }
         public DateTime Date { get; set; }
 
         public virtual Media Photo { get; set; }

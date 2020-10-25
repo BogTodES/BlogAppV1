@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     ViewData["Title"] = "Blogs By user";
 }
 
@@ -11,55 +11,42 @@
     <title>Blogs of @Model.Username</title>
 </head>
 <body>
-    @if (CurrentUser.IsAuthenticated && CurrentUser.Username == Model.Username)
-    {
-        <h1 class="text-primary">
-            You own the following blogs:
-        </h1>
-        <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="d-flex justify-content-center">
+                Blogs owned by @Model.Username.Trim()
+            </h1>
+        </div>
+        <div class="col-12">
             @foreach (var blog in Model.BlogList)
             {
-                <div class="row border-danger m-2">
-                    <a asp-controller="Blog" asp-action="ShowBlogWith"
-                       asp-route-id="@blog.Id">
-                        @blog.Title
-                    </a>
-                    <div class="ml-3 clearfix float-right">
-                        <form asp-controller="Blog" asp-action="DeleteBlog" asp-route-blogId="@blog.Id" 
-                              method="post">
-                            <input type="submit" name="del" value="Delete" />
-                        </form>
-                        @*<button asp-controller="Blog" asp-action="DeleteBlog" 
-                                asp-route-blogId="@blog.Id">
-                            Delete
-                        </button>*@
+                <div class="row mb-5">
+                    <div class="card col-12 border-danger rounded m-3" style="background-color: transparent">
+                        @if (blog.PhotoId != 0 && blog.PhotoId != null)
+                        {
+                            <img src="@Url.Action("GetPhoto", "Media", new { photoId = blog.PhotoId })" alt="blogPhoto"
+                                 class="img-thumbnail" />
+                        }
+                        <div class="row">
+                            <div class="col-12 card-header border-danger">
+                                <a asp-controller="Blog" asp-action="ShowBlogWith"
+                                   asp-route-blogId="@blog.Id" class="text-decoration-none text-center text-capitalize">
+                                    <h2 class="text-warning">
+                                        @blog.Title.Trim()
+                                    </h2>
+                                </a>
+                            </div>
+                            <div class="col-12 card-body text-center">
+                                <div class="row d-flex justify-content-around">
+                                    @await Component.InvokeAsync("SmallBlog", new { blogId = blog.Id })
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             }
-            <div class="row">
-                <form asp-controller="Blog" asp-action="AddBlog" method="post">
-                    <input type="submit" value="Create a new one" />
-                </form>
-            </div>
         </div>
-    }
-    else
-    {
-        <h1 class="text-primary">
-            @Model.Username owns the following blogs:
-        </h1>
-        <div class="container">
-            @foreach (var blog in Model.BlogList)
-            {
-                <div class="row border-danger m-2">
-                    <a asp-controller="Blog" asp-action="ShowBlogWith"
-                       asp-route-id="@blog.Id">
-                        @blog.Title
-                    </a>
-                </div>
-            }
-        </div>
-    }
+    </div>
 </body>
 </html>
 

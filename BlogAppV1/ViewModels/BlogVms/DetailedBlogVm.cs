@@ -16,15 +16,7 @@ namespace BlogAppV1.ViewModels
         public string OwnerUsername { get; set; }
         public string OwnerEmail { get; set; }
         public int OwnerId { get; set; }
+        public long? PhotoId { get; set; }
 
-        /*public DetailedBlogVm(Blogs blog, IEnumerable<long> sectionIds, UserInfoVm owner)
-        {
-            BlogId = blog.Id;
-            Title = blog.Title;
-            SectionsIds = sectionIds;
-            OwnerUsername = owner.Username;
-            OwnerId = owner.Id;
-            OwnerEmail = owner.Email;
-        }*/
     }
 }

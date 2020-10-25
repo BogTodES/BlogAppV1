@@ -11,8 +11,12 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="flex-column col-2 border-dark rounded-left p-2">
-                <ul class="list-unstyled list-group-flush">
+            <div class="flex-column col-3 border-dark rounded-left p-2">
+                <ul class="list-unstyled list-group-flush bg-light border-light rounded-left">
+                    <li class="list-group-item d-flex justify-content-center">
+                        <img src="@Url.Action("GetUserPhoto", "Media", new { userId = Model.Id })"
+                             id="actualProfilePic" class="userProfileImg" />
+                    </li>
                     <li class="list-group-item">
                         <a class="btn btn-light" asp-action="ProfileOf" asp-controller="UserInfo"
                            asp-route-username="@Model.Username">
@@ -31,20 +35,20 @@
                     </li>
                     <li class="list-group-item">
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" 
-                                    type="button" id="dropdownBlockedButton" 
+                            <button class="btn btn-secondary dropdown-toggle"
+                                    type="button" id="dropdownBlockedButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Blocked Users
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownBlockedButton">
-                                @await Component.InvokeAsync("PersonalBlockedUsers") 
+                                @await Component.InvokeAsync("PersonalBlockedUsers")
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
             <hr />
-            <div class="flex-column col-10 border-dark">
+            <div class="flex-column col-9 border-dark">
                 <form asp-action="UpdateInfo" asp-controller="UserInfo"
                       method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -82,9 +86,6 @@
                     </div>
                 </form>
                 <div class="clearfix float-right">
-                    <img src="@Url.Action("GetUserPhoto", "Media", new { userId = Model.Id })" 
-                         id="actualProfilePic" />
-
                     <form asp-action="AddUserPhoto" asp-controller="Media" enctype="multipart/form-data" >
                         <div class="form-group">
                             <label asp-for="Photo" class="control-label mb-0"></label>

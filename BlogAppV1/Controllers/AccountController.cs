@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Providers.Entities;
 using BlogAppV1.BusinessLogic;
+using BlogAppV1.BusinessLogic.Services;
 using BlogAppV1.DataAccess;
 using BlogAppV1.Entities.DTOs;
 using BlogAppV1.ViewModels;
@@ -19,10 +20,12 @@ namespace BlogAppV1.Controllers
     public class AccountController : Controller
     {
         private readonly UserAccountService userAccountService;
+        private readonly BlockService blockService;
 
-        public AccountController(UserAccountService userServ)
+        public AccountController(UserAccountService userServ, BlockService blockService)
         {
-            userAccountService = userServ;
+            this.userAccountService = userServ;
+            this.blockService = blockService;
         }
 
 
@@ -54,7 +57,8 @@ namespace BlogAppV1.Controllers
                     {
                         Username = newUser.Email,
                         Email = newUser.Email,
-                        PasswordHash = newUser.Password
+                        PasswordHash = newUser.Password,
+                        PhotoId = 7 // urat tare dar nu stiu altfel, asta e poza default pt user
                     };
 
                     this.userAccountService.Register(tempUser);
@@ -130,6 +134,22 @@ namespace BlogAppV1.Controllers
         public JsonResult IsTaken(string emailOrUser)
         {
             return Json(this.userAccountService.IsTaken(emailOrUser));
+        }
+
+        [Authorize("Admin")]
+        public IActionResult MakeModerator(int userId)
+        {
+            var rows = blockService.MakeModerator(userId);
+
+            return RedirectToActionPermanent("ProfileOf", "UserInfo", new { userId = userId });
+        }
+
+        [Authorize("Admin")]
+        public IActionResult RemoveModerator(int userId)
+        {
+            var rows = blockService.RemoveModerator(userId);
+
+            return RedirectToActionPermanent("ProfileOf", "UserInfo", new { userId = userId });
         }
     }
 }

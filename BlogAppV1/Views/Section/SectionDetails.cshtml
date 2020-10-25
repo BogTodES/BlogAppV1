@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     ViewData["Title"] = "Section details";
 }
 
@@ -13,33 +13,58 @@
     </title>
 </head>
 <body>
-    <div class="container justify-content-center sectBg"
-         style="background-image: url('@Url.Action("GetPhoto", "Media", new { photoId = Model.PhotoId })');
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;                height: 100%;
-                position: absolute">
-        <div class="row justify-content-center">
-            <div class="flex-column text-center">
-                <h1 class="text-capitalize text-center">
-                    @Model.Name
-                </h1>
-                <span class="clearfix float-right">
-                    @if (CurrentUser.IsAuthenticated)
-                        if (int.Parse(CurrentUser.Id) == Model.OwnerId
-                            || User.IsInRole("Admin"))
-                        {
-                            <button id="s_@Model.Id" class="removeSection btn btn-sm btn-outline-danger">
-                                Delete
-                            </button>
-                        }
-                </span>
-            </div>
+    @if (Model.PhotoId != null && Model.PhotoId != 0)
+    {
+        <img src="@Url.Action("GetPhoto", "Media", new { photoId = Model.PhotoId })"
+             class="position-fixed fixed-top w-100 h-100" style="opacity: 0.3; z-index: -5;" />
+    }
+    <div class="row justify-content-center" style="z-index: 2;">
+        <div class="col-12 justify-content-center">
+            <h1 class="d-flex justify-content-center text-capitalize text-white">
+                @Model.Name
+            </h1>
+            <span class="d-flex justify-content-center">
+                <a asp-controller="Blog" asp-action="ShowBlogWith" asp-route-blogId="@Model.BlogId"
+                   class="btn btn-sm btn-success">
+                    Go to Blog
+                </a>
+            </span>
+            
         </div>
+
+        @if (CurrentUser.IsAuthenticated)
+            if (int.Parse(CurrentUser.Id) == Model.OwnerId
+                || User.IsInRole("Admin"))
+            {
+                <div class="col-12">
+                    <div class="dropdown postImg">
+                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                id="postImgDropdownBut" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Settings
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="postImgDropdownBut">
+                            <a class="dropdown-item">
+                                <form asp-action="AddSectPhoto" asp-controller="Media" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="file" accept="image/*" class="form-control"
+                                               id="inputImgToLoad" name="img" />
+                                        <input type="hidden" value="@Model.Id" name="sectId" />
+                                        <input type="submit" class="btn btn-sm btn-primary" value="Change background" />
+                                    </div>
+                                </form>
+                            </a>
+
+                            <a id="s_@Model.Id" class="removeSection btn btn-sm btn-danger dropdown-item">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
         <div class="row justify-content-start">
             @foreach (var post in Model.Posts)
             {
-                <div class="row card border-danger m-2 p-2 w-100 text-dark">
+                <div class="col-12 card border-danger m-2 p-2 w-100 text-dark">
                     <div class="card-title">
                         <h3 class="text-capitalize card-title">
                             <a asp-controller="Post" asp-action="PostWith"
@@ -75,9 +100,9 @@
                         </h3>
                     </div>
                     <hr />
-                    <textarea id="newBody" class="card-text text-muted text-decoration-none border-dark" contenteditable="true">
+                    <p id="newBody" class="card-text text-muted text-decoration-none border-dark" contenteditable="true">
 
-                        </textarea>
+                    </p>
                     <button id="addNewPostBut" name="@Model.Id" class="btn btn-secondary clearfix w-25 float-right">
                         Post It!
                     </button>

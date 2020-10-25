@@ -1,6 +1,7 @@
 ﻿using BlogAppV1.BusinessLogic.BaseServ;
 using BlogAppV1.DataAccess;
 using BlogAppV1.Entities.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,8 @@ namespace BlogAppV1.BusinessLogic
         public IEnumerable<Blogs> GetBlogsForUser(int userId)
         {
             return
-                unit.Blogs.Get().Where(blog => blog.UserId == userId).ToList();
+                unit.Blogs.Get()
+                    .Where(blog => blog.UserId == userId).ToList();
         }
 
         public IEnumerable<Blogs> GetBlogsForUser(string username)

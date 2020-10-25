@@ -55,7 +55,7 @@ namespace BlogAppV1.BusinessLogic.Services
                 var usr = unit.Users.Get().FirstOrDefault(u => u.Id == userId);
                 var oldImg = unit.Media.Get().FirstOrDefault(ph => ph.Id == usr.PhotoId);
 
-                if (oldImg != null)
+                if (oldImg != null && oldImg.Id != 7)
                     unit.Media.Delete(oldImg);
 
                 usr.Photo = AddPhoto(imgStream);

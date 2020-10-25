@@ -1,0 +1,34 @@
+﻿@model IEnumerable<BlogAppV1.ViewModels.BlogStuff.SmallSectionVm>
+
+@foreach(var sect in Model)
+{
+    <div class="col-6 mb-3">
+        <div class="card">
+            <div class="card-header">
+                <a asp-controller="Section" asp-action="SectionDetails" asp-route-sectId="@sect.Id">
+                    <h4 class="text-dark text-capitalize">
+                        @sect.Title.Trim()
+                    </h4>
+                </a>
+            </div>
+            <div class="w-100">
+                <div>
+                    @foreach (var post in sect.Posts)
+                    {
+                        <div class="card mt-2 border-dark rounded">
+                            <a asp-controller="Post" asp-action="PostWith" asp-route-postId="@post.Id">
+                                <h5 class="card-text text-info text-decoration-none text-left p-1">
+                                    @post.Title.Trim()
+                                </h5>
+                            </a>
+                            <hr />
+                            <p class="text-secondary text-left p-2">
+                                @post.Body.Trim()
+                            </p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

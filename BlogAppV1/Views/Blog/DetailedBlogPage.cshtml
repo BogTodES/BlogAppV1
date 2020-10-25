@@ -10,38 +10,57 @@
     <title>@Model.Title - @Model.OwnerUsername</title>
 </head>
 <body>
-    <div class="container justify-content-center">
-        <div class="row justify-content-center">
-            <div class="flex-column text-center">
-                <h1 class="text-capitalize text-center">
-                    @Model.Title
-                </h1>
-                <h3 class="text-muted font-weight-lighter">
-                    from @Model.OwnerUsername
-                </h3>
-            </div>
-            @if (CurrentUser.IsAuthenticated && CurrentUser.Username == Model.OwnerUsername)
-            {
-                <div class="clearfix ml-auto">
-                    <form asp-controller="Blog" asp-action="EditBlogId" asp-route-id="@Model.BlogId"
-                          method="post" class="form-horizontal clearfix float-right">
-                        <a asp-controller="Blog" asp-action="EditBlogId" asp-route-id="@Model.BlogId"
-                           method="post" class="form-horizontal clearfix float-right">
-                            <input type="submit" value="Edit" />
-                        </a>
-                    </form>
-                </div>
-            }
-        </div>
-        <div class="row justify-content-center">
-                @foreach (var sectId in Model.SectionsIds)
+    @if (Model.PhotoId != null && Model.PhotoId != 0)
+    {
+        <img src="@Url.Action("GetPhoto", "Media", new { photoId = Model.PhotoId })"
+             class="position-fixed fixed-top w-100 h-100" style="opacity: 0.3; z-index: -5;" />
+        <hr />
+    }
+    <div class="row">
+        <div class="col-12">
+            <h1 class="d-flex justify-content-center text-light font-weight-bold">
+                @Model.Title
+            </h1>
+            <h3 class="d-flex justify-content-center text-light font-weight-lighter">
+                <a asp-controller="UserInfo" asp-action="ProfileOf" asp-route-username="@Model.OwnerUsername">
+                    by @Model.OwnerUsername
+                </a>
+            </h3>
+            @if (CurrentUser.IsAuthenticated)
+                if (int.Parse(CurrentUser.Id) == Model.OwnerId)
                 {
-                    <div class="col border-info rounded m-3">
-                        @*<vc:MainScreenSection id="@sectId">
-                        </vc:MainScreenSection>*@
-                        @await Component.InvokeAsync("MainScreenSection", new { id = sectId, blogId = Model.BlogId, isEditable = false })
+                    <div class="col-12">
+                        <div class="dropdown postImg">
+                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                    id="postImgDropdownBut" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Settings
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="postImgDropdownBut">
+                                <a class="dropdown-item">
+                                    <form asp-action="AddBlogPhoto" asp-controller="Media" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <input type="file" accept="image/*" class="form-control"
+                                                   id="inputImgToLoad" name="img" />
+                                            <input type="hidden" value="@Model.BlogId" name="blogId" />
+                                            <input type="submit" class="btn btn-sm btn-primary" value="Change background" />
+                                        </div>
+                                    </form>
+                                </a>
+                                <a id="s_@Model.BlogId" class="dropdown-item removeSection btn btn-sm btn-danger ">
+                                    Delete
+                                </a>
+                                <a class="dropdown-item" asp-controller="Blog" asp-action="EditBlog" asp-route-blogId="@Model.BlogId">
+                                    Edit
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 }
+        </div>
+        <div class="col-12">
+            <div class="row">
+                @await Component.InvokeAsync("MainScreenSections", new { blogId = Model.BlogId, IsEditable = false })
+            </div>
         </div>
     </div>
 </body>

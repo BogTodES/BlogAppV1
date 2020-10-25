@@ -4,6 +4,7 @@
 
 @model BlogAppV1.ViewModels.UserInfoVm
 
+@inject BlogAppV1.Entities.DTOs.CurrentUserDto CurrentUser
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -13,105 +14,113 @@
     <div class="container">
         <div class="row">
             <div class="flex-column col-3 border-dark rounded-left p-2">
-                <ul class="list-unstyled list-group-flush">
-                    <li>
-                        <h1>User Info</h1>
-                    </li>
-                    <li class="list-group-item">
+                <ul class="list-unstyled list-group-flush border-dark rounded-left">
+                    @if (Model.PhotoId != null && Model.PhotoId != 0)
+                    {
+                        <li>
+                            <img src="@Url.Action("GetPhoto", "Media", new { photoId = Model.PhotoId})"
+                                 alt="userPhoto" class="img-thumbnail" />
+                        </li>
+                    }
+                    <li class="list-group-item d-flex justify-content-center">
                         <a class="btn btn-light" asp-action="BlogsOfUId" asp-controller="UserBlog"
                            asp-route-userId="@Model.Id">
                             Blogs
                         </a>
                     </li>
-                    <li class="list-group-item">
-                        @{
-                            switch (Model.FriendState)
-                            {
-                                case 3:
-                                    <button class="btn btn-outline-danger btn-sm" id="unfriendBut"
-                                            name="@Model.Id"
-                                            data-unfriend-url="@Url.Action("Unfriend", "Friends")">
-                                        Unfriend
-                                    </button>
-                                    break;
-                                case 2:
-                                    <button id="confirm_@Model.Id"
-                                            class="btn btn-outline-success rounded-circle confirmReq">
-                                        Confirm
-                                    </button>
-                                    <button id="decl_@Model.Id"
-                                            class="btn btn-outline-danger rounded-circle declineReq">
-                                        Decline
-                                    </button>
-                                    break;
-                                case 1:
-                                    <button class="btn btn-outline-secondary btn-sm" id="removeFrReqBut"
-                                            name="@Model.Id"
-                                            data-remove-req-url="@Url.Action("RemoveRequest", "Friends")">
-                                        Remove Request
-                                    </button>
-                                    break;
-                                case 0:
-                                    <button class="btn btn-outline-info btn-sm sendFrReqBut"
-                                            name="@Model.Id">
-                                        Add Friend
-                                    </button>
-                                    break;
+                    @if (CurrentUser.IsAuthenticated)
+                    {
+                        <li class="list-group-item d-flex justify-content-center">
+                            @{
+                                switch (Model.FriendState)
+                                {
+                                    case 3:
+                                        <button class="btn btn-outline-danger btn-sm" id="unfriendBut"
+                                                name="@Model.Id"
+                                                data-unfriend-url="@Url.Action("Unfriend", "Friends")">
+                                            Unfriend
+                                        </button>
+                                        break;
+                                    case 2:
+                                        <button id="confirm_@Model.Id"
+                                                class="btn btn-outline-success rounded-circle confirmReq">
+                                            Confirm
+                                        </button>
+                                        <button id="decl_@Model.Id"
+                                                class="btn btn-outline-danger rounded-circle declineReq">
+                                            Decline
+                                        </button>
+                                        break;
+                                    case 1:
+                                        <button class="btn btn-outline-secondary btn-sm" id="removeFrReqBut"
+                                                name="@Model.Id"
+                                                data-remove-req-url="@Url.Action("RemoveRequest", "Friends")">
+                                            Remove Request
+                                        </button>
+                                        break;
+                                    case 0:
+                                        <button class="btn btn-outline-info btn-sm sendFrReqBut"
+                                                name="@Model.Id">
+                                            Add Friend
+                                        </button>
+                                        break;
+                                }
                             }
-                        }
-                    </li>
-                    <li class="list-group-item">
-                        <a class="btn btn-outline-danger" asp-controller="Blocks" asp-action="BlockUser"
-                           asp-route-blockedId="@Model.Id">
-                            Block
-                        </a>
-                    </li>
-                    @if (Model.BanState == 0)
-                    {
-                        if (User.IsInRole("Moderator"))
-                        {
-                            <li class="list-group-item">
-                                <a class="btn btn-info" asp-controller="Blocks" asp-action="SoftBan"
-                                   asp-route-blockedId="@Model.Id">
-                                    Soft ban
-                                </a>
-                            </li>
-                        }
-                        if (User.IsInRole("Admin"))
-                        {
-                            <li class="list-group-item">
-                                <a class="btn btn-info" asp-controller="Blocks" asp-action="HardBan"
-                                   asp-route-blockedId="@Model.Id">
-                                    Hard ban
-                                </a>
-                            </li>
-                        }
-                    }
-                    else
-                    {
-                        if (Model.BanState == 1)
+                        </li>
+                        <li class="list-group-item d-flex justify-content-center">
+                            <a class="btn btn-outline-danger" asp-controller="Blocks" asp-action="BlockUser"
+                               asp-route-blockedId="@Model.Id">
+                                Block
+                            </a>
+                        </li>
+                        @if (Model.BanState == 0)
                         {
                             if (User.IsInRole("Moderator"))
                             {
-                                <li class="list-group-item">
+                                <li class="list-group-item d-flex justify-content-center">
                                     <a class="btn btn-info" asp-controller="Blocks" asp-action="SoftBan"
                                        asp-route-blockedId="@Model.Id">
-                                        Lift soft ban
+                                        Soft ban
+                                    </a>
+                                </li>
+                            }
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li class="list-group-item d-flex justify-content-center">
+                                    <a class="btn btn-info" asp-controller="Blocks" asp-action="HardBan"
+                                       asp-route-blockedId="@Model.Id">
+                                        Hard ban
+                                    </a>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-center">
+                                    <a class="btn btn-outline-success" asp-controller="Account" asp-action="MakeModerator"
+                                       asp-route-userId="@Model.Id">
+                                        Promote to Moderator
+                                    </a>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-center">
+                                    <a class="btn btn-outline-success" asp-controller="Account" asp-action="RemoveModerator"
+                                       asp-route-userId="@Model.Id">
+                                        Remove Moderator
                                     </a>
                                 </li>
                             }
                         }
                         else
                         {
-                            if (User.IsInRole("Admin"))
+                            if (Model.BanState >= 1)
                             {
-                                <li class="list-group-item">
-                                    <a class="btn btn-info" asp-controller="Blocks" asp-action="HardBan"
-                                       asp-route-blockedId="@Model.Id">
-                                        Lift hard ban
-                                    </a>
-                                </li>
+                                if (User.IsInRole("Admin"))
+                                {
+                                    <li class="list-group-item d-flex justify-content-center">
+                                        <a class="btn btn-info" asp-controller="Blocks" asp-action="LiftBan"
+                                           asp-route-blockedId="@Model.Id">
+                                            Lift ban
+                                        </a>
+                                    </li>
+                                }
                             }
+                            
                         }
                     }
                 </ul>

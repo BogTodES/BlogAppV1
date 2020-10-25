@@ -9,5 +9,6 @@ namespace BlogAppV1.ViewModels.ReactsVms
     {
         public IEnumerable<ReactTypeUserVm> TypesAndUsers { get; set; }
         public long PostId { get; set; }
+        public bool IsDetailed { get; set; }
     }
 }

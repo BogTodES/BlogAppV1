@@ -1,0 +1,98 @@
+﻿@model BlogAppV1.ViewModels.Home.HomeResultsVm
+
+@inject BlogAppV1.Entities.DTOs.CurrentUserDto CurrentUser
+
+@foreach (var post in Model.PostResults)
+{
+    <div class="item post border-light rounded-bottom">
+        <div class="content">
+            <div class="title border-bottom-2">
+                <a asp-controller="Post"
+                   asp-action="PostWith" asp-route-postId="@post.PostId">
+                    <h3>
+                        @post.PostTitle
+                    </h3>
+                </a>
+                <p>
+                    by <a asp-controller="UserInfo" asp-action="ProfileOf"
+                          asp-route-username="@post.OwnerUsername">
+                        @post.OwnerUsername
+                    </a> in <a asp-controller="Section" asp-action="SectionDetails"
+                               asp-route-sectId="@post.SectId">@post.SectTitle</a>
+                </p>
+            </div>
+            <div class="p-2">
+                <div class="desc">
+                    <p>
+                        @post.PostBody
+                    </p>
+                </div>
+                <hr />
+                <div class="list-group-horizontal d-flex list-unstyled">
+                    @await Component.InvokeAsync("PostReactsWidget",
+                            new { postId = post.PostId, IsDetailed = false })
+                </div>
+                <hr />
+            </div>
+        </div>
+    </div>
+}
+
+
+@foreach (var blog in Model.BlogResults)
+{
+    <div class="item blog border-light rounded-bottom">
+        <div class="content">
+            <div class="title">
+                <a asp-controller="Blog" asp-action="ShowBlogWith" 
+                   asp-route-blogId="@blog.BlogId">
+                    <h3>
+                        @blog.BlogTitle
+                    </h3>
+                </a>
+            </div>
+            <div class="desc p-2">
+                <h6>
+                    Owned and managed by <a asp-controller="UserInfo" asp-action="ProfileOf"
+                                            asp-route-username="@blog.OwnerUsername">@blog.OwnerUsername</a>
+                </h6>
+            </div>
+            @if (blog.PhotoId != null && blog.PhotoId != 0)
+            {
+                <div class="card border-0 mt-2 p-0">
+                    <img src="@Url.Action("GetPhoto", "Media", new { photoId = blog.PhotoId })" alt="blogPhoto"
+                         class="card-img card-img-bottom" />
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@foreach (var sect in Model.SectionResults)
+{
+    <div class="item section border-light rounded-bottom">
+        <div class="content">
+            <div class="title">
+                <a asp-controller="Section" asp-action="SectionDetails"
+                   asp-route-sectId="@sect.SectId">
+                    <h3>
+                        @sect.SectTitle
+                    </h3>
+                </a>
+            </div>
+            <div class="desc p-2">
+                <h6>
+                    part of <a asp-controller="UserInfo" asp-action="ProfileOf"
+                             asp-route-username="@sect.OwnerUsername">@sect.OwnerUsername</a>'s blog
+                </h6>
+            </div>
+            @if (sect.PhotoId != null && sect.PhotoId != 0)
+            {
+                <div class="card border-0 mt-2 p-0">
+                    <img src="@Url.Action("GetPhoto", "Media", new { photoId = sect.PhotoId })" alt="sectPhoto" 
+                         class="card-img card-img-bottom"/>
+                </div>
+            }
+        </div>
+    </div>
+}

@@ -1,0 +1,40 @@
+﻿@model BlogAppV1.ViewModels.SectionVms.MainScreenSectionRow
+
+
+@foreach(var sect in Model.DetailedSections)
+{
+    <div class="col-4 m-3 card">
+        <a asp-controller="Section" asp-action="SectionDetails" asp-route-sectId="@sect.Id">
+            <h3 class="text-dark d-flex justify-content-center">
+                @sect.Name
+            </h3>
+        </a>
+        <hr />
+        @if(sect.PhotoId != null && sect.PhotoId != 0)
+        {
+            <img src="@Url.Action("GetPhoto", "Media", new { photoId = sect.PhotoId })" 
+                 class="card-img card-img-top" />
+        }
+        @foreach(var post in sect.Posts)
+        {
+            <div class="mb-3 shadow-lg p-2">
+                <a asp-controller="Post" asp-action="PostWith" asp-route-postId="@post.Id">
+                    <h4 class="text-dark d-flex justify-content-center">
+                        @post.Title
+                    </h4>
+                </a>
+                <hr />
+                <p class="text-secondary">
+                    @post.Body
+                </p>
+                <hr />
+                <div>
+                    <ul class="list-group list-group-horizontal list-unstyled small float-left border-0">
+                        @await Component.InvokeAsync("PostReactsWidget",
+                                    new { postId = post.Id })
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -44,7 +44,9 @@ namespace BlogAppV1.BusinessLogic.Services
         public List<Users> FriendsOf()
         {
             // current user
-            return FriendsOf(int.Parse(CurrentUser.Id));
+            if(CurrentUser.IsAuthenticated)
+                return FriendsOf(int.Parse(CurrentUser.Id));
+            return new List<Users>();
         }
 
         public Friends AreFriends(int userId1, int userId2)

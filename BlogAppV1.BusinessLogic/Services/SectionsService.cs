@@ -57,15 +57,21 @@ namespace BlogAppV1.BusinessLogic
         {
             return
                 unit.Posts.Get()
-                    .Where(p => p.SectionId == sectId);
+                    .Where(p => p.SectionId == sectId).ToList();
         }
 
-        public IEnumerable<Posts> Top5Posts(long sectId)
+        public List<Posts> TopNPosts(long sectId, int n)
         {
-            return
-                unit.Posts.Get()
-                    .Where(p => p.SectionId == sectId)
-                    .Take(5);
+            // top N posts by number of reacts
+            var posts = AllPosts(sectId)
+                .OrderByDescending(p => p.Id)
+                .Select(p => new 
+                 { p, 
+                   count = unit.UsersPostsReacts
+                               .Get().Where(upr => upr.PostId == p.Id)
+                               .Count() 
+                 });
+            return posts.OrderByDescending(pst => pst.count).Select(pst => pst.p).Take(n).ToList();
         }
 
         public IEnumerable<Blogs> BlogsUsingSectId(long sectId)

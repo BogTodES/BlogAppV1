@@ -25,12 +25,13 @@ namespace BlogAppV1.ViewComponents
             this.userInfoService = userInfoService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(long postId)
+        public async Task<IViewComponentResult> InvokeAsync(long postId, bool IsDetailed)
         {
             var reactsToDisplay = new ReactsAndPostVm
             {
                 TypesAndUsers = LoadPostreacts(postId),
-                PostId = postId
+                PostId = postId,
+                IsDetailed = IsDetailed
             };
 
             return View("DisplayReactsPost", reactsToDisplay);

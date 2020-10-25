@@ -54,7 +54,7 @@ namespace BlogAppV1.Controllers
             var post = postService.PostWithId(postId);
 
             if (post is null)
-                return NotFound("The Post you are looking for has been deleted or is unaccessible");
+                return NotFound("The Post you are looking for has been deleted or is inaccessible");
 
             var tempComms = postService.CommentsOfPost(postId).ToList();
             var poster = postService.GetPosterInfo(postId);
@@ -68,6 +68,7 @@ namespace BlogAppV1.Controllers
                 SectId = post.SectionId,
                 OwnerId = poster.PosterId,
                 OwnerUsername = poster.PosterUsername,
+                PhotoId = post.PhotoId,
                 Comments = tempComms
             });
         }

@@ -1,4 +1,5 @@
 ﻿using BlogAppV1.BusinessLogic.BaseServ;
+using BlogAppV1.BusinessLogic.Services;
 using BlogAppV1.Common;
 using BlogAppV1.DataAccess;
 using BlogAppV1.Entities.DTOs;
@@ -11,9 +12,15 @@ namespace BlogAppV1.BusinessLogic
 {
     public class UserInfoService : BaseService
     {
-        public UserInfoService(UnitOfWork unit, CurrentUserDto currentUserDto) : 
+        private readonly BlockService blockService;
+        private readonly FriendsService friendsService;
+
+        public UserInfoService(UnitOfWork unit, CurrentUserDto currentUserDto,
+                BlockService blockService, FriendsService friendsService) : 
             base(unit, currentUserDto)
         {
+            this.blockService = blockService;
+            this.friendsService = friendsService;
         }
 
         /*public IEnumerable<Users> GetAll()
@@ -116,6 +123,52 @@ namespace BlogAppV1.BusinessLogic
 
                 return unit.Complete();
             });
+        }
+
+        public List<Users> GetRandomUsers(Random random)
+        {
+            var results = new List<Users>();
+            var users = new List<Users>();
+
+            if(CurrentUser.IsAuthenticated)
+            {
+                // nu iau oameni blocati sau prieteni sau pe mine
+
+                var blockedUsers = blockService.BlockedByCurrent();
+                var friends = friendsService.FriendsOf().Select(f => f.Id);
+                users = unit.Users.Get()
+                    .Where(u => u.Id != int.Parse(CurrentUser.Id) &&
+                                !blockedUsers.Contains(u.Id) &&
+                                !friends.Contains(u.Id))
+                    .ToList();
+            }
+            else
+            {
+                users = unit.Users.Get().ToList();
+            }
+
+
+            var count = random.Next(3, users.Count);
+            var usedIds = new List<int>();
+
+            for(int i = 0; i < count; ++i)
+            {
+                var randIndex = random.Next(1, users.Count);
+
+                // verific sa nu trimit date despre acelasi user de 2 ori
+                if(!usedIds.Contains(randIndex))
+                {
+                    var randUsr = users[randIndex];
+                    usedIds.Add(randIndex);
+                    results.Add(randUsr);
+                }
+                else
+                {
+                    i--;
+                }
+            }
+
+            return results;
         }
     }
 }

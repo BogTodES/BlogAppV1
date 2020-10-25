@@ -32,6 +32,7 @@ namespace BlogAppV1.ViewModels
         public byte? Gender { get; set; }
 
         public Media Photo { get; set; }
+        public long PhotoId { get; set; }
 
         public int FriendState { get; set; }
         public bool IsBlocked { get; set; }

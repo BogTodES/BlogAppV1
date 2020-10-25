@@ -35,7 +35,7 @@ namespace BlogAppV1.Controllers
         {
             sectionsService.AddSection(name, blogId);
 
-            return RedirectToAction("ShowBlogWith", "Blog", new { id = blogId });
+            return RedirectToActionPermanent("Index", "Home", new { blogId = blogId });
         }
 
         public IActionResult RemoveSection(long sectId)

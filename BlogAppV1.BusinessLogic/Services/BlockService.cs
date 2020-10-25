@@ -25,8 +25,11 @@ namespace BlogAppV1.BusinessLogic.Services
             return 0;
         }
 
-        public Blocks UserBlockedUser(int userId1, int userId2)
+        public Blocks UserBlockedUser(int? userId1, int userId2)
         {
+            if (userId1 == null)
+                return null;
+
             // aici trebuie sa verific ambele capete
             return
                 unit.Blocks.Get().FirstOrDefault(bl => (bl.SenderId == userId1 && bl.BlockedId == userId2) ||
@@ -158,6 +161,49 @@ namespace BlogAppV1.BusinessLogic.Services
 
                 return unit.Complete();
             });
+        }
+
+        [Authorize("Admin")]
+        public int MakeModerator(int userId)
+        {
+            var mod = unit.Permissions.Get().FirstOrDefault(p => p.Name == "Moderator");
+
+            if (mod == null)
+                return -1;
+
+            return ExecuteInTransaction(unit =>
+            {
+                var nrp = new UsersRoles()
+                {
+                    RoleId = mod.Id,
+                    UserId = userId
+                };
+
+                unit.UsersRoles.Insert(nrp);
+
+                return unit.Complete();
+            });
+        
+        }
+
+        [Authorize("Admin")]
+        public int RemoveModerator(int userId)
+        {
+            var old = unit.UsersRoles.Get().FirstOrDefault(up => up.UserId == userId &&
+                                                                 up.RoleId == 2);
+
+            if(old == null)
+            {
+                return -1;
+            }
+            else
+            {
+                return ExecuteInTransaction(unit =>
+                {
+                    unit.UsersRoles.Delete(old);
+                    return unit.Complete();
+                });
+            }
         }
     }
 }

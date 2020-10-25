@@ -36,6 +36,11 @@ namespace BlogAppV1.Controllers
             var list = userBlogService.GetBlogsForUser(userId);
             var user = userInfoService.GetUserWithIdSafe(userId);
 
+            if(user == null)
+            {
+                return NotFound("Could not find user");
+            }
+
             return RenderBlogList(new BlogListVm
             {
                 BlogList = list,
@@ -49,6 +54,11 @@ namespace BlogAppV1.Controllers
         {
             var list = userBlogService.GetBlogsForUser(username);
             var user = userInfoService.GetUserWithNameSafe(username);
+
+            if (user == null)
+            {
+                return NotFound("Could not find user");
+            }
 
             return RenderBlogList(new BlogListVm()
             {

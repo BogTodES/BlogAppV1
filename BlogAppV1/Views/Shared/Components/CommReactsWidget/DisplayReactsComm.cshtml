@@ -3,51 +3,97 @@
 @inject BlogAppV1.Entities.DTOs.CurrentUserDto CurrentUser
 
 @{
-    var reactSet = Model.TypesAndUsers.Select(tu => tu.Type).ToHashSet();
+    var reactSet = Model.TypesAndUsers.Select(tu => new { tu.Type, tu.ReactId }).ToHashSet();
 }
 
-@foreach (var type in reactSet)
+@foreach (var react in reactSet)
 {
     @*mai intai afisez ce reactii au fost date deja*@
 
-    <li class="list-group-item @type" data-comm-id="@Model.CommId">
-        @type
-        @Model.TypesAndUsers.Where(r => r.Type == type).Count()
+    <li class="list-group-item @react.Type text-dark border-dark" 
+        data-comm-id="@Model.CommId">
+        @switch (react.Type)
+        {
+            case "like":
+                <span>&#128077</span>
+                break;
+            case "dislike":
+                <span>&#128078</span>
+                break;
+            case "happy":
+                <span>&#128515</span>
+                break;
+            case "sad":
+                <span>&#128546</span>
+                break;
+            case "angry":
+                <span>&#128548</span>
+                break;
+            case "wow":
+                <span>&#128562</span>
+                break;
+            case "good job":
+                <span>&#128076</span>
+                break;
+            case "disappointed":
+                <span>&#128542</span>
+                break;
+        }
+        <span class="badge badge-dark badge-pill">
+            @Model.TypesAndUsers.Where(r => r.Type == react.Type).Count()
+        </span>
     </li>
 }
 
 @if (CurrentUser.IsAuthenticated)
 {
-<li>
-    @*apoi fac un buton pentru ca userul sa poata reactiona si el*@
-    @{
-        var upr = Model.TypesAndUsers
-            .FirstOrDefault(r => r.UserId == int.Parse(CurrentUser.Id));
-        if (upr is null)
-        {
-            @*nu a reactionat pana acum*@
-            @*<button id="@Model.CommId" class="btn-outline-dark small reactButComm">
-                    Like
-                </button>*@
+    <li>
+        @*apoi fac un buton pentru ca userul sa poata reactiona si el*@
+        @{
+            var upr = Model.TypesAndUsers
+                .FirstOrDefault(r => r.UserId == int.Parse(CurrentUser.Id));
+            if (upr is null)
+            {
+                @*nu a reactionat pana acum*@
 
-            <button class="btn btn-secondary dropleft-toggle btn-sm" 
-                    type="button" id="commReactMenu_@Model.CommId" 
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Like
-            </button>
-        }
-        else
-        {
-            @*a reactioant deja, afisez ce a ales*@
-            <button id="@Model.CommId" class="btn-info small liked reactButComm">
-                @upr.Type
-            </button>
-        }
 
-        @*in acest caz reactionez la postare*@
-        <input type="hidden" id="commData"
-               data-comm-url-add="@Url.Action("ReactToComm", "Reactions")"
-               data-comm-url-remove="@Url.Action("RemoveReactFromComm", "Reactions")">
-    }
-</li>
+                <div class="btn-group dropright" id="crm_@Model.CommId">
+                    <button type="button" class="btn btn-secondary btn-sm reactButComm" 
+                            id="mainCommReact_@Model.CommId">
+                        Like
+                    </button>
+                    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" 
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropright</span>
+                    </button>
+                    <div class="dropdown-menu commReactDropdown">
+                    
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                @*a reactioant deja, afisez ce a ales*@
+                <div class="btn-group dropright" id="crm_@Model.CommId">
+                    <button type="button" class="btn btn-info btn-sm reactButComm liked" 
+                            id="mainCommReact_@Model.CommId">
+                        @upr.Type
+                    </button>
+                    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" 
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropright</span>
+                    </button>
+                    <div class="dropdown-menu commReactDropdown">
+
+                    </div>
+                </div>
+            }
+
+            @*in acest caz reactionez la postare*@
+            <input type="hidden" id="commData"
+                   data-comm-url-add="@Url.Action("ReactToComm", "Reactions")"
+                   data-comm-url-remove="@Url.Action("RemoveReactFromComm", "Reactions")">
+        }
+    </li>
 }

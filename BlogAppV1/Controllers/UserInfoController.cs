@@ -67,10 +67,13 @@ namespace BlogAppV1.Controllers
 
             var model = Mapper.Map<UserInfoVm>(user);
 
-            model.IsBlocked = blockService
-                .UserBlockedUser(int.Parse(userInfoService.CurrentUser.Id), model.Id) != null;
-            if (model.IsBlocked)
-                return NotFound("Could not find user :(");
+            if (userInfoService.CurrentUser.IsAuthenticated)
+            {
+                model.IsBlocked = blockService
+                    .UserBlockedUser(int.Parse(userInfoService.CurrentUser.Id), model.Id) != null;
+                if (model.IsBlocked)
+                    return NotFound("Could not find user :(");
+            }
 
             model.Birthdate = user.Birthdate;
 

@@ -22,11 +22,16 @@ namespace BlogAppV1.Controllers
             this.Mapper = mapper;
         }
 
-        public IActionResult ShowBlogWith(long id)
+        public IActionResult ShowBlogWith(long blogId)
         {
-            var blog = blogService.GetBlogWithId(id);
-            var sections = blogService.SectionsOfBlog(id);
-            var owner = userInfoService.GetUserWithIdSafe(blog.UserId);
+            var blog = blogService.GetBlogWithId(blogId);
+            if(blog == null)
+            {
+                return NotFound("This blog does not exist or it is inaccessible");
+            }
+
+            var sections = blogService.SectionsOfBlog(blogId);
+            var owner = userInfoService.GetUserWithId(blog.UserId);
 
             return View("DetailedBlogPage",
                 new DetailedBlogVm()
@@ -34,22 +39,17 @@ namespace BlogAppV1.Controllers
                     BlogId = blog.Id,
                     Title = blog.Title,
                     SectionsIds = sections,
+                    PhotoId = blog.PhotoId,
                     OwnerUsername = owner.Username,
                     OwnerEmail = owner.Email,
                     OwnerId = owner.Id
                 });
         }
-
-        public IActionResult ShowBlog(string title, int ownerId)
+        
+        public IActionResult EditBlogId(long blogId)
         {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult EditBlogId(long Id)
-        {
-            var blog = blogService.GetBlogWithId(Id);
-            var sections = blogService.SectionsOfBlog(Id);
+            var blog = blogService.GetBlogWithId(blogId);
+            var sections = blogService.SectionsOfBlog(blogId);
             var owner = userInfoService.GetUserWithIdSafe(blog.UserId);
 
             return View("EditableBlogPage",
@@ -58,6 +58,7 @@ namespace BlogAppV1.Controllers
                     BlogId = blog.Id,
                     Title = blog.Title,
                     SectionsIds = sections,
+                    PhotoId = blog.PhotoId,
                     OwnerUsername = owner.Username,
                     OwnerEmail = owner.Email,
                     OwnerId = owner.Id
@@ -105,7 +106,7 @@ namespace BlogAppV1.Controllers
         {
             blogService.UpdateTitle(newTitle, blogId);
 
-            return RedirectToAction("ShowBlogWith", "Blog", new { id = blogId });
+            return RedirectToActionPermanent("ShowBlogWith", "Blog", new { blogId = blogId });
         }
     }
 }

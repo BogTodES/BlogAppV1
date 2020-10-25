@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     ViewData["Title"] = "PostView";
 }
 
@@ -17,22 +17,60 @@
                 @Model.Title
             </h2>
             <h6 class="card-subtitle">
-                posted on @Model.Date.Date.ToShortDateString() by @Model.OwnerUsername
+                posted on @Model.Date.Date.ToShortDateString() by
+                <a asp-controller="UserInfo" asp-action="ProfileOf" asp-route-username="@Model.OwnerUsername">@Model.OwnerUsername</a>
             </h6>
-            <span>
-                @if (CurrentUser.IsAuthenticated)
-                    if ((int.Parse(CurrentUser.Id) == Model.OwnerId
-                      || User.IsInRole("Admin")))
-                    {
+
+            @if (CurrentUser.IsAuthenticated)
+                if ((int.Parse(CurrentUser.Id) == Model.OwnerId
+                    || User.IsInRole("Admin")))
+                {
+                    <span class="float-right">
                         <button id="p_@Model.Id" class="removePost btn btn-sm btn-outline-danger">
                             Delete
                         </button>
-                    }
+                    </span>
+                }
+
+            <span class="float-right">
+                <a asp-controller="Section" asp-action="SectionDetails" asp-route-sectId="@Model.SectId"
+                   class="btn btn-sm btn-success">
+                    Go To Section
+                </a>
             </span>
+            @if (CurrentUser.IsAuthenticated)
+                if (int.Parse(CurrentUser.Id) == Model.OwnerId)
+                {
+
+                    <div class="dropdown postImg w-25">
+                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                id="postImgDropdownBut" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Add photo
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="postImgDropdownBut">
+                            <a class="dropdown-item">
+                                <form asp-action="AddPostPhoto" asp-controller="Media" enctype="multipart/form-data"
+                                      class="small">
+                                    <div class="form-group">
+                                        <input type="file" accept="image/*" class="form-control"
+                                               id="inputImgToLoad" name="img" />
+                                        <input type="hidden" value="@Model.Id" name="postId" />
+                                        <input type="submit" class="btn btn-sm btn-primary" value="Add" />
+                                    </div>
+                                </form>
+                            </a>
+                        </div>
+                    </div>
+                }
             <hr />
             <p class="card-text">
                 @Model.Body
             </p>
+            @if (Model.PhotoId != 0 && Model.PhotoId != null)
+            {
+                <img src="@Url.Action("GetPhoto", "Media", new { photoId = Model.PhotoId })" alt="postPhoto"
+                     class="card-img card-img-bottom" />
+            }
         </div>
         <div class="card-footer" id="reactsDiv">
             <ul class="list-group list-group-horizontal list-unstyled small">
@@ -43,83 +81,90 @@
     </div>
 
     <div class="container justify-content-center">
-        <div id="commentsBox" class="card border-info w-100 justify-content-center">
+        <div id="commentsBox" class="card border-info justify-content-center">
             <div class="card-header">
                 <h5 class="text-muted">
                     Comments
                 </h5>
             </div>
-            <ul class="commentsList list-group list-group-flush w-100">
+            <ul class="commentsList list-group">
                 @foreach (var comm in Model.Comments)
                 {
-                    <li class="border-dark text-dark p-2 m-2 list-group-item rounded">
-                        <h4 class="font-weight-bold">
-                            <a asp-controller="UserInfo" asp-action="ProfileOf" 
-                               asp-route-username="@comm.CommenterUsername"
-                               class="text-decoration-none">
-                            @comm.CommenterUsername
-                            </a>
-                        </h4>
-                        @if(CurrentUser.IsAuthenticated)
-                            if((int.Parse(CurrentUser.Id) == Model.OwnerId 
-                                || int.Parse(CurrentUser.Id) == comm.CommenterId)
-                              || User.IsInRole("Admin") || User.IsInRole("Moderator"))
-                        {
-                            <button id="c_@comm.Id" class="removeComm btn btn-sm btn-outline-secondary">
-                                Delete
-                            </button>
-                        }
+                    <li class="list-group-item border-bottom shadow-sm mb-2">
+                        <div>
+                            <h4 class="font-weight-bold">
+                                <a asp-controller="UserInfo" asp-action="ProfileOf"
+                                   asp-route-username="@comm.CommenterUsername"
+                                   class="text-decoration-none">
+                                    @comm.CommenterUsername
+                                </a>
+                            </h4>
+                            <span class="float-right">
+                                @if (CurrentUser.IsAuthenticated)
+                                    if ((int.Parse(CurrentUser.Id) == Model.OwnerId
+                                        || int.Parse(CurrentUser.Id) == comm.CommenterId)
+                                      || User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                    {
+                                        <button id="c_@comm.Id" class="removeComm btn btn-sm btn-outline-danger rounded-pill">
+                                            X
+                                        </button>
+                                    }
+                            </span>
 
-                        <ul class="list-group list-group-horizontal float-right list-unstyled small">
-                            @await Component.InvokeAsync("CommReactsWidget",
-                                        new { commId = comm.Id })
-                        </ul>
-                        @if (comm.ElapsedTime.TotalSeconds < 60)
-                        {
-                            <p class="text-muted">
-                                @comm.ElapsedTime.Seconds seconds ago
-                            </p>
-                        }
-                        else if (comm.ElapsedTime.TotalMinutes < 60)
-                        {
-                            <p class="text-muted">
-                                @comm.ElapsedTime.Minutes mins ago
-                            </p>
-                        }
-                        else if (comm.ElapsedTime.TotalHours < 24)
-                        {
-                            <p class="text-muted">
-                                @comm.ElapsedTime.Hours hours ago
-                            </p>
-                        }
-                        else if (comm.ElapsedTime.TotalDays < 7)
-                        {
-                            <p class="text-muted">
-                                @comm.ElapsedTime.Days days ago
-                            </p>
-                        }
-                        else if (comm.ElapsedTime.TotalDays < 31)
-                        {
-                            <p class="text-muted">
-                                @(comm.ElapsedTime.Days / 7) weeks ago
-                            </p>
-                        }
-                        else if (comm.ElapsedTime.TotalDays <= 365)
-                        {
-                            <p class="text-muted">
-                                @(comm.ElapsedTime.Days / 30) months ago
-                            </p>
-                        }
-                        else
-                        {
-                            <p class="text-muted">
-                                @(comm.ElapsedTime.Days / 365) years ago
-                            </p>
-                        }
-                        <div class="d-block">
-                            <p class="font-weight-light">
-                                @comm.Body
-                            </p>
+                            @if (comm.ElapsedTime.TotalSeconds < 60)
+                            {
+                                <p class="text-muted small">
+                                    @comm.ElapsedTime.Seconds seconds ago
+                                </p>
+                            }
+                            else if (comm.ElapsedTime.TotalMinutes < 60)
+                            {
+                                <p class="text-muted small">
+                                    @comm.ElapsedTime.Minutes mins ago
+                                </p>
+                            }
+                            else if (comm.ElapsedTime.TotalHours < 24)
+                            {
+                                <p class="text-muted small">
+                                    @comm.ElapsedTime.Hours hours ago
+                                </p>
+                            }
+                            else if (comm.ElapsedTime.TotalDays < 7)
+                            {
+                                <p class="text-muted small">
+                                    @comm.ElapsedTime.Days days ago
+                                </p>
+                            }
+                            else if (comm.ElapsedTime.TotalDays < 31)
+                            {
+                                <p class="text-muted small">
+                                    @(comm.ElapsedTime.Days / 7) weeks ago
+                                </p>
+                            }
+                            else if (comm.ElapsedTime.TotalDays <= 365)
+                            {
+                                <p class="text-muted small">
+                                    @(comm.ElapsedTime.Days / 30) months ago
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted small">
+                                    @(comm.ElapsedTime.Days / 365) years ago
+                                </p>
+                            }
+
+
+                            <ul class="list-group-horizontal d-inline-flex list-unstyled small">
+                                @await Component.InvokeAsync("CommReactsWidget",
+                                            new { commId = comm.Id })
+                            </ul>
+                            <hr />
+                            <div class="text-dark">
+                                <p class="font-weight-normal">
+                                    @comm.Body
+                                </p>
+                            </div>
                         </div>
                     </li>
                 }

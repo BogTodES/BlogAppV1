@@ -1,41 +1,73 @@
 ﻿@model BlogAppV1.ViewModels.DetailedBlogVm
 
+@inject BlogAppV1.Entities.DTOs.CurrentUserDto CurrentUser
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Edit @Model.Title</title>
 </head>
 <body>
-    <div class="container justify-content-center">
-        <div class="row justify-content-center">
-            <div class="flex-column text-center">
-                <h1 class="text-capitalize text-center" id="title" contenteditable="true">
-                    @Model.Title
-                </h1>
-                <h3 class="text-muted font-weight-lighter">
-                    from @Model.OwnerUsername
-                </h3>
-            </div>
-        </div>
-        <div>
-            <div class="row justify-content-center" id="sectionsContainer">
-                @foreach (var sectId in Model.SectionsIds)
+    @if (Model.PhotoId != null && Model.PhotoId != 0)
+    {
+        <img src="@Url.Action("GetPhoto", "Media", new { photoId = Model.PhotoId })"
+             class="position-fixed fixed-top w-100 h-100" style="opacity: 0.3; z-index: -5;" />
+        <hr />
+    }
+    <div class="row">
+        <div class="col-12">
+            <h1 class="d-flex justify-content-center text-light font-weight-bold"
+                id="title" contenteditable="true">
+                @Model.Title
+            </h1>
+            <h3 class="d-flex justify-content-center text-light font-weight-lighter">
+                <a asp-controller="UserInfo" asp-action="ProfileOf" asp-route-username="@Model.OwnerUsername">
+                    by @Model.OwnerUsername
+                </a>
+            </h3>
+            @if (CurrentUser.IsAuthenticated)
+                if (int.Parse(CurrentUser.Id) == Model.OwnerId)
                 {
-                    <div class="col border-info rounded m-3">
-                        @await Component.InvokeAsync("MainScreenSection", 
-                                    new { id = sectId, blogId = Model.BlogId, IsEditable = true })
+                    <div class="col-12">
+                        <div class="dropdown postImg">
+                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                    id="postImgDropdownBut" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Settings
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="postImgDropdownBut">
+                                <a class="dropdown-item">
+                                    <form asp-action="AddBlogPhoto" asp-controller="Media" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <input type="file" accept="image/*" class="form-control"
+                                                   id="inputImgToLoad" name="img" />
+                                            <input type="hidden" value="@Model.BlogId" name="blogId" />
+                                            <input type="submit" class="btn btn-sm btn-primary" value="Change background" />
+                                        </div>
+                                    </form>
+                                </a>
+                                <a id="s_@Model.BlogId" class="dropdown-item removeSection btn btn-sm btn-danger ">
+                                    Delete
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 }
-            </div>
+        </div>
+        <div class="col-12">
             <button id="newSectBut" class="p-2 m-2 border rounded">
                 Add a new section
             </button>
             <button id="saveChangesBut" name="@Model.BlogId">
                 Save Changes
             </button>
-            <input type="hidden" id="saveChangesAction" 
-                   data-register-section-url="@Url.Action("AddSection", "Section")" 
-                   data-redirect-to-blog="@Url.Action("ShowBlogWith", "Blog", new { id = Model.BlogId })"/>
+            <input type="hidden" id="saveChangesAction"
+                   data-register-section-url="@Url.Action("AddSection", "Section")"
+                   data-redirect-to-blog="@Url.Action("ShowBlogWith", "Blog", new { id = Model.BlogId })" />
             <input type="hidden" id="saveBlogTitleAction" data-update-blog-title-url="@Url.Action("UpdateTitle", "Blog")" />
+        </div>
+        <div class="col-12">
+            <div class="row" id="sectionsContainer">
+                @await Component.InvokeAsync("MainScreenSections", new { blogId = Model.BlogId, IsEditable = false })
+            </div>
         </div>
     </div>
 </body>

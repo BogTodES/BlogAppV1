@@ -20,6 +20,10 @@ namespace BlogAppV1.DataAccess.EFConfig
                 .HasColumnType("datetime")
                 .HasDefaultValueSql("(getdate())");
 
+            entity.Property(e => e.IsEdited)
+                .HasColumnName("IsEdited")
+                .HasDefaultValueSql("0");
+
             entity.Property(e => e.PhotoId).HasColumnName("PhotoID");
 
             entity.Property(e => e.SectionId).HasColumnName("SectionID");

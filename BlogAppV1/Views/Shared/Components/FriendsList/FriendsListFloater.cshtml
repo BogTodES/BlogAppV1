@@ -38,7 +38,11 @@
         {
         <a class="dropdown-item" asp-controller="UserInfo"
            asp-action="ProfileOf" asp-route-username="@fr.FriendUsername">
-            <img alt="pz" />
+            @if(fr.FriendPhoto != null && fr.FriendPhoto != 0)
+            {
+                <img src="@Url.Action("GetPhoto", "Media", new { photoId = fr.FriendPhoto })"
+                     class="img-thumbnail"/>
+            }
             <span>
                 @fr.FriendUsername
             </span>

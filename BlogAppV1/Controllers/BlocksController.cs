@@ -41,21 +41,21 @@ namespace BlogAppV1.Controllers
         public IActionResult SoftBan(int blockedId)
         {
             var rows = blockService.SoftBlock(blockedId);
-            return RedirectToActionPermanent("ProfileOf", "UserInfo", new { blockedId });
+            return RedirectToActionPermanent("ProfileOf", "UserInfo", new { userId = blockedId });
         }
         
         [Authorize("Admin")]
         public IActionResult HardBan(int blockedId)
         {
             var rows = blockService.HardBlock(blockedId);
-            return RedirectToActionPermanent("ProfileOf", "UserInfo", new { blockedId });
+            return RedirectToActionPermanent("ProfileOf", "UserInfo", new { userId = blockedId });
         }
 
         [Authorize("Moderator")]
         public IActionResult LiftBan(int blockedId)
         {
             var rows = blockService.RemoveBan(blockedId);
-            return RedirectToActionPermanent("ProfileOf", "UserInfo", new { blockedId });
+            return RedirectToActionPermanent("ProfileOf", "UserInfo", new { userId = blockedId });
         }
     }
 }

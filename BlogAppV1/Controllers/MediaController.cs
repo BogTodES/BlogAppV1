@@ -62,21 +62,34 @@ namespace BlogAppV1.Controllers
             return RedirectToActionPermanent("ShowBlogWith", "Blog", new { blogId = blogId });
         }
 
-        public FileResult GetPhoto(long photoId)
+        [HttpPost]
+        public IActionResult AddPostPhoto(IFormFile img, long postId)
+        {
+            if (img == null)
+                return RedirectToActionPermanent("PostWith", "Post", new { postId = postId });
+
+            var ms = new MemoryStream();
+            img.CopyTo(ms);
+
+            mediaService.AddPostPhoto(ms, postId);
+
+            return RedirectToActionPermanent("PostWith", "Post", new { postId = postId });
+        }
+
+        public IActionResult GetPhoto(long photoId)
         {
             var img = mediaService.GetPhoto(photoId);
             if (img == null)
-                return null;
+                return new NoContentResult();
 
             return File(img.Content, "image/jpeg");
         }
 
-
-        public FileResult GetUserPhoto(int userId)
+        public IActionResult GetUserPhoto(int userId)
         {
             var img = mediaService.GetImageForUser(userId);
             if (img == null)
-                return null;
+                return new NoContentResult(); ;
 
             return File(img.Content, "image/jpeg");
         }

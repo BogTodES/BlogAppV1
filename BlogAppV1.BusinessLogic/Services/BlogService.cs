@@ -1,6 +1,7 @@
 ﻿using BlogAppV1.BusinessLogic.BaseServ;
 using BlogAppV1.DataAccess;
-using BlogAppV1.Entities.DTOs; 
+using BlogAppV1.Entities.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,14 @@ namespace BlogAppV1.BusinessLogic
                 unit.BlogsSections
                     .Get().Where(bs => bs.BlogId == Id)
                     .Select(bs => bs.SectionId).ToList();
+        }
+
+        public IEnumerable<Sections> GetSections(long blogId)
+        {
+            return
+                unit.BlogsSections
+                    .Get().Where(bs => bs.BlogId == blogId)
+                    .Include(bs => bs.Section).Select(bs => bs.Section).ToList();
         }
 
         public int UpdateTitle(string newTitle, long blogId)
