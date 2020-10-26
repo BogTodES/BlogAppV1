@@ -46,7 +46,8 @@
                                         </div>
                                     </form>
                                 </a>
-                                <a id="s_@Model.BlogId" class="dropdown-item removeSection btn btn-sm btn-danger ">
+                                <a id="s_@Model.BlogId" class="dropdown-item removeSection btn btn-sm btn-danger "
+                                   asp-controller="Blog" asp-action="DeleteBlog" asp-route-blogId="@Model.BlogId">
                                     Delete
                                 </a>
                                 <a class="dropdown-item" asp-controller="Blog" asp-action="EditBlog" asp-route-blogId="@Model.BlogId">

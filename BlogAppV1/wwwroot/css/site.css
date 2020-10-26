@@ -11,7 +11,6 @@ a.navbar-brand {
 /* Provide sufficient contrast against white background */
 a {
     color: mediumspringgreen;
-    
 }
 
 .btn-primary {
@@ -174,6 +173,9 @@ div.bgDiv > img.bgImg {
 
 .desc {
     padding: 10px 10px 5px 10px;
+    max-height: 40vh;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 .desc img {
@@ -186,3 +188,9 @@ div.bgDiv > img.bgImg {
         margin-bottom: 10px;
 }
 
+
+.postContent {
+    max-height: 40vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}

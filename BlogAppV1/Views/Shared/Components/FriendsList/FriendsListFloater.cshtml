@@ -1,7 +1,7 @@
 ﻿@model BlogAppV1.ViewModels.FriendVms.CombinedFriendsVm
 
-<div id="friendListSelector" class="p-2 m-2 mt-0">
-    <div class="form-check form-check-inline">
+@*<div id="friendListSelector" class="p-2 m-2 mt-0">*@
+    @*<div class="form-check form-check-inline">
         <input class="form-check-input" type="radio"
                name="exampleRadios" id="rad" value="mainFriendsList" checked>
         <label class="form-check-label" for="exampleRadios1">
@@ -28,9 +28,9 @@
         <label class="form-check-label" for="exampleRadios1">
             Sent
         </label>
-    </div>
-</div>
-<div id="friendListDisplay" class="m-2 mt-1 p-2">
+    </div>*@
+@*</div>*@
+<div id="friendListDisplay" class="m-2 mt-5 p-2">
     @if (Model.FriendsList.Any())
     {
         <span>Friends</span>
@@ -41,7 +41,7 @@
             @if(fr.FriendPhoto != null && fr.FriendPhoto != 0)
             {
                 <img src="@Url.Action("GetPhoto", "Media", new { photoId = fr.FriendPhoto })"
-                     class="img-thumbnail"/>
+                     class="img-fluid" style="height: 3vh; width:auto;"/>
             }
             <span>
                 @fr.FriendUsername

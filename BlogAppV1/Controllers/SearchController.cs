@@ -31,7 +31,7 @@ namespace BlogAppV1.Controllers
 
         public IActionResult SearchWith(string keyword)
         {
-            // return Json("sunt in functie coaie nush ce are");
+            
             var resultsList = new List<SearchResult>();
 
             if (keyword is null || keyword == "")

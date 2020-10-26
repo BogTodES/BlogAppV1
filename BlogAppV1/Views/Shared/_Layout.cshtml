@@ -30,7 +30,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BlogAppV1</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Blog-R</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -40,9 +40,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item ml-5">
                             <div id="nuInteleg" class="container">
-                                <div id="searchResultContainer" class="dropdown-menu justify-content-center">
+                                <div id="searchResultContainer" class="dropdown-menu">
                                     Results
                                 </div>
                                 <button id="dropDownToggle" class="btn btn-secondary btn-lg dropdown-toggle" hidden
@@ -50,7 +50,6 @@
                                 </button>
                             </div>
                             <input id="searchBar" type="text" name="searchBar" placeholder="Search..." />
-
                         </li>
                         <li class="nav-item ml-sm-auto">
                             <partial name="_LoginPartial" />

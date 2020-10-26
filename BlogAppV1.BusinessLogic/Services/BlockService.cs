@@ -20,8 +20,11 @@ namespace BlogAppV1.BusinessLogic.Services
         public int GetBanSate(int userId)
         {
             var role = unit.UsersRoles.Get().FirstOrDefault(ur => ur.UserId == userId);
-            if (role.RoleId == 5) return 2; // hard ban
-            if (role.RoleId == 6) return 1; // soft ban
+            if (role != null)
+            {
+                if (role.RoleId == 5) return 2; // hard ban
+                if (role.RoleId == 6) return 1; // soft ban
+            }
             return 0;
         }
 

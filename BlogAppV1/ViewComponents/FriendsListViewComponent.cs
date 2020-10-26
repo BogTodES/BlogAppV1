@@ -30,6 +30,7 @@ namespace BlogAppV1.ViewComponents
             var receivedRequests = new List<FriendRequestVm>();
 
             var friends = friendsService.FriendsOf()
+                .Where(f => f != null)
                 .Select(f => new MainFriendVm(new UserNoPass(f)));
             friendRequestsService
                 .ReceivedFriendRequests()

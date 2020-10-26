@@ -135,7 +135,7 @@ namespace BlogAppV1.BusinessLogic
                 // nu iau oameni blocati sau prieteni sau pe mine
 
                 var blockedUsers = blockService.BlockedByCurrent();
-                var friends = friendsService.FriendsOf().Select(f => f.Id);
+                var friends = friendsService.FriendsOf().Where(f => f != null).Select(f => f.Id);
                 users = unit.Users.Get()
                     .Where(u => u.Id != int.Parse(CurrentUser.Id) &&
                                 !blockedUsers.Contains(u.Id) &&

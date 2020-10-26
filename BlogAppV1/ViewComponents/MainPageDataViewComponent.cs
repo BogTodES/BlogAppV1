@@ -79,21 +79,31 @@ namespace BlogAppV1.ViewComponents
 
         private HomeResultsVm GetResultsForUser(Users user)
         {
+            if(user == null)
+            {
+                return new HomeResultsVm()
+                {
+                    BlogResults = new List<HomeBlogVm>(),
+                    PostResults = new List<HomePostVm>(),
+                    SectionResults = new List<HomeSectionVm>()
+                };
+            }
+
             var postResults = new List<HomePostVm>();
             var blogResults = new List<HomeBlogVm>();
             var sectResults = new List<HomeSectionVm>();
 
             var blogs = userBlogService.GetBlogsForUser(user.Id)
                     .OrderByDescending(b => b.Id)   // ca sa selectam din cele mai noi
-                    .Take(randomizer.Next(2, 5)).ToList();
+                    .Take(randomizer.Next(1, 4)).ToList();
             foreach (var blog in blogs)
             {
                 var sects = blogService.GetSections(blog.Id)
                     .OrderByDescending(s => s.Id)
-                    .Take(randomizer.Next(3, 6));
+                    .Take(randomizer.Next(1, 3));
                 foreach (var sect in sects)
                 {
-                    var bestPosts = sectionsService.TopNPosts(sect.Id, randomizer.Next(2, 4));
+                    var bestPosts = sectionsService.TopNPosts(sect.Id, randomizer.Next(2, 3));
                     foreach (var post in bestPosts)
                     {
                         postResults.Add(new HomePostVm()

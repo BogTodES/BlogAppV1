@@ -20,18 +20,18 @@
         <div class="col-12">
             @foreach (var blog in Model.BlogList)
             {
-                <div class="row mb-5">
-                    <div class="card col-12 border-danger rounded m-3" style="background-color: transparent">
+                <div class="row mb-5 position-relative">
+                    <div class="card col-12 border-light rounded m-2" style="background-color: transparent">
                         @if (blog.PhotoId != 0 && blog.PhotoId != null)
                         {
                             <img src="@Url.Action("GetPhoto", "Media", new { photoId = blog.PhotoId })" alt="blogPhoto"
-                                 class="img-thumbnail" />
+                                 class="card-img position-absolute card-img-overlay" style="opacity: 0.3; max-height: 100%;"/>
                         }
                         <div class="row">
-                            <div class="col-12 card-header border-danger">
+                            <div class="col-12 card-header border-white">
                                 <a asp-controller="Blog" asp-action="ShowBlogWith"
-                                   asp-route-blogId="@blog.Id" class="text-decoration-none text-center text-capitalize">
-                                    <h2 class="text-warning">
+                                   asp-route-blogId="@blog.Id" class="text-center">
+                                    <h2 class="text-white">
                                         @blog.Title.Trim()
                                     </h2>
                                 </a>

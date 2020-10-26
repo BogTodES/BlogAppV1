@@ -7,19 +7,19 @@
     <div class="item post border-light rounded-bottom">
         <div class="content">
             <div class="title border-bottom-2">
-                <a asp-controller="Post"
-                   asp-action="PostWith" asp-route-postId="@post.PostId">
-                    <h3>
-                        @post.PostTitle
-                    </h3>
-                </a>
-                <p>
-                    by <a asp-controller="UserInfo" asp-action="ProfileOf"
-                          asp-route-username="@post.OwnerUsername">
-                        @post.OwnerUsername
-                    </a> in <a asp-controller="Section" asp-action="SectionDetails"
-                               asp-route-sectId="@post.SectId">@post.SectTitle</a>
-                </p>
+                    <a asp-controller="Post"
+                       asp-action="PostWith" asp-route-postId="@post.PostId">
+                        <h3>
+                            @post.PostTitle
+                        </h3>
+                    </a>
+                    <p>
+                        by <a asp-controller="UserInfo" asp-action="ProfileOf"
+                              asp-route-username="@post.OwnerUsername">
+                            @post.OwnerUsername
+                        </a> in <a asp-controller="Section" asp-action="SectionDetails"
+                                   asp-route-sectId="@post.SectId">@post.SectTitle</a>
+                            </p>
             </div>
             <div class="p-2">
                 <div class="desc">

@@ -92,14 +92,14 @@ namespace BlogAppV1.Controllers
                 });
         }
 
-        [HttpPost]
+        /*[HttpPost]*/
         public IActionResult DeleteBlog(long blogId)
         {
             blogService.DeleteBlog(blogId);
 
             // reafisez pe cele inca existente
-            return RedirectToAction("BlogsOfUser", "UserBlog",
-                new { username = blogService.CurrentUser.Username });
+            return RedirectToAction("ShowBlogWith", "Blog",
+                new { blogId = blogId });
         }
 
         public IActionResult UpdateTitle(string newTitle, long blogId)

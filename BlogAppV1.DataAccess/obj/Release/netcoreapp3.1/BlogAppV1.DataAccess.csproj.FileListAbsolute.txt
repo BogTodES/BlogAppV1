@@ -1,0 +1,17 @@
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\bin\Release\netcoreapp3.1\BlogAppV1.DataAccess.deps.json
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\bin\Release\netcoreapp3.1\BlogAppV1.DataAccess.runtimeconfig.json
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\bin\Release\netcoreapp3.1\BlogAppV1.DataAccess.runtimeconfig.dev.json
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\bin\Release\netcoreapp3.1\BlogAppV1.DataAccess.dll
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\bin\Release\netcoreapp3.1\BlogAppV1.DataAccess.pdb
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\bin\Release\netcoreapp3.1\BlogAppV1.Common.dll
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\bin\Release\netcoreapp3.1\BlogAppV1.Entities.dll
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\bin\Release\netcoreapp3.1\BlogAppV1.Common.pdb
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\bin\Release\netcoreapp3.1\BlogAppV1.Entities.pdb
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\obj\Release\netcoreapp3.1\BlogAppV1.DataAccess.csprojAssemblyReference.cache
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\obj\Release\netcoreapp3.1\BlogAppV1.DataAccess.AssemblyInfoInputs.cache
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\obj\Release\netcoreapp3.1\BlogAppV1.DataAccess.AssemblyInfo.cs
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\obj\Release\netcoreapp3.1\BlogAppV1.DataAccess.csproj.CoreCompileInputs.cache
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\obj\Release\netcoreapp3.1\BlogAppV1.DataAccess.csproj.CopyComplete
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\obj\Release\netcoreapp3.1\BlogAppV1.DataAccess.dll
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\obj\Release\netcoreapp3.1\BlogAppV1.DataAccess.pdb
+D:\miscVisStudProjects\BlogAppV1\BlogAppV1.DataAccess\obj\Release\netcoreapp3.1\BlogAppV1.DataAccess.genruntimeconfig.cache

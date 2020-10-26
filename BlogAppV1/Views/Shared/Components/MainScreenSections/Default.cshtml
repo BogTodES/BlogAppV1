@@ -3,7 +3,7 @@
 
 @foreach(var sect in Model.DetailedSections)
 {
-    <div class="col-4 m-3 card">
+    <div class="col-md-3 m-1 card" style="max-height: 60vh; overflow:scroll;">
         <a asp-controller="Section" asp-action="SectionDetails" asp-route-sectId="@sect.Id">
             <h3 class="text-dark d-flex justify-content-center">
                 @sect.Name
